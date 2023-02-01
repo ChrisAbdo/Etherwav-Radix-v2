@@ -19,7 +19,10 @@ const Navbar = () => {
   }
 
   return (
-    <header aria-label="Site Header" className="shadow-sm">
+    <header
+      aria-label="Site Header"
+      className="shadow-sm sticky top-0 z-50 bg-white dark:bg-black"
+    >
       <div className="mx-auto flex h-16 max-w-screen-xl items-center justify-between px-4">
         <div className="flex w-0 flex-1 lg:hidden">
           <Button
@@ -98,7 +101,7 @@ const Navbar = () => {
       </div>
 
       <div className="border-t border-b border-orange-500  lg:hidden">
-        <nav className="flex items-center justify-center overflow-x-auto p-4 text-sm font-medium space-x-8">
+        <nav className="flex items-center justify-center overflow-x-auto p-4 text-sm font-medium space-x-8 z-10">
           <Link
             href="/"
             className="font-bold group transition-all duration-300 ease-in-out"

@@ -3,5 +3,5 @@
 @tailwind utilities;
 
 [data-theme='dark'] {
-  @apply bg-black text-gray-100;
+  @apply bg-black text-gray-100 transition-all duration-300;
 }
