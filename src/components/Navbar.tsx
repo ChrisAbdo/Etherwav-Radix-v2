@@ -98,19 +98,39 @@ const Navbar = () => {
       </div>
 
       <div className="border-t border-b border-orange-500  lg:hidden">
-        <nav className="flex items-center justify-center overflow-x-auto p-4 text-sm font-medium">
-          <Link className="flex-shrink-0 pl-4 " href="/">
-            Home
+        <nav className="flex items-center justify-center overflow-x-auto p-4 text-sm font-medium space-x-8">
+          <Link
+            href="/"
+            className="font-bold group transition-all duration-300 ease-in-out"
+          >
+            <span className="bg-left-bottom bg-gradient-to-r from-orange-500 to-orange-500 bg-[length:0%_2px] bg-no-repeat group-hover:bg-[length:100%_2px] transition-all duration-500 ease-out">
+              Home
+            </span>
           </Link>
-          <a className="flex-shrink-0 pl-4 " href="/blog">
-            Blog
-          </a>
-          <a className="flex-shrink-0 pl-4 " href="">
-            Projects
-          </a>
-          <a className="flex-shrink-0 pl-4 " href="">
-            Contact
-          </a>
+          <Link
+            href="/radio"
+            className="font-bold group transition-all duration-300 ease-in-out"
+          >
+            <span className="bg-left-bottom bg-gradient-to-r from-orange-500 to-orange-500 bg-[length:0%_2px] bg-no-repeat group-hover:bg-[length:100%_2px] transition-all duration-500 ease-out">
+              Radio
+            </span>
+          </Link>
+          <Link
+            href="/upload"
+            className="font-bold group transition-all duration-300 ease-in-out"
+          >
+            <span className="bg-left-bottom bg-gradient-to-r from-orange-500 to-orange-500 bg-[length:0%_2px] bg-no-repeat group-hover:bg-[length:100%_2px] transition-all duration-500 ease-out">
+              Upload
+            </span>
+          </Link>
+          <Link
+            href="/profile"
+            className="font-bold group transition-all duration-300 ease-in-out"
+          >
+            <span className="bg-left-bottom bg-gradient-to-r from-orange-500 to-orange-500 bg-[length:0%_2px] bg-no-repeat group-hover:bg-[length:100%_2px] transition-all duration-500 ease-out">
+              Profile
+            </span>
+          </Link>
         </nav>
       </div>
     </header>
