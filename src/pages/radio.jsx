@@ -1,5 +1,6 @@
 import { useEffect, useState, useLayoutEffect, useRef, Fragment } from 'react';
 import { motion } from 'framer-motion';
+import Balancer from 'react-wrap-balancer';
 
 import axios from 'axios';
 import ReactAudioPlayer from 'react-audio-player';
@@ -17,13 +18,11 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
-import { ScrollArea } from '@/components/ui/scroll-area';
-import { Separator } from '@/components/ui/separator';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Loader2 } from 'lucide-react';
 
 const transition = { duration: 0.5, ease: [0.43, 0.13, 0.23, 0.96] };
-const tags = Array.from({ length: 50 }).map(
-  (_, i, a) => `v1.2.0-beta.${a.length - i}`
-);
 
 const RadioPage = () => {
   const [nfts, setNfts] = useState([]);
@@ -36,6 +35,7 @@ const RadioPage = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [ascending, setAscending] = useState(false);
   const [songsLoaded, setSongsLoaded] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const audioRef = useRef(null);
 
@@ -279,6 +279,7 @@ const RadioPage = () => {
       );
 
       // Give heat to the current NFT
+      setLoading(true);
       radioContract.methods
         .giveHeat(nfts[currentIndex].tokenId, heatCount)
         .send({
@@ -304,6 +305,7 @@ const RadioPage = () => {
             },
             id: notification,
           });
+          setLoading(false);
         });
     } catch (err) {
       console.log(err);
@@ -369,6 +371,26 @@ const RadioPage = () => {
             {/* <!-- Page content here --> */}
             <div className="flex justify-between ">
               <div className="w-full">
+                <label
+                  htmlFor="my-drawer-2"
+                  className="btn btn-ghost  text-white lg:hidden border-b border-[#2a2a2a]"
+                >
+                  queue
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="w-6 h-6"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M3.75 12h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 010 3.75H5.625a1.875 1.875 0 010-3.75z"
+                    />
+                  </svg>
+                </label>
                 <Accordion type="single" collapsible>
                   <AccordionItem value="item-1">
                     <AccordionTrigger>
@@ -471,10 +493,10 @@ const RadioPage = () => {
                     </Link>
 
                     <div className="flex justify-between space-x-4 mt-4">
-                      <button
+                      <Button
                         onClick={handlePrevious}
                         disabled={currentIndex === 0}
-                        className="btn btn-outline rounded normal-case bg-[#353535] border-[#2a2a2a]"
+                        variant="subtle"
                       >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -490,7 +512,7 @@ const RadioPage = () => {
                             d="M21 16.811c0 .864-.933 1.405-1.683.977l-7.108-4.062a1.125 1.125 0 010-1.953l7.108-4.062A1.125 1.125 0 0121 8.688v8.123zM11.25 16.811c0 .864-.933 1.405-1.683.977l-7.108-4.062a1.125 1.125 0 010-1.953L9.567 7.71a1.125 1.125 0 011.683.977v8.123z"
                           />
                         </svg>
-                      </button>
+                      </Button>
                       <ReactAudioPlayer
                         src={nfts[currentIndex].image}
                         ref={audioRef}
@@ -503,10 +525,10 @@ const RadioPage = () => {
                         controls
                         autoPlay
                       />
-                      <button
+                      <Button
                         onClick={handleNext}
                         disabled={currentIndex === nfts.length - 1}
-                        className="btn btn-outline rounded normal-case bg-[#353535] border-[#2a2a2a]"
+                        variant="subtle"
                       >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -522,7 +544,7 @@ const RadioPage = () => {
                             d="M3 8.688c0-.864.933-1.405 1.683-.977l7.108 4.062a1.125 1.125 0 010 1.953l-7.108 4.062A1.125 1.125 0 013 16.81V8.688zM12.75 8.688c0-.864.933-1.405 1.683-.977l7.108 4.062a1.125 1.125 0 010 1.953l-7.108 4.062a1.125 1.125 0 01-1.683-.977V8.688z"
                           />
                         </svg>
-                      </button>
+                      </Button>
                     </div>
                     <div className="card-actions justify-between mt-4">
                       <label
@@ -542,27 +564,6 @@ const RadioPage = () => {
                             Give Heat 🔥
                           </span>
                         </span>
-                      </label>
-
-                      <label
-                        htmlFor="my-drawer-2"
-                        className="btn btn-ghost  text-white lg:hidden h-full border-b border-[#2a2a2a]"
-                      >
-                        queue
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          strokeWidth={1.5}
-                          stroke="currentColor"
-                          className="w-6 h-6"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M3.75 12h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 010 3.75H5.625a1.875 1.875 0 010-3.75z"
-                          />
-                        </svg>
                       </label>
                     </div>
                   </div>
@@ -598,7 +599,7 @@ const RadioPage = () => {
             <ul className="menu p-2 w-80 bg-white dark:bg-black text-base-content border-r border-[#2a2a2a] ">
               {/* <!-- Sidebar content here --> */}
 
-              <div className="flex justify-between border-b border-[#555555] sticky top-0  z-50">
+              <div className="flex justify-between border-b border-orange-500 sticky top-0  z-50">
                 {' '}
                 <select
                   className=" mb-3 rounded-md select select-bordered bg-white dark:bg-black"
@@ -617,7 +618,7 @@ const RadioPage = () => {
                   <option value="edm">EDM</option>
                 </select>
                 {/* SWAP */}
-                <label className="swap swap-rotate mb-3 rounded-md card3 border border-[#555555] p-2">
+                <label className="swap swap-rotate mb-3 rounded-md card3 border dark:border-white border-black p-2">
                   <input
                     type="checkbox"
                     onClick={() => {
@@ -704,8 +705,8 @@ const RadioPage = () => {
 
         {/* Report Modal */}
         <input type="checkbox" id="my-modal-6" className="modal-toggle" />
-        <div className="modal modal-bottom sm:modal-middle">
-          <div className="modal-box">
+        <div className="modal modal-bottom sm:modal-middle bg-white dark:bg-black ">
+          <div className="modal-box  rounded-md">
             <h3 className="font-bold text-lg">
               Sorry! This feature is not available yet.
             </h3>
@@ -723,10 +724,10 @@ const RadioPage = () => {
 
         {/* Give Heat Modal */}
         <input type="checkbox" id="my-modal-5" className="modal-toggle" />
-        <div className="modal modal-bottom sm:modal-middle">
-          <div className="modal-box">
-            <h2 className="text-xl mb-4 text-center">Heat 🔥</h2>
-            <div className="collapse collapse-arrow rounded-xl">
+        <div className="modal modal-bottom sm:modal-middle bg-white dark:bg-black">
+          <div className="modal-box ">
+            <h2 className="text-xl mb-4 text-center">Give Heat 🔥</h2>
+            {/* <div className="collapse collapse-arrow rounded-xl">
               <input type="checkbox" />
 
               <div className="collapse-title text-xl font-medium bg-[#2a2a2a] h-12">
@@ -743,10 +744,26 @@ const RadioPage = () => {
                   values will be sent to the uploader. EST Feb 2023.
                 </p>
               </div>
+            </div> */}
+            <div>
+              <Accordion type="single" collapsible className="full">
+                <AccordionItem value="item-1">
+                  <AccordionTrigger className="text-2xl">
+                    What is Heat?
+                  </AccordionTrigger>
+                  <AccordionContent className="text-xl">
+                    Heat 🔥 is a way to show your appreciation for a song. The
+                    more heat a song has, the more it will be promoted and
+                    pushed to the top of the queue. <br /> <br />
+                    As of now it is a contract interaction, but very soon all
+                    Heat values will be sent to the uploader. EST Feb 2023.
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
             </div>
 
             <p className="text-center text-xl mt-4">
-              1 Heat = 1 MATIC.
+              <span className="font-bold">1 Heat = 1 MATIC.</span>
               <br />
               You can give as much heat as you want.
               <br />
@@ -756,18 +773,18 @@ const RadioPage = () => {
 
             <div className="flex justify-center text-center ">
               <div className="form-control mt-4  rounded-xl">
-                <label className="input-group ">
+                {/* <label className="input-group ">
                   <span>🔥</span>
                   <input
                     type="number"
                     min={0}
                     placeholder="Enter Heat Count"
-                    className="input input-bordered w-full"
+                    className="input border border-white w-full rounded-md"
                     id="heatcountinput"
                     onChange={(event) => setHeatCount(event.target.value)}
                   />
                   <span>MATIC</span>
-                </label>
+                </label> */}
 
                 {nfts[currentIndex] && (
                   <div
@@ -792,15 +809,34 @@ const RadioPage = () => {
                 )}
               </div>
             </div>
-            <button
-              className="btn btn-outline w-full mt-12 normal-case rounded-xl"
-              onClick={handleGiveHeat}
-              disabled={heatCount === 0}
-            >
-              Give Heat!
-            </button>
+            <div className="flex w-full items-center space-x-2 mt-12">
+              <Input
+                onChange={(event) => setHeatCount(event.target.value)}
+                type="number"
+                min={0}
+                placeholder="Enter Heat count"
+                className="h-12"
+              />
+
+              {loading ? (
+                <Button disabled>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Confirm Transaction!
+                </Button>
+              ) : (
+                <Button
+                  onClick={handleGiveHeat}
+                  disabled={heatCount === 0}
+                  type="submit"
+                  className=" w-1/3"
+                >
+                  Give Heat!
+                </Button>
+              )}
+            </div>
+
             <div className="modal-action">
-              <label htmlFor="my-modal-5" className="btn rounded-xl">
+              <label htmlFor="my-modal-5" className="btn rounded-md">
                 cancel
               </label>
             </div>
@@ -808,8 +844,8 @@ const RadioPage = () => {
         </div>
 
         <input type="checkbox" id="my-modal-69" className="modal-toggle" />
-        <div className="modal modal-bottom sm:modal-middle">
-          <div className="modal-box">
+        <div className="modal modal-bottom sm:modal-middle bg-white dark:bg-black">
+          <div className="modal-box rounded-md ">
             <h3 className="font-bold text-lg">More Information</h3>
             <p className="py-4">
               {nfts[currentIndex] && nfts[currentIndex].name} | Heat 🔥:{' '}
