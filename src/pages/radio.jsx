@@ -708,8 +708,8 @@ const RadioPage = () => {
 
         {/* Report Modal */}
         <input type="checkbox" id="my-modal-6" className="modal-toggle" />
-        <div className="modal modal-bottom sm:modal-middle bg-white dark:bg-black ">
-          <div className="modal-box  rounded-md">
+        <div className="modal modal-bottom sm:modal-middle  backdrop-blur-md">
+          <div className="modal-box  bg-white dark:bg-black border border-[#303030]">
             <h3 className="font-bold text-lg">
               Sorry! This feature is not available yet.
             </h3>
@@ -718,7 +718,10 @@ const RadioPage = () => {
               Please message me on Twitter @abdo_eth
             </p>
             <div className="modal-action">
-              <label htmlFor="my-modal-6" className="btn rounded-xl">
+              <label
+                htmlFor="my-modal-6"
+                className="btn rounded-md hover:bg-[#DADDE2] dark:hover:bg-[#303030]"
+              >
                 close
               </label>
             </div>
@@ -727,27 +730,10 @@ const RadioPage = () => {
 
         {/* Give Heat Modal */}
         <input type="checkbox" id="my-modal-5" className="modal-toggle" />
-        <div className="modal modal-bottom sm:modal-middle bg-white dark:bg-black">
-          <div className="modal-box ">
+        <div className="modal modal-bottom sm:modal-middle backdrop-blur-md">
+          <div className="modal-box bg-white dark:bg-black border border-[#303030]">
             <h2 className="text-xl mb-4 text-center">Give Heat 🔥</h2>
-            {/* <div className="collapse collapse-arrow rounded-xl">
-              <input type="checkbox" />
 
-              <div className="collapse-title text-xl font-medium bg-[#2a2a2a] h-12">
-                What is Heat?
-              </div>
-
-              <div className="collapse-content bg-[#1a1a1a]">
-                <p className="p-4">
-                  {' '}
-                  Heat 🔥 is a way to show your appreciation for a song. The
-                  more heat a song has, the more it will be promoted and pushed
-                  to the top of the queue. <br />
-                  As of now it is a contract interaction, but very soon all Heat
-                  values will be sent to the uploader. EST Feb 2023.
-                </p>
-              </div>
-            </div> */}
             <div>
               <Accordion type="single" collapsible className="full">
                 <AccordionItem value="item-1">
@@ -776,23 +762,10 @@ const RadioPage = () => {
 
             <div className="flex justify-center text-center ">
               <div className="form-control mt-4  rounded-xl">
-                {/* <label className="input-group ">
-                  <span>🔥</span>
-                  <input
-                    type="number"
-                    min={0}
-                    placeholder="Enter Heat Count"
-                    className="input border border-white w-full rounded-md"
-                    id="heatcountinput"
-                    onChange={(event) => setHeatCount(event.target.value)}
-                  />
-                  <span>MATIC</span>
-                </label> */}
-
                 {nfts[currentIndex] && (
                   <div
                     id="heatcountdiv"
-                    className="bg-[#1f1f1f] border border-[#2a2a2a] mt-4 p-4 max-w-xl rounded-xl"
+                    className="bg-[#DADDE2] dark:bg-[#1f1f1f] border border-[#2a2a2a] mt-4 p-4 max-w-xl rounded-xl"
                   >
                     <h1 id="heatcounttext" className="text-center text-xl ">
                       You are giving {heatCount} Heat 🔥 to{' '}
@@ -839,7 +812,10 @@ const RadioPage = () => {
             </div>
 
             <div className="modal-action">
-              <label htmlFor="my-modal-5" className="btn rounded-md">
+              <label
+                htmlFor="my-modal-5"
+                className="btn rounded-md hover:bg-[#DADDE2] dark:hover:bg-[#303030]"
+              >
                 cancel
               </label>
             </div>
@@ -847,8 +823,8 @@ const RadioPage = () => {
         </div>
 
         <input type="checkbox" id="my-modal-69" className="modal-toggle" />
-        <div className="modal modal-bottom sm:modal-middle bg-white dark:bg-black">
-          <div className="modal-box rounded-md ">
+        <div className="modal modal-bottom sm:modal-middle backdrop-blur-md">
+          <div className="modal-box  bg-white dark:bg-black border border-[#303030]">
             <h3 className="font-bold text-lg">More Information</h3>
             <p className="py-4">
               {nfts[currentIndex] && nfts[currentIndex].name} | Heat 🔥:{' '}
@@ -889,7 +865,10 @@ const RadioPage = () => {
             </a>
             <br />
             <div className="modal-action">
-              <label htmlFor="my-modal-69" className="btn rounded-xl">
+              <label
+                htmlFor="my-modal-69"
+                className="btn rounded-md hover:bg-[#DADDE2] dark:hover:bg-[#303030]"
+              >
                 close
               </label>
             </div>
