@@ -394,7 +394,7 @@ const RadioPage = () => {
                 <Accordion type="single" collapsible>
                   <AccordionItem value="item-1">
                     <AccordionTrigger>
-                      <h1 className="text-3xl text-center">
+                      <h1 className="text-3xl text-center ml-4">
                         Heat Leaderboard 🔥
                       </h1>
                     </AccordionTrigger>
