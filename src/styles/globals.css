@@ -9,3 +9,11 @@
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }
+
+.card3 {
+  @apply transition-colors duration-500;
+}
+
+.card3:hover {
+  @apply bg-[#DADDE2] dark:bg-[#303030];
+}

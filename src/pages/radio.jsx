@@ -373,7 +373,7 @@ const RadioPage = () => {
               <div className="w-full">
                 <label
                   htmlFor="my-drawer-2"
-                  className="btn btn-ghost  text-white lg:hidden border-b border-[#2a2a2a]"
+                  className="btn btn-outline rounded-md border border-[#DADDE2] dark:border-[#303030]  text-black dark:text-white lg:hidden "
                 >
                   queue
                   <svg
@@ -412,9 +412,9 @@ const RadioPage = () => {
                               alt="cover"
                               className="rounded-none"
                             />
-                            <p className="ml-2">{nft.name}</p>
+                            <p className="ml-2 text-2xl">{nft.name}</p>
                           </div>
-                          <p>{nft.heatCount} 🔥</p>
+                          <p className="text-2xl">{nft.heatCount} 🔥</p>
                         </div>
                       ))}
                     </AccordionContent>
@@ -513,6 +513,7 @@ const RadioPage = () => {
                           />
                         </svg>
                       </Button>
+
                       <ReactAudioPlayer
                         src={nfts[currentIndex].image}
                         ref={audioRef}
@@ -669,8 +670,10 @@ const RadioPage = () => {
                 nfts.map((nft, index) => (
                   <li
                     key={index}
-                    className={`justify-between border-b border-[#1f1f1f] card3 ${
-                      index === currentIndex ? 'bg-[#555555]' : ''
+                    className={`justify-between border-b border-orange-500 card3 ${
+                      index === currentIndex
+                        ? 'bg-[#DADDE2] dark:bg-[#555555]'
+                        : ''
                     }`}
                     onClick={() => {
                       setCurrentIndex(index);
