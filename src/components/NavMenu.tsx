@@ -98,14 +98,38 @@ const NavMenu = () => {
         <NavigationMenuItem>
           <NavigationMenuTrigger>Radio</NavigationMenuTrigger>
           <NavigationMenuContent>
-            <ul className="grid w-[600px] gap-3 p-4 md:grid-cols-2 z-50">
-              {components.map((component) => (
-                <Link key={component.title} href={component.href}>
-                  <ListItem title={component.title}>
-                    {component.description}
-                  </ListItem>
-                </Link>
-              ))}
+            <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
+              <li className="row-span-3">
+                <NavigationMenuLink asChild>
+                  <Link
+                    className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-rose-500 to-indigo-700 p-6 no-underline outline-none focus:shadow-md"
+                    href="/"
+                  >
+                    {/* <Icons.logo className="h-6 w-6 text-white" /> */}
+                    <div className="avatar">
+                      <div className="w-24 rounded-full"></div>
+                    </div>
+                    <div className="mt-4 mb-2 text-lg font-medium text-white">
+                      Christopher Abdo
+                    </div>
+                    <p className="text-sm leading-tight text-white/90">
+                      Full Stack Developer | Web3 Developer
+                    </p>
+                  </Link>
+                </NavigationMenuLink>
+              </li>
+              <ListItem href="https://www.github.com/chrisabdo" title="GitHub">
+                View my projects on GitHub!
+              </ListItem>
+              <ListItem href="https://www.twitter.com/abdo_eth" title="Twitter">
+                Follow me on Twitter to stay up to date with my latest projects!
+              </ListItem>
+              <ListItem
+                href="https://www.linkedin.com/in/christopher-abdo/"
+                title="LinkedIn"
+              >
+                Connect with me on LinkedIn!
+              </ListItem>
             </ul>
           </NavigationMenuContent>
         </NavigationMenuItem>

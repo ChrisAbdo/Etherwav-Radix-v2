@@ -22,7 +22,7 @@ export default function Home() {
               </div>
             </div>
             <div className="text-center">
-              <h1 className="flex flex-col gap-2 text-center justify-center text-6xl font-black md:flex-row lg:tracking-tight xl:text-9xl">
+              <h1 className="flex flex-col gap-2 text-center justify-center text-8xl font-black md:flex-row lg:tracking-tight xl:text-9xl">
                 <span
                   className="before:absolute before:-z-10 dark:before:text-white before:text-black before:content-[attr(data-text)]"
                   data-text="Create."
@@ -51,25 +51,30 @@ export default function Home() {
                   </span>{' '}
                 </span>
               </h1>
-              <p className="mt-6 text-xl leading-8 ">
-                Welcome to Etherwav, the community driven and rewarding web(3)
-                radio
+              <p className="mt-6 text-2xl leading-8 ">
+                Welcome to <span className="font-bold">Etherwav</span>, the{' '}
+                <span className="font-bold">community driven</span> and{' '}
+                <span className="font-bold">algorithmically rewarding</span>{' '}
+                web(3) radio
               </p>
               <div className="mt-10 flex items-center justify-center gap-x-6">
                 <a
                   href="#"
                   className="rounded-md bg-orange-500 px-3.5 py-1.5 text-base font-semibold leading-7 text-black dark:text-white shadow-sm hover:bg-orange-500/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                 >
-                  Get started
+                  Start Listening
                 </a>
-                <a href="#" className="text-base font-semibold leading-7 ">
-                  Learn more <span aria-hidden="true">→</span>
+                <a
+                  href="#"
+                  className="rounded-md bg-black dark:bg-white  px-3.5 py-1.5 text-base font-semibold leading-7 text-white dark:text-black shadow-sm hover:bg-black/80 dark:hover:bg-white/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                >
+                  Upload Music &rarr;
                 </a>
               </div>
             </div>
           </div>
         </div>
-        <div className="py-24 sm:py-32">
+        <div className="py-24 sm:py-24">
           <div className="mx-auto max-w-7xl px-6 lg:px-8">
             <div className="mx-auto max-w-2xl lg:text-center">
               <h2 className="text-lg font-semibold leading-8 tracking-tight text-orange-500">
