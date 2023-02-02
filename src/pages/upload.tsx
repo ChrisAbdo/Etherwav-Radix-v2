@@ -9,13 +9,6 @@ import NFT from 'backend/build/contracts/NFT.json';
 import toast from 'react-hot-toast';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
 
 const ipfsClient = require('ipfs-http-client');
 const projectId = '2FdliMGfWHQCzVYTtFlGQsknZvb';
@@ -257,16 +250,18 @@ const Upload = () => {
       const networkId = await web3.eth.net.getId();
 
       // Mint the NFT
-      const networkIdHardCode = 80001;
-      const NFTContractAddress = NFT.networks[networkIdHardCode].address;
-
+      // @ts-ignore
+      const NFTContractAddress = NFT.networks[networkId].address;
+      // @ts-ignore
       const NFTContract = new web3.eth.Contract(NFT.abi, NFTContractAddress);
       const accounts = await web3.eth.getAccounts();
 
       setIsUploading(true);
 
       const radioContract = new web3.eth.Contract(
+        // @ts-ignore
         Radio.abi,
+        // @ts-ignore
         Radio.networks[networkId].address
       );
 
@@ -423,7 +418,7 @@ const Upload = () => {
         </div>
         <div className="divider">OR</div>
 
-        <div className="card w-96 shadow-xl bg-black border border-[#2a2a2a] rounded-3xl uploadcard">
+        <div className="card w-96 shadow-xl bg-white dark:bg-black border border-[#2a2a2a] rounded-3xl uploadcard">
           <figure className="px-10 pt-5">
             <h1 className="text-3xl font-bold text-center">
               Not sure what to upload?
@@ -433,9 +428,11 @@ const Upload = () => {
             <h1 className="text-xl font-bold text-center">
               Browse the radio for some inspiration!
             </h1>
-            <div className="card-actions w-full mt-4">
-              <Link href="/radio" className="btn btn-outline w-full rounded-xl">
-                Listen to radio
+            <div className="card-actions w-full mt-4 p-4">
+              <Link href="/radio">
+                <Button variant="default" className="w-full">
+                  Listen to radio
+                </Button>
               </Link>
             </div>
           </div>

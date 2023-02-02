@@ -3,7 +3,11 @@ const { fontFamily } = require('tailwindcss/defaultTheme');
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: ['class', '[data-theme="dark"]'],
-  content: ['src/**/*.{ts,tsx}', 'components/**/*.{ts,tsx}'],
+  content: [
+    'src/**/*.{ts,tsx}',
+    'components/**/*.{ts,tsx}',
+    './src/**/*.{js,ts,jsx,tsx}',
+  ],
   theme: {
     extend: {
       fontFamily: {
@@ -46,5 +50,13 @@ module.exports = {
       },
     },
   },
-  plugins: [require('tailwindcss-animate'), require('@tailwindcss/forms')],
+  daisyui: {
+    themes: [],
+  },
+  plugins: [
+    require('daisyui'),
+    require('tailwindcss-animate'),
+    require('@tailwindcss/forms'),
+    require('tailwind-scrollbar-hide'),
+  ],
 };
