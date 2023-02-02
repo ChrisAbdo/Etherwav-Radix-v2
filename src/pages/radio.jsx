@@ -362,33 +362,6 @@ const RadioPage = () => {
 
   return (
     <div>
-      {/* <div className="flex scrollbar-hide">
-        <ScrollArea className=" w-96 rounded-md border border-orange-500 hidden lg:block bg-white dark:bg-black">
-          <div className="">
-            <h4 className=" text-3xl font-medium leading-none ">Queue</h4>
-            {tags.map((tag) => (
-              <Fragment key={tag}>
-                <div className="text-xl p-6" key={tag}>
-                  {tag}
-                </div>
-                <Separator className="my-2" />
-              </Fragment>
-            ))}
-          </div>
-        </ScrollArea>
-        <div className="px-2 w-full ">
-          <Accordion type="single" collapsible>
-            <AccordionItem value="item-1">
-              <AccordionTrigger>
-                <h1 className="text-3xl text-center">Heat Leaderboard 🔥</h1>
-              </AccordionTrigger>
-              <AccordionContent>
-                Yes. It adheres to the WAI-ARIA design pattern.
-              </AccordionContent>
-            </AccordionItem>
-          </Accordion>
-        </div>
-      </div> */}
       <div>
         <div className="drawer drawer-mobile">
           <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
@@ -415,6 +388,7 @@ const RadioPage = () => {
                               width={50}
                               height={50}
                               alt="cover"
+                              className="rounded-none"
                             />
                             <p className="ml-2">{nft.name}</p>
                           </div>
@@ -430,7 +404,7 @@ const RadioPage = () => {
               {songsLoaded ? (
                 <div
                   key={currentIndex}
-                  className="card border-b border-[#2a2a2a] w-full "
+                  className="card rounded-none border-b border-[#2a2a2a] w-full "
                 >
                   <figure>
                     <motion.div
@@ -445,12 +419,12 @@ const RadioPage = () => {
                         width={400}
                         height={400}
                         alt="cover"
-                        className="border-b border-[#2a2a2a] rounded-none min-w-[390px] min-h-[390px] max-w-[390px] max-h-[390px]"
+                        className="rounded-none min-w-[390px] min-h-[390px] max-w-[390px] max-h-[390px]"
                         priority
                       />
                     </motion.div>
                   </figure>
-                  <div className="text-orange-500 text-xl p-2 font-bold bg-[#2a2a2a] border-none text-center cursor-default">
+                  <div className="text-orange-500 text-xl p-2 font-bold bg-[#DADDE2] dark:bg-[#2a2a2a] border-none text-center cursor-default">
                     <span>🔥</span> Heat Count: {nfts[currentIndex].heatCount}{' '}
                     <span>🔥</span>
                   </div>
@@ -627,7 +601,7 @@ const RadioPage = () => {
               <div className="flex justify-between border-b border-[#555555] sticky top-0  z-50">
                 {' '}
                 <select
-                  className=" mb-3 rounded-xl select select-bordered"
+                  className=" mb-3 rounded-md select select-bordered bg-white dark:bg-black"
                   onChange={async (e) => {
                     await loadSongsByGenre(e.target.value);
                     toast.success(`Loaded ${e.target.value} songs!`);
@@ -643,7 +617,7 @@ const RadioPage = () => {
                   <option value="edm">EDM</option>
                 </select>
                 {/* SWAP */}
-                <label className="swap swap-rotate mb-3 rounded-xl card3 border border-[#555555] p-2">
+                <label className="swap swap-rotate mb-3 rounded-md card3 border border-[#555555] p-2">
                   <input
                     type="checkbox"
                     onClick={() => {
@@ -651,6 +625,7 @@ const RadioPage = () => {
                       // set index to 1
                       setCurrentIndex(0);
                     }}
+                    className="hidden"
                   />
 
                   {/* <!-- sun icon --> */}

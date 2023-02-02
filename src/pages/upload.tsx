@@ -9,6 +9,19 @@ import NFT from 'backend/build/contracts/NFT.json';
 import toast from 'react-hot-toast';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectSeparator,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Loader2 } from 'lucide-react';
 
 const ipfsClient = require('ipfs-http-client');
 const projectId = '2FdliMGfWHQCzVYTtFlGQsknZvb';
@@ -44,8 +57,7 @@ const Upload = () => {
   const inputs = [
     <form key={0} className="form-control w-full max-w-xs ml-6">
       <label className="label">
-        <span className="label-text">Pick a beat</span>
-        <span className="label-text-alt">MP3 / WAV ONLY</span>
+        <span className="label-text">Pick a beat | MP3 / WAV</span>
       </label>
       <label>
         <input
@@ -66,7 +78,7 @@ const Upload = () => {
       </label>
     </form>,
     <div key={1} className="form-control w-full max-w-xs ml-6 mb-1">
-      <label className="label">
+      {/* <label className="label">
         <span className="label-text">Enter a title for your song</span>
       </label>
       <input
@@ -76,13 +88,22 @@ const Upload = () => {
         onChange={(e) =>
           updateFormInput({ ...formInput, name: e.target.value })
         }
+      /> */}
+      <Label htmlFor="email-2">Title</Label>
+      <Input
+        onChange={(e) =>
+          updateFormInput({ ...formInput, name: e.target.value })
+        }
+        type="email"
+        id="email-2"
+        placeholder="Title"
       />
+      <p className="text-sm">Enter your songs title</p>
     </div>,
 
     <form key={2} className="form-control w-full max-w-xs ml-6">
       <label className="label">
-        <span className="label-text">Pick a Song</span>
-        <span className="label-text-alt"> | MP3 / WAV ONLY</span>
+        <span className="label-text">Pick a Cover Image</span>
       </label>
       <label>
         <input
@@ -111,7 +132,7 @@ const Upload = () => {
         onChange={(e) =>
           updateFormInput({ ...formInput, genre: e.target.value })
         }
-        className="select select-bordered w-full max-w-xs rounded-md bg-white dark:bg-black"
+        className="select border border-[#DADDE2] dark:border-[#303030] w-full max-w-xs rounded-md bg-white dark:bg-black"
       >
         <option disabled selected>
           Select Genre
@@ -120,22 +141,6 @@ const Upload = () => {
         <option value="hiphop">Hip Hop</option>
         <option value="vocals">Vocals</option>
       </select>
-      {/* <Select>
-        <SelectTrigger className="w-[180px]">
-          <SelectValue
-            onChange={(e) =>
-              // @ts-ignore
-              updateFormInput({ ...formInput, genre: e.target.value })
-            }
-            placeholder="Theme"
-          />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectItem value="lofi">Lofi</SelectItem>
-          <SelectItem value="dark">Dark</SelectItem>
-          <SelectItem value="system">System</SelectItem>
-        </SelectContent>
-      </Select> */}
     </div>,
   ];
 
@@ -316,13 +321,13 @@ const Upload = () => {
 
   return (
     <div>
-      <div className="bg-grid-[#0f0f0f] flex flex-col items-center justify-center w-full px-12 py-4">
+      <div className="flex flex-col items-center justify-center w-full px-12 py-4">
         {/* CARD */}
-        <div className="w-96 shadow-xl border border-[#303030] rounded-xl uploadcard ">
+        <div className="w-96 border border-[#303030] rounded-md uploadcard ">
           <figure className="px-10 pt-5">
             <h1 className="text-3xl font-bold text-center">Upload a Song</h1>
           </figure>
-          <p className="mt-2 text-sm text-center text-gray-400">
+          <p className="mt-2 text-sm text-center">
             PLEASE NOTE: THE BUTTON WILL BE DISABLED UNTIL ALL ASSETS ARE
             UPLOADED TO IPFS, THIS CAN TAKE A COUPLE SECONDS
           </p>
@@ -387,38 +392,26 @@ const Upload = () => {
                   Upload
                 </Button>
               ) : isUploading ? (
-                <button className="btn btn-outline w-full rounded-xl loading">
-                  loading
-                </button>
+                <Button className="w-full" disabled>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Please confirm both transactions
+                </Button>
               ) : (
-                <button
+                <Button
                   disabled={disabled}
                   onClick={listNFTForSale}
-                  className="btn btn-outline w-full rounded-xl"
+                  className="w-full"
+                  variant="default"
                 >
-                  Upload{' '}
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke="currentColor"
-                    className="w-6 h-6"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                    />
-                  </svg>
-                </button>
+                  Upload
+                </Button>
               )}
             </div>
           </div>
         </div>
         <div className="divider">OR</div>
 
-        <div className="card w-96 shadow-xl bg-white dark:bg-black border border-[#2a2a2a] rounded-3xl uploadcard">
+        <div className="card w-96 bg-white dark:bg-black border border-[#2a2a2a] rounded-md uploadcard">
           <figure className="px-10 pt-5">
             <h1 className="text-3xl font-bold text-center">
               Not sure what to upload?
@@ -429,7 +422,7 @@ const Upload = () => {
               Browse the radio for some inspiration!
             </h1>
             <div className="card-actions w-full mt-4 p-4">
-              <Link href="/radio">
+              <Link href="/radio" className="w-full">
                 <Button variant="default" className="w-full">
                   Listen to radio
                 </Button>

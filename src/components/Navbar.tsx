@@ -77,7 +77,11 @@ const Navbar = () => {
           {/* <button className="rounded-md bg-orange-500 hover:bg-orange-600/80 px-5 py-2 text-md font-medium ">
             Connect Wallet
           </button> */}
-          <ConnectWallet accentColor="#f97316" colorMode="dark" />
+          <ConnectWallet
+            accentColor="#f97316"
+            colorMode="dark"
+            className="!rounded-md"
+          />
           <Button
             variant="subtle"
             onClick={(e) => setTheme(theme === 'dark' ? 'light' : 'dark')}

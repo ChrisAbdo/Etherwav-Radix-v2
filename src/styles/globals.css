@@ -6,3 +6,6 @@
   @apply bg-black text-gray-100 transition-all duration-300;
 }
 
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
