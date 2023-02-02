@@ -80,17 +80,14 @@ const NavMenu = () => {
                   </Link>
                 </NavigationMenuLink>
               </li>
-              <ListItem href="https://www.github.com/chrisabdo" title="GitHub">
-                View my projects on GitHub!
+              <ListItem href="/radio" title="Top of the Queue">
+                View the popular songs
               </ListItem>
-              <ListItem href="https://www.twitter.com/abdo_eth" title="Twitter">
-                Follow me on Twitter to stay up to date with my latest projects!
+              <ListItem href="/radio" title="Genres">
+                Browse by genre
               </ListItem>
-              <ListItem
-                href="https://www.linkedin.com/in/christopher-abdo/"
-                title="LinkedIn"
-              >
-                Connect with me on LinkedIn!
+              <ListItem href="/radio" title="View Profiles">
+                View profiles of your favorite artists
               </ListItem>
             </ul>
           </NavigationMenuContent>
@@ -118,23 +115,23 @@ const NavMenu = () => {
                   </Link>
                 </NavigationMenuLink>
               </li>
-              <ListItem href="https://www.github.com/chrisabdo" title="GitHub">
-                View my projects on GitHub!
+              <ListItem href="/radio" title="Launch Radio">
+                Start Listening to Etherwav Radio!
               </ListItem>
-              <ListItem href="https://www.twitter.com/abdo_eth" title="Twitter">
-                Follow me on Twitter to stay up to date with my latest projects!
+              <ListItem href="/radio" title="Give Heat">
+                Help your favorite songs reach the top of the queue!
               </ListItem>
               <ListItem
                 href="https://www.linkedin.com/in/christopher-abdo/"
-                title="LinkedIn"
+                title="Sort by Genre"
               >
-                Connect with me on LinkedIn!
+                Have a favorite genre? Sort by it!
               </ListItem>
             </ul>
           </NavigationMenuContent>
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <Link href="/docs" legacyBehavior passHref>
+          <Link href="/upload">
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
               Upload
             </NavigationMenuLink>
