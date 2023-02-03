@@ -344,20 +344,57 @@ const RadioPage = () => {
 
   if (!songsLoaded) {
     return (
-      <div className="flex flex-col items-center justify-center h-full">
-        <p className="text-4xl">No songs found. This can mean the following:</p>
-        <p className="text-2xl mt-4">1. There are no songs on Etherwav yet.</p>
-        <p className="text-2xl mt-4">
-          2. You are not connected to the correct network (Polygon).
-        </p>
-        <p className="text-2xl mt-4">3. Your wallet is not connected.</p>
-        <p className="text-2xl mt-4">
-          4. There are no songs uploaded for this genre
-        </p>
-        <p className="text-2xl mt-4 bg-[#2a2a2a]">
-          Please try again in a couple seconds. If the issue persists, please
-          message me on Twitter @abdo_eth
-        </p>
+      <div className="flex flex-col justify-center items-center h-screen">
+        <div className="flex justify-center items-center space-x-2">
+          <div
+            className="spinner-grow inline-block w-8 h-8 bg-current rounded-full opacity-0 text-orange-500"
+            role="status"
+          >
+            <span className="visually-hidden">Loading...</span>
+          </div>
+          <div
+            className="
+spinner-grow inline-block w-8 h-8 bg-current rounded-full opacity-0
+text-orange-500"
+            role="status"
+          >
+            <span className="visually-hidden">Loading...</span>
+          </div>
+          <div
+            className="
+spinner-grow inline-block w-8 h-8 bg-current rounded-full opacity-0
+text-orange-500"
+            role="status"
+          >
+            <span className="visually-hidden">Loading...</span>
+          </div>
+          <div
+            className="spinner-grow inline-block w-8 h-8 bg-current rounded-full opacity-0 text-orange-500"
+            role="status"
+          >
+            <span className="visually-hidden">Loading...</span>
+          </div>
+          <div
+            className="
+spinner-grow inline-block w-8 h-8 bg-current rounded-full opacity-0
+text-orange-500"
+            role="status"
+          >
+            <span className="visually-hidden">Loading...</span>
+          </div>
+          <div
+            className="spinner-grow inline-block w-8 h-8 bg-current rounded-full opacity-0 text-orange-500"
+            role="status"
+          >
+            <span className="visually-hidden">Loading...</span>
+          </div>
+          <div
+            className="spinner-grow inline-block w-8 h-8 bg-current rounded-full opacity-0 text-orange-500"
+            role="status"
+          >
+            <span className="visually-hidden">Loading...</span>
+          </div>
+        </div>
       </div>
     );
   }

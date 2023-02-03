@@ -16705,14 +16705,108 @@
   },
   "networks": {
     "80001": {
-      "events": {},
+      "events": {
+        "0x48359e48a1f5ed61bd9a9b6a18ff557528271bcb297f07813c282639197d138b": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "address",
+              "name": "nftContract",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "tokenId",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "internalType": "address",
+              "name": "seller",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "internalType": "address",
+              "name": "owner",
+              "type": "address"
+            }
+          ],
+          "name": "NFTDeleted",
+          "type": "event"
+        },
+        "0x232534bbd51d7cde87652214a8c8454ac134ea309ff79aed199c676bebca94b9": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "address",
+              "name": "nftContract",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "tokenId",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "internalType": "address",
+              "name": "seller",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "internalType": "address",
+              "name": "owner",
+              "type": "address"
+            }
+          ],
+          "name": "NFTListed",
+          "type": "event"
+        },
+        "0x774facb096e2853303a99ec0d487646131ff041fd1babbea731bd6d8ae981dfe": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "internalType": "address",
+              "name": "nftContract",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "tokenId",
+              "type": "uint256"
+            },
+            {
+              "indexed": false,
+              "internalType": "address",
+              "name": "seller",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "internalType": "address",
+              "name": "owner",
+              "type": "address"
+            }
+          ],
+          "name": "NFTSold",
+          "type": "event"
+        }
+      },
       "links": {},
-      "address": "0x84C0C0f6Fd381B35b8d551E7aC032cb49DEd11f7",
-      "transactionHash": "0x4951dae6ef2e61fd28169fafecd24b926a4327ee10e27bb4b82226b8e0562e27"
+      "address": "0x21d34411e2F4f840EB12728EC1971Aa11C236F25",
+      "transactionHash": "0x6928afec619f79e9e64c8bbdfd10b716cb0f69004bf0df2ad72ba3623c95f41e"
     }
   },
   "schemaVersion": "3.4.11",
-  "updatedAt": "2023-02-02T03:26:51.581Z",
+  "updatedAt": "2023-02-03T02:40:26.379Z",
   "networkType": "ethereum",
   "devdoc": {
     "kind": "dev",

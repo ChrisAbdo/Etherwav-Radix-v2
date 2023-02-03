@@ -7,6 +7,7 @@ module.exports = {
     'src/**/*.{ts,tsx}',
     'components/**/*.{ts,tsx}',
     './src/**/*.{js,ts,jsx,tsx}',
+    './node_modules/tw-elements/dist/js/**/*.js',
   ],
   theme: {
     extend: {
@@ -58,5 +59,6 @@ module.exports = {
     require('tailwindcss-animate'),
     require('@tailwindcss/forms'),
     require('tailwind-scrollbar-hide'),
+    require('tw-elements/dist/plugin'),
   ],
 };
