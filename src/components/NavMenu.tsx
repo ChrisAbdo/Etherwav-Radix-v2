@@ -72,10 +72,10 @@ const NavMenu = () => {
                       <div className="w-24 rounded-full"></div>
                     </div>
                     <div className="mt-4 mb-2 text-lg font-medium text-white">
-                      Christopher Abdo
+                      Featured Song of the Week
                     </div>
                     <p className="text-sm leading-tight text-white/90">
-                      Full Stack Developer | Web3 Developer
+                      Listen to the hottest songs of the week!
                     </p>
                   </Link>
                 </NavigationMenuLink>
@@ -107,10 +107,10 @@ const NavMenu = () => {
                       <div className="w-24 rounded-full"></div>
                     </div>
                     <div className="mt-4 mb-2 text-lg font-medium text-white">
-                      Christopher Abdo
+                      Discover Etherwav Radio
                     </div>
                     <p className="text-sm leading-tight text-white/90">
-                      Full Stack Developer | Web3 Developer
+                      Make some fire music and get some heat!
                     </p>
                   </Link>
                 </NavigationMenuLink>
@@ -134,6 +134,13 @@ const NavMenu = () => {
           <Link href="/upload">
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
               Upload
+            </NavigationMenuLink>
+          </Link>
+        </NavigationMenuItem>
+        <NavigationMenuItem>
+          <Link href="/profile">
+            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+              Profile
             </NavigationMenuLink>
           </Link>
         </NavigationMenuItem>
