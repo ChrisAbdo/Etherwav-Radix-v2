@@ -40,6 +40,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Loader2 } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
+import { Progress } from '@/components/ui/progress';
 
 const transition = { duration: 0.5, ease: [0.43, 0.13, 0.23, 0.96] };
 
@@ -56,6 +57,7 @@ const RadioPage = () => {
   const [songsLoaded, setSongsLoaded] = useState(false);
   const [loading, setLoading] = useState(false);
   const [position, setPosition] = useState('bottom');
+  const [progress, setProgress] = useState(0);
   const audioRef = useRef(null);
 
   useEffect(() => {
@@ -562,6 +564,8 @@ text-orange-500"
                       {nfts.length > 0 &&
                         nfts[currentIndex].seller.slice(38, 42)}
                     </Link>
+
+                    <Progress value={progress} />
 
                     <div className="flex justify-between space-x-4 mt-4">
                       <Button
