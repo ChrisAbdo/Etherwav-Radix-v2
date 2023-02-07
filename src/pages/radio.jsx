@@ -36,9 +36,31 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from '@/components/ui/alert-dialog';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog';
+import { Label } from '@/components/ui/label';
+
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Loader2 } from 'lucide-react';
+import { Loader2, Play, Pause, SkipForward, SkipBack } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 import { Progress } from '@/components/ui/progress';
 
@@ -58,6 +80,8 @@ const RadioPage = () => {
   const [loading, setLoading] = useState(false);
   const [position, setPosition] = useState('bottom');
   const [progress, setProgress] = useState(0);
+  const [duration, setDuration] = useState(0);
+  const [playClicked, setPlayClicked] = useState(false);
   const audioRef = useRef(null);
 
   useEffect(() => {
@@ -75,8 +99,17 @@ const RadioPage = () => {
   //     setShouldPlay(false);
   //   }
   // }, [shouldPlay]);
+  useLayoutEffect(() => {
+    if (audioRef.current && shouldPlay) {
+      audioRef.current.play();
+      setIsPlaying(true);
+      setShouldPlay(false);
+      console.log('Duration:', audioRef.current.duration);
+    }
+  }, [shouldPlay]);
 
   async function loadSongs() {
+    console.log('Loading songs...');
     const web3 = new Web3(window.ethereum);
 
     const networkId = await web3.eth.net.getId();
@@ -428,7 +461,7 @@ text-orange-500"
           <div className="drawer-content flex flex-col">
             {/* <!-- Page content here --> */}
             <div className="flex justify-between ">
-              <div className="w-full">
+              <div className="w-full px-1">
                 <Button variant="subtle" className="lg:hidden mt-4 ml-4 mb-4">
                   <label
                     htmlFor="my-drawer-2"
@@ -485,7 +518,7 @@ text-orange-500"
                                 {nft.name}
                               </p>
                             </div>
-                            <p className="text-2xl">{nft.heatCount} 🔥</p>
+                            <p className="text-2xl">{nft.heatCount}</p>
                           </div>
                           <Separator className="mt-2" />
                         </div>
@@ -525,7 +558,7 @@ text-orange-500"
                   </div>
                   <div className="card-body">
                     <div className="flex justify-between">
-                      <motion.span
+                      {/* <motion.span
                         className="badge card3 rounded cursor-pointer p-4 min-w-[90px]"
                         whileHover={{ scale: 1.2 }}
                         transition={{ duration: 0.3 }}
@@ -539,16 +572,87 @@ text-orange-500"
                         }}
                       >
                         {nfts[currentIndex].genre}
-                      </motion.span>
-
-                      <motion.label
-                        htmlFor="my-modal-69"
-                        className="badge card3 rounded cursor-pointer p-4"
-                        whileHover={{ scale: 1.2 }}
-                        transition={{ duration: 0.3 }}
+                      </motion.span> */}
+                      <Button
+                        onClick={async () => {
+                          await loadSongsByGenre(nfts[currentIndex].genre);
+                          // reset the index
+                          setCurrentIndex(0);
+                          toast.success(
+                            `Sorted by ${nfts[currentIndex].genre}`
+                          );
+                        }}
+                        variant="outline"
+                        size="lg"
                       >
-                        More Info
-                      </motion.label>
+                        {nfts[currentIndex].genre}
+                      </Button>
+
+                      <AlertDialog>
+                        <AlertDialogTrigger asChild>
+                          <Button size="lg" variant="outline">
+                            More Info
+                          </Button>
+                        </AlertDialogTrigger>
+                        <AlertDialogContent>
+                          <AlertDialogHeader>
+                            <AlertDialogTitle>
+                              More Information
+                            </AlertDialogTitle>
+                            <AlertDialogDescription>
+                              <p className="py-4">
+                                {nfts[currentIndex] && nfts[currentIndex].name}{' '}
+                                | Heat 🔥:{' '}
+                                {nfts[currentIndex] &&
+                                  nfts[currentIndex].heatCount}
+                              </p>
+                              <a
+                                className="link link-hover text-xs "
+                                rel="noreferrer"
+                                target="_blank"
+                                // href to etherscan with the seller address
+                                href={`https://etherscan.io/address/${
+                                  nfts[currentIndex] &&
+                                  nfts[currentIndex].seller
+                                }`}
+                              >
+                                Original Author:{' '}
+                                {nfts[currentIndex] &&
+                                  nfts[currentIndex].seller.substring(0, 5) +
+                                    '...' +
+                                    nfts[currentIndex].seller.substring(38, 42)}
+                              </a>
+                              <br />
+                              <a
+                                className="link link-hover text-xs "
+                                rel="noreferrer"
+                                target="_blank"
+                                href={
+                                  nfts[currentIndex] &&
+                                  nfts[currentIndex].coverImage.toString()
+                                }
+                              >
+                                Cover Image: IPFS (click to view)
+                              </a>
+                              <br />
+                              <a
+                                className="link link-hover text-xs "
+                                rel="noreferrer"
+                                target="_blank"
+                                href={
+                                  nfts[currentIndex] &&
+                                  nfts[currentIndex].image.toString()
+                                }
+                              >
+                                Audio Source: IPFS (click to view)
+                              </a>
+                            </AlertDialogDescription>
+                          </AlertDialogHeader>
+                          <AlertDialogFooter>
+                            <AlertDialogAction>Close</AlertDialogAction>
+                          </AlertDialogFooter>
+                        </AlertDialogContent>
+                      </AlertDialog>
                     </div>
                     <h2 className="card-title text-center justify-center text-2xl truncate">
                       {nfts.length > 0 &&
@@ -572,24 +676,12 @@ text-orange-500"
                         onClick={handlePrevious}
                         disabled={currentIndex === 0}
                         variant="subtle"
+                        size="lg"
                       >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          strokeWidth={1.5}
-                          stroke="currentColor"
-                          className="w-6 h-6"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M21 16.811c0 .864-.933 1.405-1.683.977l-7.108-4.062a1.125 1.125 0 010-1.953l7.108-4.062A1.125 1.125 0 0121 8.688v8.123zM11.25 16.811c0 .864-.933 1.405-1.683.977l-7.108-4.062a1.125 1.125 0 010-1.953L9.567 7.71a1.125 1.125 0 011.683.977v8.123z"
-                          />
-                        </svg>
+                        <SkipBack />
                       </Button>
 
-                      <ReactAudioPlayer
+                      <audio
                         src={nfts[currentIndex].image}
                         ref={audioRef}
                         onEnded={() => {
@@ -597,40 +689,79 @@ text-orange-500"
                             setCurrentIndex(currentIndex + 1);
                           }
                         }}
-                        className="h-12 w-full"
+                        onPlay={() => {
+                          console.log(audioRef.current.duration);
+                          setDuration(audioRef.current.duration);
+                          // calculate the progress every second considering the duration
+                          const interval = setInterval(() => {
+                            setProgress(
+                              (audioRef.current.currentTime / duration) * 100
+                            );
+                          }, 1000);
+                          return () => clearInterval(interval);
+                        }}
+                        className="h-12 w-full hidden"
                         controls
                         autoPlay
                       />
+
+                      <Button
+                        onClick={() => {
+                          if (isPlaying) {
+                            audioRef.current.pause();
+                            setIsPlaying(false);
+                          } else {
+                            audioRef.current.play();
+                            audioRef.current.pause();
+                            audioRef.current.play();
+                            setIsPlaying(true);
+                          }
+                        }}
+                        variant="subtle"
+                        size="lg"
+                      >
+                        {isPlaying ? <Pause /> : <Play />}
+                      </Button>
+
                       <Button
                         onClick={handleNext}
                         disabled={currentIndex === nfts.length - 1}
                         variant="subtle"
+                        size="lg"
                       >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          strokeWidth={1.5}
-                          stroke="currentColor"
-                          className="w-6 h-6"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M3 8.688c0-.864.933-1.405 1.683-.977l7.108 4.062a1.125 1.125 0 010 1.953l-7.108 4.062A1.125 1.125 0 013 16.81V8.688zM12.75 8.688c0-.864.933-1.405 1.683-.977l7.108 4.062a1.125 1.125 0 010 1.953l-7.108 4.062a1.125 1.125 0 01-1.683-.977V8.688z"
-                          />
-                        </svg>
+                        <SkipForward />
                       </Button>
                     </div>
                     <div className="card-actions justify-between mt-4">
-                      <label
+                      {/* <label
                         htmlFor="my-modal-6"
                         className="btn btn-outline text-[#555555] normal-case rounded cursor-pointer"
                       >
                         Report
-                      </label>
+                      </label> */}
+                      <AlertDialog>
+                        <AlertDialogTrigger asChild>
+                          <Button size="lg" variant="outline">
+                            Report
+                          </Button>
+                        </AlertDialogTrigger>
+                        <AlertDialogContent>
+                          <AlertDialogHeader>
+                            <AlertDialogTitle>
+                              Sorry this feature is not available yet!
+                            </AlertDialogTitle>
+                            <AlertDialogDescription>
+                              Please message me on Twitter @abdo_eth if you have
+                              any issues.
+                            </AlertDialogDescription>
+                          </AlertDialogHeader>
+                          <AlertDialogFooter>
+                            <AlertDialogAction>Close</AlertDialogAction>
+                          </AlertDialogFooter>
+                        </AlertDialogContent>
+                      </AlertDialog>
 
-                      <label
+                      {/* <label
                         htmlFor="my-modal-5"
                         className="rounded relative p-0.5 inline-flex items-center justify-center font-bold overflow-hidden group cursor-pointer"
                       >
@@ -640,7 +771,132 @@ text-orange-500"
                             Give Heat 🔥
                           </span>
                         </span>
-                      </label>
+                      </label> */}
+                      <Dialog>
+                        <DialogTrigger asChild>
+                          <Button size="lg" variant="destructive">
+                            Give Heat 🔥{' '}
+                          </Button>
+                        </DialogTrigger>
+                        <DialogContent className="sm:max-w-[425px]">
+                          <DialogHeader>
+                            <DialogTitle>Give Heat 🔥</DialogTitle>
+
+                            <Accordion
+                              type="single"
+                              collapsible
+                              className="full"
+                            >
+                              <AccordionItem value="item-1">
+                                <AccordionTrigger className="text-2xl">
+                                  What is Heat?
+                                </AccordionTrigger>
+                                <AccordionContent className="text-xl">
+                                  Heat 🔥 is a way to show your appreciation for
+                                  a song. The more heat a song has, the more it
+                                  will be promoted and pushed to the top of the
+                                  queue. <br /> <br />
+                                  <p className="text-center text-xl mt-4">
+                                    <span className="font-bold">
+                                      1 Heat = 1 MATIC.
+                                    </span>
+                                    <br />
+                                    You can give as much heat as you want.
+                                    <br />
+                                    Please refresh the page after giving heat to
+                                    see the updated amount.
+                                    <br />
+                                    <br /> As of now it is a contract
+                                    interaction, but very soon all Heat values
+                                    will be sent to the uploader. EST Feb 2023.
+                                  </p>
+                                </AccordionContent>
+                              </AccordionItem>
+                            </Accordion>
+                          </DialogHeader>
+                          {/* <div className="grid gap-4 py-4">
+                            <div className="grid grid-cols-4 items-center gap-4">
+                              <Label htmlFor="name" className="text-right">
+                                Name
+                              </Label>
+                              <Input
+                                id="name"
+                                value="Pedro Duarte"
+                                className="col-span-3"
+                              />
+                            </div>
+                            <div className="grid grid-cols-4 items-center gap-4">
+                              <Label htmlFor="username" className="text-right">
+                                Username
+                              </Label>
+                              <Input
+                                id="username"
+                                value="@peduarte"
+                                className="col-span-3"
+                              />
+                            </div>
+                          </div> */}
+                          <div className="flex justify-center text-center ">
+                            <div className="form-control mt-4  rounded-xl">
+                              {nfts[currentIndex] && (
+                                <div
+                                  id="heatcountdiv"
+                                  className="bg-[#DADDE2] dark:bg-[#1f1f1f] border border-[#2a2a2a] mt-4 p-4 max-w-xl rounded-md"
+                                >
+                                  <h1
+                                    id="heatcounttext"
+                                    className="text-center text-xl "
+                                  >
+                                    You are giving {heatCount} Heat 🔥 to{' '}
+                                    {nfts[currentIndex].name}
+                                  </h1>
+                                  <div
+                                    id="heatanimation"
+                                    className="hidden  text-center justify-center items-center"
+                                  >
+                                    <span className="fire-emoji">🔥</span>
+                                    <span className="fire-emoji">🔥</span>
+                                    <span className="fire-emoji">🔥</span>
+                                    <span className="fire-emoji">🔥</span>
+                                    <span className="fire-emoji">🔥</span>
+                                  </div>
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                          <div className="flex w-full items-center space-x-2 mt-12">
+                            <Input
+                              onChange={(event) =>
+                                setHeatCount(event.target.value)
+                              }
+                              type="number"
+                              min="0"
+                              // if user enters a negative value, it will be set to 0
+                              value={heatCount < 0 ? 0 : heatCount}
+                              // do not allow negative values
+
+                              placeholder="Enter Heat count"
+                            />
+
+                            {loading ? (
+                              <Button disabled>
+                                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                                Confirm Transaction!
+                              </Button>
+                            ) : (
+                              <Button
+                                onClick={handleGiveHeat}
+                                disabled={heatCount === 0}
+                                type="submit"
+                                className=" w-1/3"
+                                variant="destructive"
+                              >
+                                Give Heat!
+                              </Button>
+                            )}
+                          </div>
+                        </DialogContent>
+                      </Dialog>
                     </div>
                   </div>
                 </div>
@@ -768,175 +1024,6 @@ text-orange-500"
                 <h1>It looks like there are no songs!</h1>
               )}
             </ul>
-          </div>
-        </div>
-
-        {/* Report Modal */}
-        <input type="checkbox" id="my-modal-6" className="modal-toggle" />
-        <div className="modal modal-bottom sm:modal-middle  backdrop-blur-md">
-          <div className="modal-box  bg-white dark:bg-black border border-[#303030]">
-            <h3 className="font-bold text-lg">
-              Sorry! This feature is not available yet.
-            </h3>
-            <p className="py-4">
-              I am working on this feature. Please check back later. For now,
-              Please message me on Twitter @abdo_eth
-            </p>
-            <div className="modal-action">
-              <label
-                htmlFor="my-modal-6"
-                className="btn rounded-md hover:bg-[#DADDE2] dark:hover:bg-[#303030]"
-              >
-                close
-              </label>
-            </div>
-          </div>
-        </div>
-
-        {/* Give Heat Modal */}
-        <input type="checkbox" id="my-modal-5" className="modal-toggle" />
-        <div className="modal modal-bottom sm:modal-middle backdrop-blur-md">
-          <div className="modal-box bg-white dark:bg-black border border-[#303030]">
-            <h2 className="text-xl mb-4 text-center">Give Heat 🔥</h2>
-
-            <div>
-              <Accordion type="single" collapsible className="full">
-                <AccordionItem value="item-1">
-                  <AccordionTrigger className="text-2xl">
-                    What is Heat?
-                  </AccordionTrigger>
-                  <AccordionContent className="text-xl">
-                    Heat 🔥 is a way to show your appreciation for a song. The
-                    more heat a song has, the more it will be promoted and
-                    pushed to the top of the queue. <br /> <br />
-                    As of now it is a contract interaction, but very soon all
-                    Heat values will be sent to the uploader. EST Feb 2023.
-                  </AccordionContent>
-                </AccordionItem>
-              </Accordion>
-            </div>
-
-            <p className="text-center text-xl mt-4">
-              <span className="font-bold">1 Heat = 1 MATIC.</span>
-              <br />
-              You can give as much heat as you want.
-              <br />
-              Please refresh the page after giving heat to see the updated
-              amount.
-            </p>
-
-            <div className="flex justify-center text-center ">
-              <div className="form-control mt-4  rounded-xl">
-                {nfts[currentIndex] && (
-                  <div
-                    id="heatcountdiv"
-                    className="bg-[#DADDE2] dark:bg-[#1f1f1f] border border-[#2a2a2a] mt-4 p-4 max-w-xl rounded-md"
-                  >
-                    <h1 id="heatcounttext" className="text-center text-xl ">
-                      You are giving {heatCount} Heat 🔥 to{' '}
-                      {nfts[currentIndex].name}
-                    </h1>
-                    <div
-                      id="heatanimation"
-                      className="hidden  text-center justify-center items-center"
-                    >
-                      <span className="fire-emoji">🔥</span>
-                      <span className="fire-emoji">🔥</span>
-                      <span className="fire-emoji">🔥</span>
-                      <span className="fire-emoji">🔥</span>
-                      <span className="fire-emoji">🔥</span>
-                    </div>
-                  </div>
-                )}
-              </div>
-            </div>
-            <div className="flex w-full items-center space-x-2 mt-12">
-              <Input
-                onChange={(event) => setHeatCount(event.target.value)}
-                type="number"
-                min={0}
-                placeholder="Enter Heat count"
-                className="h-12"
-              />
-
-              {loading ? (
-                <Button disabled>
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  Confirm Transaction!
-                </Button>
-              ) : (
-                <Button
-                  onClick={handleGiveHeat}
-                  disabled={heatCount === 0}
-                  type="submit"
-                  className=" w-1/3"
-                >
-                  Give Heat!
-                </Button>
-              )}
-            </div>
-
-            <div className="modal-action">
-              <label
-                htmlFor="my-modal-5"
-                className="btn rounded-md hover:bg-[#DADDE2] dark:hover:bg-[#303030]"
-              >
-                cancel
-              </label>
-            </div>
-          </div>
-        </div>
-
-        <input type="checkbox" id="my-modal-69" className="modal-toggle" />
-        <div className="modal modal-bottom sm:modal-middle backdrop-blur-md">
-          <div className="modal-box  bg-white dark:bg-black border border-[#303030]">
-            <h3 className="font-bold text-lg">More Information</h3>
-            <p className="py-4">
-              {nfts[currentIndex] && nfts[currentIndex].name} | Heat 🔥:{' '}
-              {nfts[currentIndex] && nfts[currentIndex].heatCount}
-            </p>
-            <a
-              className="link link-hover text-xs "
-              rel="noreferrer"
-              target="_blank"
-              // href to etherscan with the seller address
-              href={`https://etherscan.io/address/${
-                nfts[currentIndex] && nfts[currentIndex].seller
-              }`}
-            >
-              Original Author: {nfts[currentIndex] && nfts[currentIndex].seller}
-            </a>
-            <br />
-            <a
-              className="link link-hover text-xs "
-              rel="noreferrer"
-              target="_blank"
-              href={
-                nfts[currentIndex] && nfts[currentIndex].coverImage.toString()
-              }
-            >
-              Cover Image:{' '}
-              {nfts[currentIndex] && nfts[currentIndex].coverImage.toString()}
-            </a>
-            <br />
-            <a
-              className="link link-hover text-xs "
-              rel="noreferrer"
-              target="_blank"
-              href={nfts[currentIndex] && nfts[currentIndex].image.toString()}
-            >
-              Audio Source:{' '}
-              {nfts[currentIndex] && nfts[currentIndex].image.toString()}
-            </a>
-            <br />
-            <div className="modal-action">
-              <label
-                htmlFor="my-modal-69"
-                className="btn rounded-md hover:bg-[#DADDE2] dark:hover:bg-[#303030]"
-              >
-                close
-              </label>
-            </div>
           </div>
         </div>
       </div>

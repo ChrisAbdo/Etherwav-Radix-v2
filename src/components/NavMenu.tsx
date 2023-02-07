@@ -83,9 +83,11 @@ const NavMenu = () => {
                   </Link>
                 </NavigationMenuLink>
               </li>
-              <ListItem href="/radio" title="Top of the Queue">
-                View the popular songs
-              </ListItem>
+              <Link href="/radio">
+                <ListItem title="Top of the Queue">
+                  View the popular songs
+                </ListItem>
+              </Link>
               <ListItem href="/radio" title="Genres">
                 Browse by genre
               </ListItem>
