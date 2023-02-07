@@ -92,13 +92,13 @@ const RadioPage = () => {
     setShouldPlay(true);
   }, [currentIndex]);
 
-  // useLayoutEffect(() => {
-  //   if (audioRef.current && shouldPlay) {
-  //     audioRef.current.play();
-  //     setIsPlaying(true);
-  //     setShouldPlay(false);
-  //   }
-  // }, [shouldPlay]);
+  useLayoutEffect(() => {
+    if (audioRef.current && shouldPlay) {
+      audioRef.current.play();
+      setIsPlaying(true);
+      setShouldPlay(false);
+    }
+  }, [shouldPlay]);
   useLayoutEffect(() => {
     if (audioRef.current && shouldPlay) {
       audioRef.current.play();
@@ -702,7 +702,8 @@ text-orange-500"
                         }}
                         className="h-12 w-full hidden"
                         controls
-                        autoPlay
+                        // auto play after the first song
+                        autoPlay={currentIndex === 1}
                       />
 
                       <Button
@@ -871,8 +872,7 @@ text-orange-500"
                               }
                               type="number"
                               min="0"
-                              // if user enters a negative value, it will be set to 0
-                              value={heatCount < 0 ? 0 : heatCount}
+                              //
                               // do not allow negative values
 
                               placeholder="Enter Heat count"
