@@ -25,7 +25,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { DropdownMenuCheckboxItemProps } from '@radix-ui/react-dropdown-menu';
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -57,10 +56,23 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 import { Label } from '@/components/ui/label';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from '@/components/ui/hover-card';
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Loader2, Play, Pause, SkipForward, SkipBack } from 'lucide-react';
+import {
+  Loader2,
+  Play,
+  Pause,
+  SkipForward,
+  SkipBack,
+  Radio as RadioIcon,
+} from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 import { Progress } from '@/components/ui/progress';
 
@@ -81,11 +93,22 @@ const RadioPage = () => {
   const [position, setPosition] = useState('bottom');
   const [progress, setProgress] = useState(0);
   const [duration, setDuration] = useState(0);
-  const [playClicked, setPlayClicked] = useState(false);
+  const [open, setOpen] = useState(false);
   const audioRef = useRef(null);
 
   useEffect(() => {
     loadSongs();
+  }, []);
+
+  useEffect(() => {
+    const down = (e) => {
+      if (e.key === 'k' && e.metaKey) {
+        setOpen((open) => !open);
+      }
+    };
+
+    document.addEventListener('keydown', down);
+    return () => document.removeEventListener('keydown', down);
   }, []);
 
   useEffect(() => {
@@ -97,14 +120,8 @@ const RadioPage = () => {
       audioRef.current.play();
       setIsPlaying(true);
       setShouldPlay(false);
-    }
-  }, [shouldPlay]);
-  useLayoutEffect(() => {
-    if (audioRef.current && shouldPlay) {
-      audioRef.current.play();
-      setIsPlaying(true);
-      setShouldPlay(false);
       console.log('Duration:', audioRef.current.duration);
+      setDuration(audioRef.current.duration);
     }
   }, [shouldPlay]);
 
@@ -556,7 +573,7 @@ text-orange-500"
                     <span>🔥</span> Heat Count: {nfts[currentIndex].heatCount}{' '}
                     <span>🔥</span>
                   </div>
-                  <div className="card-body">
+                  <div className="p-8">
                     <div className="flex justify-between">
                       {/* <motion.span
                         className="badge card3 rounded cursor-pointer p-4 min-w-[90px]"
@@ -658,7 +675,7 @@ text-orange-500"
                       {nfts.length > 0 &&
                         nfts[currentIndex].name.substring(0, 24)}
                     </h2>
-                    <Link
+                    {/* <Link
                       href="/[slug]"
                       as={`/${nfts[currentIndex].seller}`}
                       className="text-center link link-hover"
@@ -667,8 +684,57 @@ text-orange-500"
                       ...
                       {nfts.length > 0 &&
                         nfts[currentIndex].seller.slice(38, 42)}
-                    </Link>
+                    </Link> */}
 
+                    <div className="flex justify-center text-center items-center">
+                      <HoverCard>
+                        <HoverCardTrigger asChild>
+                          <Button variant="link">
+                            {nfts.length > 0 &&
+                              nfts[currentIndex].seller.slice(0, 6)}
+                            ...
+                            {nfts.length > 0 &&
+                              nfts[currentIndex].seller.slice(38, 42)}
+                          </Button>
+                        </HoverCardTrigger>
+                        <HoverCardContent className="w-80">
+                          <div className="flex justify-between space-x-4">
+                            <Avatar>
+                              <AvatarImage
+                                // src="https://api.dicebear.com/5.x/identicon/svg?seed=Felix"
+                                src={`https://api.dicebear.com/5.x/lorelei/svg?seed=/${nfts[currentIndex].seller}.svg?`}
+                              />
+                            </Avatar>
+                            <div className="space-y-1">
+                              <Link
+                                href="/[slug]"
+                                as={`/${nfts[currentIndex].seller}`}
+                                className="text-center link link-hover"
+                              >
+                                {nfts.length > 0 &&
+                                  nfts[currentIndex].seller.slice(0, 6)}
+                                ...
+                                {nfts.length > 0 &&
+                                  nfts[currentIndex].seller.slice(38, 42)}
+                              </Link>
+                              <p className="text-sm">
+                                Bios are coming soon. For now, please imagine
+                                something cool here.
+                              </p>
+                              <div className="flex items-center pt-2">
+                                <span className="text-xs text-slate-500 dark:text-slate-400">
+                                  Joined February 2023
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                        </HoverCardContent>
+                      </HoverCard>
+                    </div>
+
+                    <h1 className="text-right">
+                      {Math.floor(duration / 60)}:{Math.floor(duration % 60)}
+                    </h1>
                     <Progress value={progress} />
 
                     <div className="flex justify-between space-x-4 mt-4">
@@ -702,8 +768,8 @@ text-orange-500"
                         }}
                         className="h-12 w-full hidden"
                         controls
-                        // auto play after the first song
-                        autoPlay={currentIndex === 1}
+                        // autoplay after the first song
+                        autoPlay={currentIndex !== 0}
                       />
 
                       <Button
