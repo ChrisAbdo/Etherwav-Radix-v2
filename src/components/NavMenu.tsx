@@ -12,6 +12,7 @@ import {
 
 import Link from 'next/link';
 import Image from 'next/image';
+import { Music, Radio } from 'lucide-react';
 
 const components: {
   title: string;
@@ -69,7 +70,9 @@ const NavMenu = () => {
                   >
                     {/* <Icons.logo className="h-6 w-6 text-white" /> */}
                     <div className="avatar">
-                      <div className="w-24 rounded-full"></div>
+                      <div className="animate-bounce">
+                        <Music className="text-white" />
+                      </div>
                     </div>
                     <div className="mt-4 mb-2 text-lg font-medium text-white">
                       Featured Song of the Week
@@ -99,12 +102,14 @@ const NavMenu = () => {
               <li className="row-span-3">
                 <NavigationMenuLink asChild>
                   <Link
-                    className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-orange-500 to-red-700 p-6 no-underline outline-none focus:shadow-md"
+                    className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-red-700 to-orange-500 p-6 no-underline outline-none focus:shadow-md"
                     href="/"
                   >
                     {/* <Icons.logo className="h-6 w-6 text-white" /> */}
                     <div className="avatar">
-                      <div className="w-24 rounded-full"></div>
+                      <div className="animate-pulse rounded-full">
+                        <Radio className="text-white" />
+                      </div>
                     </div>
                     <div className="mt-4 mb-2 text-lg font-medium text-white">
                       Discover Etherwav Radio
@@ -118,7 +123,7 @@ const NavMenu = () => {
               <ListItem href="/radio" title="Launch Radio">
                 Start Listening to Etherwav Radio!
               </ListItem>
-              <ListItem href="/radio" title="Give Heat">
+              <ListItem href="/radio" title="Give Heat🔥">
                 Help your favorite songs reach the top of the queue!
               </ListItem>
               <ListItem

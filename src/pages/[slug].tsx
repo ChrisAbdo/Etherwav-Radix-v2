@@ -255,7 +255,7 @@ export default function ProjectShowcase() {
     <div>
       <div className="navbar bg-slate-50 dark:bg-black sticky top-16 z-40 border-b border-[#2a2a2a]">
         <div className="flex-1">
-          <h1 className="btn btn-ghost normal-case text-xl">Filter</h1>
+          <h1 className="normal-case text-xl">Filters</h1>
         </div>
         <div className="flex-none">
           <ul className="menu menu-horizontal px-1 space-x-1">

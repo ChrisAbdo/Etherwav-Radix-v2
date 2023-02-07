@@ -18,6 +18,24 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from '@/components/ui/accordion';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { DropdownMenuCheckboxItemProps } from '@radix-ui/react-dropdown-menu';
+import {
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuLabel,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Loader2 } from 'lucide-react';
@@ -36,7 +54,7 @@ const RadioPage = () => {
   const [ascending, setAscending] = useState(false);
   const [songsLoaded, setSongsLoaded] = useState(false);
   const [loading, setLoading] = useState(false);
-
+  const [position, setPosition] = useState('bottom');
   const audioRef = useRef(null);
 
   useEffect(() => {
@@ -408,26 +426,28 @@ text-orange-500"
             {/* <!-- Page content here --> */}
             <div className="flex justify-between ">
               <div className="w-full">
-                <label
-                  htmlFor="my-drawer-2"
-                  className="btn btn-outline rounded-md border border-[#DADDE2] dark:border-[#303030]  text-black dark:text-white lg:hidden "
-                >
-                  queue
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke="currentColor"
-                    className="w-6 h-6"
+                <Button variant="subtle" className="lg:hidden">
+                  <label
+                    htmlFor="my-drawer-2"
+                    className="flex rounded-md  text-black dark:text-white lg:hidden "
                   >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M3.75 12h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 010 3.75H5.625a1.875 1.875 0 010-3.75z"
-                    />
-                  </svg>
-                </label>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.5}
+                      stroke="currentColor"
+                      className="w-4 h-4"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M3.75 12h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 010 3.75H5.625a1.875 1.875 0 010-3.75z"
+                      />
+                    </svg>
+                    &nbsp; queue
+                  </label>
+                </Button>
                 <Accordion type="single" collapsible>
                   <AccordionItem value="item-1">
                     <AccordionTrigger>
@@ -637,71 +657,61 @@ text-orange-500"
             <ul className="menu p-2 w-80 bg-white dark:bg-black text-base-content border-r border-[#2a2a2a] ">
               {/* <!-- Sidebar content here --> */}
 
-              <div className="flex justify-between border-b border-orange-500 sticky top-0  z-50">
-                {' '}
-                <select
-                  className=" mb-3 rounded-md select select-bordered bg-white dark:bg-black"
-                  onChange={async (e) => {
-                    await loadSongsByGenre(e.target.value);
-                    toast.success(`Loaded ${e.target.value} songs!`);
-                  }}
+              <div className="flex justify-between border-b border-orange-500 p-2.5">
+                <Select
+                  onValueChange={(value) =>
+                    loadSongsByGenre(value).then(() => {
+                      toast.success(`Loaded ${value} songs!`);
+                    })
+                  }
                 >
-                  <option disabled selected>
-                    Sort by genre
-                  </option>
-                  <option value="">All</option>
-                  <option value="lofi">Lofi</option>
-                  <option value="hiphop">Hip Hop</option>
-                  <option value="vocals">Vocals</option>
-                  <option value="edm">EDM</option>
-                </select>
-                {/* SWAP */}
-                <label className="swap swap-rotate mb-3 rounded-md card3 border dark:border-white border-black p-2">
-                  <input
-                    type="checkbox"
-                    onClick={() => {
-                      handleSwap();
-                      // set index to 1
-                      setCurrentIndex(0);
-                    }}
-                    className="hidden"
-                  />
-
-                  {/* <!-- sun icon --> */}
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke="currentColor"
-                    className="swap-on w-6 h-6"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941"
-                    />
-                  </svg>
-
-                  {/* <!-- moon icon --> */}
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke="currentColor"
-                    className="swap-off w-6 h-6"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M2.25 6L9 12.75l4.286-4.286a11.948 11.948 0 014.306 6.43l.776 2.898m0 0l3.182-5.511m-3.182 5.51l-5.511-3.181"
-                    />
-                  </svg>
-                </label>
+                  <SelectTrigger className="w-[180px]">
+                    <SelectValue placeholder="Theme" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="">All</SelectItem>
+                    <SelectItem value="lofi">Lofi</SelectItem>
+                    <SelectItem value="hiphop">Hiphop</SelectItem>
+                    <SelectItem value="system">System</SelectItem>
+                  </SelectContent>
+                </Select>
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="subtle">Sort By</Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent className="w-56">
+                    <DropdownMenuLabel>Sort by...</DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuRadioGroup
+                      value={position}
+                      onValueChange={setPosition}
+                    >
+                      <DropdownMenuRadioItem
+                        onClick={() => {
+                          handleSwap();
+                          // set index to 1
+                          setCurrentIndex(0);
+                        }}
+                        value="top"
+                      >
+                        Ascending
+                      </DropdownMenuRadioItem>
+                      <DropdownMenuRadioItem
+                        onClick={() => {
+                          handleSwap();
+                          // set index to 1
+                          setCurrentIndex(0);
+                        }}
+                        value="bottom"
+                      >
+                        Descending
+                      </DropdownMenuRadioItem>
+                    </DropdownMenuRadioGroup>
+                  </DropdownMenuContent>
+                </DropdownMenu>
               </div>
 
-              <h1 className="text-2xl font-bold">Queue</h1>
+              <h1 className="text-2xl font-bold mt-4">Queue</h1>
 
               {nfts.length ? (
                 nfts.map((nft, index) => (
@@ -802,7 +812,7 @@ text-orange-500"
                 {nfts[currentIndex] && (
                   <div
                     id="heatcountdiv"
-                    className="bg-[#DADDE2] dark:bg-[#1f1f1f] border border-[#2a2a2a] mt-4 p-4 max-w-xl rounded-xl"
+                    className="bg-[#DADDE2] dark:bg-[#1f1f1f] border border-[#2a2a2a] mt-4 p-4 max-w-xl rounded-md"
                   >
                     <h1 id="heatcounttext" className="text-center text-xl ">
                       You are giving {heatCount} Heat 🔥 to{' '}

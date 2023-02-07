@@ -94,6 +94,7 @@ const Upload = () => {
         onChange={(e) =>
           updateFormInput({ ...formInput, name: e.target.value })
         }
+        value={formInput.name}
         type="email"
         id="email-2"
         placeholder="Title"
@@ -125,7 +126,7 @@ const Upload = () => {
     </form>,
 
     <div key={3} className="ml-5">
-      <label className="label">
+      {/* <label className="label">
         <span className="label-text">Choose the genre that fits</span>
       </label>
       <select
@@ -140,7 +141,24 @@ const Upload = () => {
         <option value="lofi">Lofi</option>
         <option value="hiphop">Hip Hop</option>
         <option value="vocals">Vocals</option>
-      </select>
+      </select> */}
+      <Label htmlFor="email-2">Genres</Label>
+      <Select
+        onValueChange={(value) =>
+          updateFormInput({ ...formInput, genre: value })
+        }
+        value={formInput.genre}
+      >
+        <SelectTrigger className="w-[180px]">
+          <SelectValue placeholder="Theme" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectItem value="lofi">Lofi</SelectItem>
+          <SelectItem value="hiphop">Hiphop</SelectItem>
+          <SelectItem value="system">System</SelectItem>
+        </SelectContent>
+      </Select>
+      <p className="text-sm">Select a genre</p>
     </div>,
   ];
 

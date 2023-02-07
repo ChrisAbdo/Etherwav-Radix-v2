@@ -21,7 +21,7 @@ const Navbar = () => {
   return (
     <header
       aria-label="Site Header"
-      className="shadow-sm sticky top-0 z-50 bg-white dark:bg-black"
+      className="shadow-sm sticky top-0 z-50 bg-white dark:bg-black border-b border-black dark:border-[#303030]"
     >
       <div className="mx-auto flex h-16 max-w-screen-xl items-center justify-between px-4">
         <div className="flex w-0 flex-1 lg:hidden">
@@ -80,7 +80,7 @@ const Navbar = () => {
           <ConnectWallet
             accentColor="#f97316"
             colorMode="dark"
-            className="!rounded-md"
+            className="!rounded-md !h-10"
           />
           <Button
             variant="subtle"
