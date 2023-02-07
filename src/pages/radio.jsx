@@ -39,6 +39,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Loader2 } from 'lucide-react';
+import { Separator } from '@/components/ui/separator';
 
 const transition = { duration: 0.5, ease: [0.43, 0.13, 0.23, 0.96] };
 
@@ -426,7 +427,7 @@ text-orange-500"
             {/* <!-- Page content here --> */}
             <div className="flex justify-between ">
               <div className="w-full">
-                <Button variant="subtle" className="lg:hidden">
+                <Button variant="subtle" className="lg:hidden mt-4 ml-4 mb-4">
                   <label
                     htmlFor="my-drawer-2"
                     className="flex rounded-md  text-black dark:text-white lg:hidden "
@@ -457,21 +458,34 @@ text-orange-500"
                     </AccordionTrigger>
                     <AccordionContent>
                       {topThreeNfts.map((nft, index) => (
-                        <div
-                          key={index}
-                          className="flex justify-between items-center px-6"
-                        >
-                          <div className="flex items-center">
-                            <Image
-                              src={nft.coverImage}
-                              width={50}
-                              height={50}
-                              alt="cover"
-                              className="rounded-none"
-                            />
-                            <p className="ml-2 text-2xl">{nft.name}</p>
+                        <div key={index}>
+                          <div className="flex justify-between items-center px-6">
+                            <div className="flex items-center space-y-2">
+                              <h1 className="text-2xl">
+                                {index === 0 ? (
+                                  <h1 className="text-4xl">🥇&nbsp;</h1>
+                                ) : index === 1 ? (
+                                  <h1 className="text-4xl">🥈&nbsp;</h1>
+                                ) : index === 2 ? (
+                                  <h1 className="text-4xl">🥉&nbsp;</h1>
+                                ) : (
+                                  <h1>{index + 1}</h1>
+                                )}
+                              </h1>
+                              <Image
+                                src={nft.coverImage}
+                                width={50}
+                                height={50}
+                                alt="cover"
+                                className="rounded-none"
+                              />
+                              <p className="ml-2 text-2xl truncate">
+                                {nft.name}
+                              </p>
+                            </div>
+                            <p className="text-2xl">{nft.heatCount} 🔥</p>
                           </div>
-                          <p className="text-2xl">{nft.heatCount} 🔥</p>
+                          <Separator className="mt-2" />
                         </div>
                       ))}
                     </AccordionContent>
@@ -666,7 +680,7 @@ text-orange-500"
                   }
                 >
                   <SelectTrigger className="w-[180px]">
-                    <SelectValue placeholder="Theme" />
+                    <SelectValue placeholder="Filter Genre" />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="">All</SelectItem>

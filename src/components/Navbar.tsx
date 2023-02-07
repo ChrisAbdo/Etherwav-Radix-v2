@@ -21,7 +21,7 @@ const Navbar = () => {
   return (
     <header
       aria-label="Site Header"
-      className="shadow-sm sticky top-0 z-50 bg-white dark:bg-black border-b border-black dark:border-[#303030]"
+      className="shadow-sm sticky top-0 z-50 bg-white dark:bg-black border-b  dark:border-[#303030]"
     >
       <div className="mx-auto flex h-16 max-w-screen-xl items-center justify-between px-4">
         <div className="flex w-0 flex-1 lg:hidden">
@@ -68,7 +68,11 @@ const Navbar = () => {
 
         {/* reponsive */}
         <div className="flex w-0 flex-1 justify-end lg:hidden">
-          <ConnectWallet accentColor="#f97316" colorMode="dark" />
+          <ConnectWallet
+            className="!rounded-md !h-10"
+            accentColor="#f97316"
+            colorMode="dark"
+          />
         </div>
 
         <NavMenu />
@@ -104,7 +108,7 @@ const Navbar = () => {
         </div>
       </div>
 
-      <div className="border-t border-b border-orange-500  lg:hidden">
+      <div className="border-t border-b border-black dark:border-white  lg:hidden">
         <nav className="flex items-center justify-center overflow-x-auto p-4 text-sm font-medium space-x-8 z-10">
           <Link
             href="/"

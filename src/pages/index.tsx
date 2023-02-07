@@ -10,7 +10,7 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main>
+      <main className="bg-grid-gray-100 dark:bg-grid-[#0f0f0f]">
         <div className="relative px-6 lg:px-8">
           <div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
             <div className="hidden sm:mb-8 sm:flex sm:justify-center">
@@ -23,7 +23,7 @@ export default function Home() {
               </div>
             </div>
             <div className="text-center">
-              <h1 className="flex flex-col gap-2 text-center justify-center text-8xl font-black md:flex-row lg:tracking-tight xl:text-9xl">
+              <h1 className="flex flex-col gap-2 text-center justify-center text-7xl font-black md:flex-row lg:tracking-tight xl:text-9xl">
                 <span
                   className="before:absolute before:-z-10 dark:before:text-white before:text-black before:content-[attr(data-text)]"
                   data-text="Create."

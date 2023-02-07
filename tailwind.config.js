@@ -1,3 +1,8 @@
+const svgToDataUri = require('mini-svg-data-uri');
+const {
+  default: flattenColorPalette,
+} = require('tailwindcss/lib/util/flattenColorPalette');
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: ['class', '[data-theme="dark"]'],
@@ -50,6 +55,21 @@ module.exports = {
     themes: [],
   },
   plugins: [
+    function ({ matchUtilities, theme }) {
+      matchUtilities(
+        {
+          'bg-grid': (value) => ({
+            backgroundImage: `url("${svgToDataUri(
+              `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="64" height="64" fill="none" stroke="${value}" stroke-width="0.5"><path d="M0 .5H31.5V32" /></svg>`
+            )}")`,
+          }),
+        },
+        {
+          values: flattenColorPalette(theme('backgroundColor')),
+          type: 'color',
+        }
+      );
+    },
     require('daisyui'),
     require('tailwindcss-animate'),
     require('@tailwindcss/forms'),
