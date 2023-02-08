@@ -68,7 +68,8 @@ export default function App({ Component, pageProps }: AppProps) {
       </Head>
       <main className={poppins.className}>
         <ThemeProvider>
-          <Navbar />
+          {/* @ts-ignore */}
+          <Navbar open={open} setOpen={setOpen} />
           <CommandDialog open={open} onOpenChange={setOpen}>
             <div className="mt-3 w-[95%]">
               <CommandInput placeholder="Type a command or search..." />
@@ -115,7 +116,7 @@ export default function App({ Component, pageProps }: AppProps) {
               </CommandGroup>
             </CommandList>
           </CommandDialog>
-          <Component {...pageProps} open={open} />
+          <Component {...pageProps} />
           <Toaster />
         </ThemeProvider>
       </main>

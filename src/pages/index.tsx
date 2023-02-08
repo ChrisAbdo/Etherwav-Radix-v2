@@ -44,68 +44,6 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="bg-grid-gray-50 dark:bg-grid-[#0f0f0f]">
-        <CommandDialog open={open} onOpenChange={setOpen}>
-          <div className="mt-3 w-[95%]">
-            <CommandInput placeholder="Type a command or search..." />
-          </div>
-          <CommandList>
-            <CommandEmpty>No results found.</CommandEmpty>
-            <CommandGroup heading="Suggestions">
-              <Link href="/radio">
-                <CommandItem>
-                  <RadioIcon className="mr-2 h-4 w-4" />
-                  <span className="text-black dark:text-white">Radio</span>
-                </CommandItem>
-              </Link>
-              <Link href="/upload">
-                <CommandItem>
-                  <Upload className="mr-2 h-4 w-4" />
-                  <span>Upload</span>
-                </CommandItem>
-              </Link>
-              <Link href="/profile">
-                <CommandItem>
-                  <User className="mr-2 h-4 w-4" />
-                  <span>Profile</span>
-                </CommandItem>
-              </Link>
-            </CommandGroup>
-            <CommandSeparator />
-            <CommandGroup heading="Coming Soon | Search For Songs & Artists">
-              <CommandItem>
-                <User className="mr-2 h-4 w-4" />
-                <span>Profile</span>
-                <CommandShortcut>⌘P</CommandShortcut>
-              </CommandItem>
-              <CommandItem>
-                <CreditCard className="mr-2 h-4 w-4" />
-                <span>Billing</span>
-                <CommandShortcut>⌘B</CommandShortcut>
-              </CommandItem>
-              <CommandItem>
-                <Settings className="mr-2 h-4 w-4" />
-                <span>Settings</span>
-                <CommandShortcut>⌘S</CommandShortcut>
-              </CommandItem>
-              <CommandItem>
-                <Search className="mr-2 h-4 w-4" />
-                <span>Placeholder</span>
-                <CommandShortcut>⌘F</CommandShortcut>
-              </CommandItem>
-              <CommandItem>
-                <Settings className="mr-2 h-4 w-4" />
-                <span>Placeholder</span>
-                <CommandShortcut>⌘S</CommandShortcut>
-              </CommandItem>
-              <CommandItem>
-                <CreditCard className="mr-2 h-4 w-4" />
-                <span>Placeholder</span>
-                <CommandShortcut>⌘X</CommandShortcut>
-              </CommandItem>
-            </CommandGroup>
-          </CommandList>
-        </CommandDialog>
-
         <div className="relative px-6 lg:px-8">
           <div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
             <div className="hidden sm:mb-8 sm:flex sm:justify-center">
@@ -173,6 +111,7 @@ export default function Home() {
                 onClick={() => setOpen(true)}
                 variant="outline"
                 className="mt-10"
+                disabled
               >
                 <Search className="mr-2 h-4 w-4" /> Quick Search | Ctrl K
               </Button>
