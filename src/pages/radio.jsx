@@ -1,9 +1,7 @@
-import { useEffect, useState, useLayoutEffect, useRef, Fragment } from 'react';
+import { useEffect, useState, useLayoutEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
-import Balancer from 'react-wrap-balancer';
 
 import axios from 'axios';
-import ReactAudioPlayer from 'react-audio-player';
 import toast from 'react-hot-toast';
 import Image from 'next/image';
 
@@ -75,7 +73,7 @@ import {
 } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 import { Progress } from '@/components/ui/progress';
-
+import Marquee from 'react-fast-marquee';
 const transition = { duration: 0.5, ease: [0.43, 0.13, 0.23, 0.96] };
 
 const RadioPage = () => {
@@ -460,11 +458,11 @@ text-orange-500"
   }
 
   return (
-    <div className="fixed w-full">
+    <div>
       <div>
         <div className="drawer drawer-mobile">
           <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-          <div className="drawer-content flex flex-col">
+          <div className="drawer-content">
             {/* <!-- Page content here --> */}
             <div className="flex justify-between ">
               <div className="w-full px-1">
@@ -512,452 +510,394 @@ text-orange-500"
                 </Accordion>
               </div>
             </div>
-            <div className="hero ">
+            <div className="">
               {songsLoaded ? (
-                <div
-                  key={currentIndex}
-                  className="card rounded-none border-b border-[#2a2a2a] w-full "
-                >
-                  <figure>
-                    <motion.div
-                      key={nfts[currentIndex].tokenId}
-                      initial={direction === 'right' ? { x: -100 } : { x: 100 }}
-                      animate={{ x: 0 }}
-                      exit={direction === 'right' ? { x: 100 } : { x: -100 }}
-                      transition={transition}
-                    >
-                      <Image
-                        src={nfts[currentIndex].coverImage}
-                        width={300}
-                        height={300}
-                        alt="cover"
-                        className="rounded-none min-w-[300px] min-h-[300px] max-w-[300px] max-h-[300px]"
-                        priority
-                      />
-                    </motion.div>
-                  </figure>
-                  <div className="text-orange-500 text-xl p-2 font-bold bg-[#DADDE2] dark:bg-[#2a2a2a] border-none text-center cursor-default">
-                    <span>🔥</span> Heat Count: {nfts[currentIndex].heatCount}{' '}
-                    <span>🔥</span>
-                  </div>
-                  <div className="p-8">
-                    <div className="flex justify-between">
-                      {/* <motion.span
-                        className="badge card3 rounded cursor-pointer p-4 min-w-[90px]"
-                        whileHover={{ scale: 1.2 }}
-                        transition={{ duration: 0.3 }}
-                        onClick={async () => {
-                          await loadSongsByGenre(nfts[currentIndex].genre);
-                          // reset the index
-                          setCurrentIndex(0);
-                          toast.success(
-                            `Sorted by ${nfts[currentIndex].genre}`
-                          );
-                        }}
+                <div>
+                  <div
+                    key={currentIndex}
+                    className="card rounded-none border-b border-[#2a2a2a] w-full "
+                  >
+                    <figure>
+                      <motion.div
+                        key={nfts[currentIndex].tokenId}
+                        initial={
+                          direction === 'right' ? { x: -100 } : { x: 100 }
+                        }
+                        animate={{ x: 0 }}
+                        exit={direction === 'right' ? { x: 100 } : { x: -100 }}
+                        transition={transition}
                       >
-                        {nfts[currentIndex].genre}
-                      </motion.span> */}
-                      <Button
-                        onClick={async () => {
-                          await loadSongsByGenre(nfts[currentIndex].genre);
-                          // reset the index
-                          setCurrentIndex(0);
-                          toast.success(
-                            `Sorted by ${nfts[currentIndex].genre}`
-                          );
-                        }}
-                        variant="outline"
-                        size="lg"
-                      >
-                        {nfts[currentIndex].genre}
-                      </Button>
-
-                      <AlertDialog>
-                        <AlertDialogTrigger asChild>
-                          <Button size="lg" variant="outline">
-                            More Info
-                          </Button>
-                        </AlertDialogTrigger>
-                        <AlertDialogContent>
-                          <AlertDialogHeader>
-                            <AlertDialogTitle>
-                              More Information
-                            </AlertDialogTitle>
-                            <AlertDialogDescription>
-                              <p className="py-4">
-                                {nfts[currentIndex] && nfts[currentIndex].name}{' '}
-                                | Heat 🔥:{' '}
-                                {nfts[currentIndex] &&
-                                  nfts[currentIndex].heatCount}
-                              </p>
-                              <a
-                                className="link link-hover text-xs "
-                                rel="noreferrer"
-                                target="_blank"
-                                // href to etherscan with the seller address
-                                href={`https://etherscan.io/address/${
-                                  nfts[currentIndex] &&
-                                  nfts[currentIndex].seller
-                                }`}
-                              >
-                                Original Author:{' '}
-                                {nfts[currentIndex] &&
-                                  nfts[currentIndex].seller.substring(0, 5) +
-                                    '...' +
-                                    nfts[currentIndex].seller.substring(38, 42)}
-                              </a>
-                              <br />
-                              <a
-                                className="link link-hover text-xs "
-                                rel="noreferrer"
-                                target="_blank"
-                                href={
-                                  nfts[currentIndex] &&
-                                  nfts[currentIndex].coverImage.toString()
-                                }
-                              >
-                                Cover Image: IPFS (click to view)
-                              </a>
-                              <br />
-                              <a
-                                className="link link-hover text-xs "
-                                rel="noreferrer"
-                                target="_blank"
-                                href={
-                                  nfts[currentIndex] &&
-                                  nfts[currentIndex].image.toString()
-                                }
-                              >
-                                Audio Source: IPFS (click to view)
-                              </a>
-                            </AlertDialogDescription>
-                          </AlertDialogHeader>
-                          <AlertDialogFooter>
-                            <AlertDialogAction>Close</AlertDialogAction>
-                          </AlertDialogFooter>
-                        </AlertDialogContent>
-                      </AlertDialog>
+                        <Image
+                          src={nfts[currentIndex].coverImage}
+                          width={300}
+                          height={300}
+                          alt="cover"
+                          className="rounded-none min-w-[300px] min-h-[300px] max-w-[300px] max-h-[300px]"
+                          priority
+                        />
+                      </motion.div>
+                    </figure>
+                    <div className="text-orange-500 text-xl p-2 font-bold bg-[#DADDE2] dark:bg-[#2a2a2a] border-none text-center cursor-default">
+                      <span>🔥</span> Heat Count: {nfts[currentIndex].heatCount}{' '}
+                      <span>🔥</span>
                     </div>
-                    <h2 className="card-title text-center justify-center text-2xl truncate">
-                      {nfts.length > 0 &&
-                        nfts[currentIndex].name.substring(0, 24)}
-                    </h2>
-                    {/* <Link
-                      href="/[slug]"
-                      as={`/${nfts[currentIndex].seller}`}
-                      className="text-center link link-hover"
-                    >
-                      {nfts.length > 0 && nfts[currentIndex].seller.slice(0, 6)}
-                      ...
-                      {nfts.length > 0 &&
-                        nfts[currentIndex].seller.slice(38, 42)}
-                    </Link> */}
+                    <div className="p-8">
+                      <div className="flex justify-between">
+                        <Button
+                          onClick={async () => {
+                            await loadSongsByGenre(nfts[currentIndex].genre);
+                            // reset the index
+                            setCurrentIndex(0);
+                            toast.success(
+                              `Sorted by ${nfts[currentIndex].genre}`
+                            );
+                          }}
+                          variant="outline"
+                          size="lg"
+                        >
+                          {nfts[currentIndex].genre}
+                        </Button>
 
-                    <div className="flex justify-center text-center items-center">
-                      <HoverCard>
-                        <HoverCardTrigger asChild>
-                          <Button variant="link">
-                            {nfts.length > 0 &&
-                              nfts[currentIndex].seller.slice(0, 6)}
-                            ...
-                            {nfts.length > 0 &&
-                              nfts[currentIndex].seller.slice(38, 42)}
-                          </Button>
-                        </HoverCardTrigger>
-                        <HoverCardContent className="w-80">
-                          <div className="flex justify-between space-x-4">
-                            <Avatar>
-                              <AvatarImage
-                                // src="https://api.dicebear.com/5.x/identicon/svg?seed=Felix"
-                                src={`https://api.dicebear.com/5.x/lorelei/svg?seed=/${nfts[currentIndex].seller}.svg?`}
-                              />
-                            </Avatar>
-                            <div className="space-y-1">
-                              <Link
-                                href="/[slug]"
-                                as={`/${nfts[currentIndex].seller}`}
-                                className="text-center link link-hover"
-                              >
-                                {nfts.length > 0 &&
-                                  nfts[currentIndex].seller.slice(0, 6)}
-                                ...
-                                {nfts.length > 0 &&
-                                  nfts[currentIndex].seller.slice(38, 42)}
-                              </Link>
-                              <p className="text-sm">
-                                Bios are coming soon. For now, please imagine
-                                something cool here.
-                              </p>
-                              <div className="flex items-center pt-2">
-                                <span className="text-xs text-slate-500 dark:text-slate-400">
-                                  Joined February 2023
-                                </span>
+                        <AlertDialog>
+                          <AlertDialogTrigger asChild>
+                            <Button size="lg" variant="outline">
+                              More Info
+                            </Button>
+                          </AlertDialogTrigger>
+                          <AlertDialogContent>
+                            <AlertDialogHeader>
+                              <AlertDialogTitle>
+                                More Information
+                              </AlertDialogTitle>
+                              <AlertDialogDescription>
+                                <p className="py-4">
+                                  {nfts[currentIndex] &&
+                                    nfts[currentIndex].name}{' '}
+                                  | Heat 🔥:{' '}
+                                  {nfts[currentIndex] &&
+                                    nfts[currentIndex].heatCount}
+                                </p>
+                                <a
+                                  className="link link-hover text-xs "
+                                  rel="noreferrer"
+                                  target="_blank"
+                                  // href to etherscan with the seller address
+                                  href={`https://etherscan.io/address/${
+                                    nfts[currentIndex] &&
+                                    nfts[currentIndex].seller
+                                  }`}
+                                >
+                                  Original Author:{' '}
+                                  {nfts[currentIndex] &&
+                                    nfts[currentIndex].seller.substring(0, 5) +
+                                      '...' +
+                                      nfts[currentIndex].seller.substring(
+                                        38,
+                                        42
+                                      )}
+                                </a>
+                                <br />
+                                <a
+                                  className="link link-hover text-xs "
+                                  rel="noreferrer"
+                                  target="_blank"
+                                  href={
+                                    nfts[currentIndex] &&
+                                    nfts[currentIndex].coverImage.toString()
+                                  }
+                                >
+                                  Cover Image: IPFS (click to view)
+                                </a>
+                                <br />
+                                <a
+                                  className="link link-hover text-xs "
+                                  rel="noreferrer"
+                                  target="_blank"
+                                  href={
+                                    nfts[currentIndex] &&
+                                    nfts[currentIndex].image.toString()
+                                  }
+                                >
+                                  Audio Source: IPFS (click to view)
+                                </a>
+                              </AlertDialogDescription>
+                            </AlertDialogHeader>
+                            <AlertDialogFooter>
+                              <AlertDialogAction>Close</AlertDialogAction>
+                            </AlertDialogFooter>
+                          </AlertDialogContent>
+                        </AlertDialog>
+                      </div>
+                      <h2 className="card-title text-center justify-center text-2xl truncate">
+                        {nfts.length > 0 &&
+                          nfts[currentIndex].name.substring(0, 24)}
+                      </h2>
+
+                      <div className="flex justify-center text-center items-center">
+                        <HoverCard>
+                          <HoverCardTrigger asChild>
+                            <Button variant="link">
+                              {nfts.length > 0 &&
+                                nfts[currentIndex].seller.slice(0, 6)}
+                              ...
+                              {nfts.length > 0 &&
+                                nfts[currentIndex].seller.slice(38, 42)}
+                            </Button>
+                          </HoverCardTrigger>
+                          <HoverCardContent className="w-80">
+                            <div className="flex justify-between space-x-4">
+                              <Avatar>
+                                <AvatarImage
+                                  // src="https://api.dicebear.com/5.x/identicon/svg?seed=Felix"
+                                  src={`https://api.dicebear.com/5.x/lorelei/svg?seed=/${nfts[currentIndex].seller}.svg?`}
+                                />
+                              </Avatar>
+                              <div className="space-y-1">
+                                <Link
+                                  href="/[slug]"
+                                  as={`/${nfts[currentIndex].seller}`}
+                                  className="text-center link link-hover"
+                                >
+                                  {nfts.length > 0 &&
+                                    nfts[currentIndex].seller.slice(0, 6)}
+                                  ...
+                                  {nfts.length > 0 &&
+                                    nfts[currentIndex].seller.slice(38, 42)}
+                                </Link>
+                                <p className="text-sm">
+                                  Bios are coming soon. For now, please imagine
+                                  something cool here.
+                                </p>
+                                <div className="flex items-center pt-2">
+                                  <span className="text-xs text-slate-500 dark:text-slate-400">
+                                    Joined February 2023
+                                  </span>
+                                </div>
                               </div>
                             </div>
-                          </div>
-                        </HoverCardContent>
-                      </HoverCard>
-                    </div>
+                          </HoverCardContent>
+                        </HoverCard>
+                      </div>
 
-                    <h1 className="text-right">
-                      {Math.floor(duration / 60)}:{Math.floor(duration % 60)}
-                    </h1>
-                    <Progress value={progress} />
+                      <h1 className="text-right">
+                        {Math.floor(duration / 60)}:{Math.floor(duration % 60)}
+                      </h1>
+                      <Progress value={progress} />
 
-                    <div className="flex justify-between space-x-4 mt-4">
-                      <Button
-                        onClick={handlePrevious}
-                        disabled={currentIndex === 0}
-                        variant="subtle"
-                        size="lg"
-                      >
-                        <SkipBack />
-                      </Button>
-
-                      <audio
-                        src={nfts[currentIndex].image}
-                        ref={audioRef}
-                        onEnded={() => {
-                          if (currentIndex < nfts.length - 1) {
-                            setCurrentIndex(currentIndex + 1);
-                          }
-                        }}
-                        onPlay={() => {
-                          console.log(audioRef.current.duration);
-                          setDuration(audioRef.current.duration);
-                          // calculate the progress every second considering the duration
-                          const interval = setInterval(() => {
-                            setProgress(
-                              (audioRef.current.currentTime / duration) * 100
-                            );
-                          }, 1000);
-                          return () => clearInterval(interval);
-                        }}
-                        className="h-12 w-full hidden"
-                        controls
-                        // autoplay after the first song
-                        autoPlay={currentIndex !== 0}
-                      />
-
-                      <Button
-                        onClick={() => {
-                          if (isPlaying) {
-                            audioRef.current.pause();
-                            setIsPlaying(false);
-                          } else {
-                            audioRef.current.play();
-                            audioRef.current.pause();
-                            audioRef.current.play();
-                            setIsPlaying(true);
-                          }
-                        }}
-                        variant="subtle"
-                        size="lg"
-                      >
-                        {isPlaying ? <Pause /> : <Play />}
-                      </Button>
-
-                      <Button
-                        onClick={handleNext}
-                        disabled={currentIndex === nfts.length - 1}
-                        variant="subtle"
-                        size="lg"
-                      >
-                        <SkipForward />
-                      </Button>
-                    </div>
-                    <div className="card-actions justify-between mt-4">
-                      {/* <label
-                        htmlFor="my-modal-6"
-                        className="btn btn-outline text-[#555555] normal-case rounded cursor-pointer"
-                      >
-                        Report
-                      </label> */}
-                      {/* <AlertDialog>
-                        <AlertDialogTrigger asChild>
-                          <Button size="lg" variant="outline">
-                            Report
-                          </Button>
-                        </AlertDialogTrigger>
-                        <AlertDialogContent>
-                          <AlertDialogHeader>
-                            <AlertDialogTitle>
-                              Sorry this feature is not available yet!
-                            </AlertDialogTitle>
-                            <AlertDialogDescription>
-                              Please message me on Twitter @abdo_eth if you have
-                              any issues.
-                            </AlertDialogDescription>
-                          </AlertDialogHeader>
-                          <AlertDialogFooter>
-                            <AlertDialogAction>Close</AlertDialogAction>
-                          </AlertDialogFooter>
-                        </AlertDialogContent>
-                      </AlertDialog> */}
-                      <Button
-                        size="lg"
-                        variant="outline"
-                        className="lg:invisible"
-                      >
-                        <label
-                          htmlFor="my-drawer-2"
-                          className="flex rounded-md  text-black dark:text-white"
+                      <div className="flex justify-between space-x-4 mt-4">
+                        <Button
+                          onClick={handlePrevious}
+                          disabled={currentIndex === 0}
+                          variant="subtle"
+                          size="lg"
                         >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            strokeWidth={1.5}
-                            stroke="currentColor"
-                            className="w-4 h-4"
+                          <SkipBack />
+                        </Button>
+
+                        <audio
+                          src={nfts[currentIndex].image}
+                          ref={audioRef}
+                          onEnded={() => {
+                            if (currentIndex < nfts.length - 1) {
+                              setCurrentIndex(currentIndex + 1);
+                            }
+                          }}
+                          onPlay={() => {
+                            console.log(audioRef.current.duration);
+                            setDuration(audioRef.current.duration);
+                            // calculate the progress every second considering the duration
+                            const interval = setInterval(() => {
+                              setProgress(
+                                (audioRef.current.currentTime / duration) * 100
+                              );
+                            }, 1000);
+                            return () => clearInterval(interval);
+                          }}
+                          className="h-12 w-full hidden"
+                          controls
+                          // autoplay after the first song
+                          autoPlay={currentIndex !== 0}
+                        />
+
+                        <Button
+                          onClick={() => {
+                            if (isPlaying) {
+                              audioRef.current.pause();
+                              setIsPlaying(false);
+                            } else {
+                              audioRef.current.play();
+                              audioRef.current.pause();
+                              audioRef.current.play();
+                              setIsPlaying(true);
+                            }
+                          }}
+                          variant="subtle"
+                          size="lg"
+                        >
+                          {isPlaying ? <Pause /> : <Play />}
+                        </Button>
+
+                        <Button
+                          onClick={handleNext}
+                          disabled={currentIndex === nfts.length - 1}
+                          variant="subtle"
+                          size="lg"
+                        >
+                          <SkipForward />
+                        </Button>
+                      </div>
+                      <div className="card-actions justify-between mt-4">
+                        <Button
+                          size="lg"
+                          variant="outline"
+                          className="lg:invisible"
+                        >
+                          <label
+                            htmlFor="my-drawer-2"
+                            className="flex rounded-md  text-black dark:text-white"
                           >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              d="M3.75 12h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 010 3.75H5.625a1.875 1.875 0 010-3.75z"
-                            />
-                          </svg>
-                          &nbsp; queue
-                        </label>
-                      </Button>
-
-                      {/* <label
-                        htmlFor="my-modal-5"
-                        className="rounded relative p-0.5 inline-flex items-center justify-center font-bold overflow-hidden group cursor-pointer"
-                      >
-                        <span className="rounded w-full h-full bg-gradient-to-br from-yellow-600  to-red-600 group-hover:from-yellow-600  group-hover:to-red-600 absolute"></span>
-                        <span className="rounded relative px-6 py-3 transition-all ease-out bg-white dark:bg-black  group-hover:bg-opacity-0 duration-400">
-                          <span className="rounded relative text-black dark:text-white">
-                            Give Heat 🔥
-                          </span>
-                        </span>
-                      </label> */}
-                      <Dialog>
-                        <DialogTrigger asChild>
-                          <Button size="lg" variant="destructive">
-                            Give Heat 🔥{' '}
-                          </Button>
-                        </DialogTrigger>
-                        <DialogContent className="sm:max-w-[425px]">
-                          <DialogHeader>
-                            <DialogTitle>Give Heat 🔥</DialogTitle>
-
-                            <Accordion
-                              type="single"
-                              collapsible
-                              className="full"
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              strokeWidth={1.5}
+                              stroke="currentColor"
+                              className="w-4 h-4"
                             >
-                              <AccordionItem value="item-1">
-                                <AccordionTrigger className="text-2xl">
-                                  What is Heat?
-                                </AccordionTrigger>
-                                <AccordionContent className="text-xl">
-                                  Heat 🔥 is a way to show your appreciation for
-                                  a song. The more heat a song has, the more it
-                                  will be promoted and pushed to the top of the
-                                  queue. <br /> <br />
-                                  <p className="text-center text-xl mt-4">
-                                    <span className="font-bold">
-                                      1 Heat = 1 MATIC.
-                                    </span>
-                                    <br />
-                                    You can give as much heat as you want.
-                                    <br />
-                                    Please refresh the page after giving heat to
-                                    see the updated amount.
-                                    <br />
-                                    <br /> As of now it is a contract
-                                    interaction, but very soon all Heat values
-                                    will be sent to the uploader. EST Feb 2023.
-                                  </p>
-                                </AccordionContent>
-                              </AccordionItem>
-                            </Accordion>
-                          </DialogHeader>
-                          {/* <div className="grid gap-4 py-4">
-                            <div className="grid grid-cols-4 items-center gap-4">
-                              <Label htmlFor="name" className="text-right">
-                                Name
-                              </Label>
-                              <Input
-                                id="name"
-                                value="Pedro Duarte"
-                                className="col-span-3"
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                d="M3.75 12h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 010 3.75H5.625a1.875 1.875 0 010-3.75z"
                               />
-                            </div>
-                            <div className="grid grid-cols-4 items-center gap-4">
-                              <Label htmlFor="username" className="text-right">
-                                Username
-                              </Label>
-                              <Input
-                                id="username"
-                                value="@peduarte"
-                                className="col-span-3"
-                              />
-                            </div>
-                          </div> */}
-                          <div className="flex justify-center text-center ">
-                            <div className="form-control mt-4  rounded-xl">
-                              {nfts[currentIndex] && (
-                                <div
-                                  id="heatcountdiv"
-                                  className="bg-[#DADDE2] dark:bg-[#1f1f1f] border border-[#2a2a2a] mt-4 p-4 max-w-xl rounded-md"
-                                >
-                                  <h1
-                                    id="heatcounttext"
-                                    className="text-center text-xl "
-                                  >
-                                    You are giving {heatCount} Heat 🔥 to{' '}
-                                    {nfts[currentIndex].name}
-                                  </h1>
+                            </svg>
+                            &nbsp; queue
+                          </label>
+                        </Button>
+
+                        <Dialog>
+                          <DialogTrigger asChild>
+                            <Button size="lg" variant="destructive">
+                              Give Heat 🔥{' '}
+                            </Button>
+                          </DialogTrigger>
+                          <DialogContent className="sm:max-w-[425px]">
+                            <DialogHeader>
+                              <DialogTitle>Give Heat 🔥</DialogTitle>
+
+                              <Accordion
+                                type="single"
+                                collapsible
+                                className="full"
+                              >
+                                <AccordionItem value="item-1">
+                                  <AccordionTrigger className="text-2xl">
+                                    What is Heat?
+                                  </AccordionTrigger>
+                                  <AccordionContent className="text-xl">
+                                    Heat 🔥 is a way to show your appreciation
+                                    for a song. The more heat a song has, the
+                                    more it will be promoted and pushed to the
+                                    top of the queue. <br /> <br />
+                                    <p className="text-center text-xl mt-4">
+                                      <span className="font-bold">
+                                        1 Heat = 1 MATIC.
+                                      </span>
+                                      <br />
+                                      You can give as much heat as you want.
+                                      <br />
+                                      Please refresh the page after giving heat
+                                      to see the updated amount.
+                                      <br />
+                                      <br /> As of now it is a contract
+                                      interaction, but very soon all Heat values
+                                      will be sent to the uploader. EST Feb
+                                      2023.
+                                    </p>
+                                  </AccordionContent>
+                                </AccordionItem>
+                              </Accordion>
+                            </DialogHeader>
+
+                            <div className="flex justify-center text-center ">
+                              <div className="form-control mt-4  rounded-xl">
+                                {nfts[currentIndex] && (
                                   <div
-                                    id="heatanimation"
-                                    className="hidden  text-center justify-center items-center"
+                                    id="heatcountdiv"
+                                    className="bg-[#DADDE2] dark:bg-[#1f1f1f] border border-[#2a2a2a] mt-4 p-4 max-w-xl rounded-md"
                                   >
-                                    <span className="fire-emoji">🔥</span>
-                                    <span className="fire-emoji">🔥</span>
-                                    <span className="fire-emoji">🔥</span>
-                                    <span className="fire-emoji">🔥</span>
-                                    <span className="fire-emoji">🔥</span>
+                                    <h1
+                                      id="heatcounttext"
+                                      className="text-center text-xl "
+                                    >
+                                      You are giving {heatCount} Heat 🔥 to{' '}
+                                      {nfts[currentIndex].name}
+                                    </h1>
+                                    <div
+                                      id="heatanimation"
+                                      className="hidden  text-center justify-center items-center"
+                                    >
+                                      <span className="fire-emoji">🔥</span>
+                                      <span className="fire-emoji">🔥</span>
+                                      <span className="fire-emoji">🔥</span>
+                                      <span className="fire-emoji">🔥</span>
+                                      <span className="fire-emoji">🔥</span>
+                                    </div>
                                   </div>
-                                </div>
+                                )}
+                              </div>
+                            </div>
+                            <div className="flex w-full items-center space-x-2 mt-12">
+                              <Input
+                                onChange={(event) =>
+                                  setHeatCount(event.target.value)
+                                }
+                                type="number"
+                                min="0"
+                                //
+                                // do not allow negative values
+
+                                placeholder="Enter Heat count"
+                              />
+
+                              {loading ? (
+                                <Button disabled>
+                                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                                  Confirm Transaction!
+                                </Button>
+                              ) : (
+                                <Button
+                                  onClick={handleGiveHeat}
+                                  disabled={heatCount === 0}
+                                  type="submit"
+                                  className=" w-1/3"
+                                  variant="destructive"
+                                >
+                                  Give Heat!
+                                </Button>
                               )}
                             </div>
-                          </div>
-                          <div className="flex w-full items-center space-x-2 mt-12">
-                            <Input
-                              onChange={(event) =>
-                                setHeatCount(event.target.value)
-                              }
-                              type="number"
-                              min="0"
-                              //
-                              // do not allow negative values
-
-                              placeholder="Enter Heat count"
-                            />
-
-                            {loading ? (
-                              <Button disabled>
-                                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                                Confirm Transaction!
-                              </Button>
-                            ) : (
-                              <Button
-                                onClick={handleGiveHeat}
-                                disabled={heatCount === 0}
-                                type="submit"
-                                className=" w-1/3"
-                                variant="destructive"
-                              >
-                                Give Heat!
-                              </Button>
-                            )}
-                          </div>
-                        </DialogContent>
-                      </Dialog>
+                          </DialogContent>
+                        </Dialog>
+                      </div>
                     </div>
                   </div>
+                  <Marquee
+                    className="overflow-y-hidden lg:mt-12"
+                    gradient={false}
+                  >
+                    <div className="">
+                      <h1>
+                        <span>🔥{nfts[currentIndex].name}</span> by{' '}
+                        <Link
+                          className="font-bold hover:underline"
+                          href={nfts[currentIndex].seller}
+                        >
+                          {nfts[currentIndex].seller.substring(0, 6)}...
+                          {nfts[currentIndex].seller.substring(38, 42)}🔥
+                        </Link>
+                      </h1>
+                    </div>
+                  </Marquee>
                 </div>
               ) : (
                 <div className="flex flex-col items-center justify-center h-full">
@@ -985,7 +925,7 @@ text-orange-500"
             </div>
           </div>
 
-          <div className="drawer-side overflow-y-hidden">
+          <div className="drawer-side">
             <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
             <ul className="menu p-2 w-80 bg-white dark:bg-black text-base-content border-r border-[#2a2a2a] ">
               {/* <!-- Sidebar content here --> */}
