@@ -28,6 +28,7 @@ import {
   Upload,
   User,
 } from 'lucide-react';
+import Head from 'next/head';
 
 const poppins = Poppins({
   weight: '400',
@@ -52,6 +53,18 @@ export default function App({ Component, pageProps }: AppProps) {
 
   return (
     <ThirdwebProvider desiredChainId={activeChainId}>
+      <Head>
+        <meta name="viewport" content="initial-scale=1, width=device-width" />
+        <meta name="author" content="Christopher Abdo" />
+        <meta
+          name="description"
+          content="Etherwav is an algorthmically rewarding and community driven Web3 radio built to reward creators for making amazing music."
+        />
+        <meta
+          name="keywords"
+          content="Christopher Abdo, Etherwav, web3 radio, web3, software engineer, developer, programming, projects"
+        />
+      </Head>
       <main className={poppins.className}>
         <ThemeProvider>
           <Navbar />
