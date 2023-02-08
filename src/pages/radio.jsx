@@ -460,7 +460,7 @@ text-orange-500"
   }
 
   return (
-    <div>
+    <div className="fixed w-full h-full">
       <div>
         <div className="drawer drawer-mobile">
           <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
@@ -468,28 +468,6 @@ text-orange-500"
             {/* <!-- Page content here --> */}
             <div className="flex justify-between ">
               <div className="w-full px-1">
-                <Button variant="subtle" className="lg:hidden mt-4 ml-4 mb-4">
-                  <label
-                    htmlFor="my-drawer-2"
-                    className="flex rounded-md  text-black dark:text-white lg:hidden "
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth={1.5}
-                      stroke="currentColor"
-                      className="w-4 h-4"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M3.75 12h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 010 3.75H5.625a1.875 1.875 0 010-3.75z"
-                      />
-                    </svg>
-                    &nbsp; queue
-                  </label>
-                </Button>
                 <Accordion type="single" collapsible>
                   <AccordionItem value="item-1">
                     <AccordionTrigger>
