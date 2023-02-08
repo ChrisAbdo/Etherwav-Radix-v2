@@ -15,9 +15,17 @@
 }
 
 .card3 {
-  @apply transition-colors duration-500;
+  @apply transition-colors duration-500 ;
 }
 
 .card3:hover {
+  @apply bg-[#DADDE2] dark:bg-[#303030];
+}
+
+.homecard {
+  @apply transition-colors duration-500  rounded-xl;
+}
+
+.homecard:hover {
   @apply bg-[#DADDE2] dark:bg-[#303030];
 }

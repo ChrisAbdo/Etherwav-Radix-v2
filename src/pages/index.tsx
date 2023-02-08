@@ -194,8 +194,8 @@ export default function Home() {
               </p>
             </div>
             <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-4xl">
-              <dl className="grid max-w-xl grid-cols-1 gap-y-10 gap-x-8 lg:max-w-none lg:grid-cols-2 lg:gap-y-16">
-                <div className="relative pl-16">
+              <dl className="grid max-w-xl grid-cols-1 gap-y-10 gap-x-8 lg:max-w-none lg:grid-cols-2 lg:gap-y-16 ">
+                <div className="relative pl-16 homecard">
                   <dt className="text-base font-semibold leading-7">
                     <div className="absolute top-0 left-0 flex h-10 w-10 items-center justify-center rounded-lg bg-orange-500">
                       {/* <!-- Heroicon name: outline/cloud-arrow-up --> */}
@@ -221,7 +221,7 @@ export default function Home() {
                   </dd>
                 </div>
 
-                <div className="relative pl-16">
+                <div className="relative pl-16 homecard">
                   <dt className="text-base font-semibold leading-7 ">
                     <div className="absolute top-0 left-0 flex h-10 w-10 items-center justify-center rounded-lg bg-orange-500">
                       {/* <!-- Heroicon name: outline/lock-closed --> */}
@@ -247,7 +247,7 @@ export default function Home() {
                   </dd>
                 </div>
 
-                <div className="relative pl-16">
+                <div className="relative pl-16 homecard">
                   <dt className="text-base font-semibold leading-7 ">
                     <div className="absolute top-0 left-0 flex h-10 w-10 items-center justify-center rounded-lg bg-orange-500">
                       {/* <!-- Heroicon name: outline/arrow-path --> */}
@@ -278,7 +278,7 @@ export default function Home() {
                   </dd>
                 </div>
 
-                <div className="relative pl-16">
+                <div className="relative pl-16 homecard">
                   <dt className="text-base font-semibold leading-7">
                     <div className="absolute top-0 left-0 flex h-10 w-10 items-center justify-center rounded-lg bg-orange-500">
                       {/* <!-- Heroicon name: outline/finger-print --> */}
