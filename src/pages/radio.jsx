@@ -930,7 +930,7 @@ text-orange-500"
             <ul className="menu p-2 w-80 bg-white dark:bg-black text-base-content border-r border-[#2a2a2a] ">
               {/* <!-- Sidebar content here --> */}
 
-              <div className="flex justify-between border-b border-black dark:border-[#303030] p-2.5 sticky top-0 bg-black z-50">
+              <div className="flex justify-between border-b border-black dark:border-[#303030] p-2.5 sticky top-0 bg-white dark:bg-black z-50">
                 <Select
                   onValueChange={(value) =>
                     loadSongsByGenre(value).then(() => {
