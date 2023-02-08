@@ -679,10 +679,16 @@ text-orange-500"
                         </HoverCard>
                       </div>
 
-                      <h1 className="text-right">
-                        {Math.floor(duration / 60)}:{Math.floor(duration % 60)}
-                      </h1>
-                      <Progress value={progress} />
+                      <div className="flex justify-between items-center text-center space-x-4">
+                        <h1>0:00</h1>
+                        <Progress value={progress} />
+                        <div>
+                          {Math.floor(duration / 60)}:
+                          {Math.floor(duration % 60) < 10
+                            ? `0${Math.floor(duration % 60)}`
+                            : Math.floor(duration % 60)}
+                        </div>
+                      </div>
 
                       <div className="flex justify-between space-x-4 mt-4">
                         <Button
@@ -1001,8 +1007,9 @@ text-orange-500"
                   >
                     <div className="justify-between">
                       <h1>
+                        {nft.heatCount} | &nbsp;
                         <span className="text-lg font-semibold">
-                          {nft.name} | {nft.heatCount}
+                          {nft.name}
                         </span>{' '}
                         <br /> {nft.seller.slice(0, 6)}...
                         {nft.seller.slice(-4)}
