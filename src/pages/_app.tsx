@@ -41,7 +41,7 @@ export default function App({ Component, pageProps }: AppProps) {
 
   React.useEffect(() => {
     const down = (e: any) => {
-      if (e.key === 'j') {
+      if (e.key === 'j' && e.metaKey) {
         e.preventDefault();
         setOpen((open) => !open);
       }

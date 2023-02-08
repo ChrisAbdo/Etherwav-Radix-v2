@@ -15,12 +15,21 @@ import {
 } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Syringe } from 'lucide-react';
-import { ConnectWallet, useAddress } from '@thirdweb-dev/react';
+import { Wifi } from 'lucide-react';
+import {
+  useNetworkMismatch,
+  useAddress,
+  ConnectWallet,
+  useNetwork,
+} from '@thirdweb-dev/react';
+import { ChainId } from '@thirdweb-dev/sdk';
 
-// @ts-ignore
+const CHAIN_ID = ChainId.Mumbai;
+
 const Navbar = () => {
   const address = useAddress();
+  const isOnWrongNetwork = useNetworkMismatch();
+  const [, switchNetwork] = useNetwork();
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = React.useState(false);
 
@@ -104,6 +113,19 @@ const Navbar = () => {
               {/* <Button variant="subtle">Browser Wallet </Button> */}
               {/* <Button variant="subtle">WalletConnect</Button> */}
               <ConnectWallet accentColor="#f97316" colorMode="dark" />
+
+              {isOnWrongNetwork && (
+                <div className="mt-4">
+                  <Button
+                    variant="default"
+                    onClick={() => switchNetwork?.(CHAIN_ID)}
+                    className="w-full"
+                  >
+                    <Wifi />
+                    &nbsp; Wrong Network. Switch to Mumbai.&nbsp; <Wifi />
+                  </Button>
+                </div>
+              )}
             </DialogContent>
           </Dialog>
         </div>
