@@ -460,7 +460,7 @@ text-orange-500"
   }
 
   return (
-    <div className="fixed w-full h-full">
+    <div className="fixed w-full">
       <div>
         <div className="drawer drawer-mobile">
           <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
@@ -528,10 +528,10 @@ text-orange-500"
                     >
                       <Image
                         src={nfts[currentIndex].coverImage}
-                        width={400}
-                        height={400}
+                        width={300}
+                        height={300}
                         alt="cover"
-                        className="rounded-none min-w-[390px] min-h-[390px] max-w-[390px] max-h-[390px]"
+                        className="rounded-none min-w-[300px] min-h-[300px] max-w-[300px] max-h-[300px]"
                         priority
                       />
                     </motion.div>
@@ -773,7 +773,7 @@ text-orange-500"
                       >
                         Report
                       </label> */}
-                      <AlertDialog>
+                      {/* <AlertDialog>
                         <AlertDialogTrigger asChild>
                           <Button size="lg" variant="outline">
                             Report
@@ -793,7 +793,33 @@ text-orange-500"
                             <AlertDialogAction>Close</AlertDialogAction>
                           </AlertDialogFooter>
                         </AlertDialogContent>
-                      </AlertDialog>
+                      </AlertDialog> */}
+                      <Button
+                        size="lg"
+                        variant="outline"
+                        className="lg:invisible"
+                      >
+                        <label
+                          htmlFor="my-drawer-2"
+                          className="flex rounded-md  text-black dark:text-white"
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            strokeWidth={1.5}
+                            stroke="currentColor"
+                            className="w-4 h-4"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M3.75 12h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 010 3.75H5.625a1.875 1.875 0 010-3.75z"
+                            />
+                          </svg>
+                          &nbsp; queue
+                        </label>
+                      </Button>
 
                       {/* <label
                         htmlFor="my-modal-5"
