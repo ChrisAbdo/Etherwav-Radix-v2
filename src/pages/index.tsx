@@ -1,4 +1,6 @@
 import React from 'react';
+import Lottie from 'react-lottie-player';
+import lottieJson from 'public/audioreal.json';
 import { Button } from '@/components/ui/button';
 import {
   CreditCard,
@@ -117,6 +119,11 @@ export default function Home() {
               </Button>
             </div>
           </div>
+        </div>
+
+        {/* LOTTIE SHOULD GO HERE */}
+        <div className="flex justify-center">
+          <Lottie loop animationData={lottieJson} play />
         </div>
         <div className="py-24 sm:py-24">
           <div className="mx-auto max-w-7xl px-6 lg:px-8">

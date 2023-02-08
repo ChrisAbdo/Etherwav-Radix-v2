@@ -26,6 +26,7 @@ import Link from 'next/link';
 import {
   Calculator,
   CreditCard,
+  Music,
   Radio as RadioIcon,
   Settings,
   Upload,
@@ -153,13 +154,13 @@ export default function App({ Component, pageProps }: AppProps) {
                 <Link href="/upload">
                   <CommandItem>
                     <Upload className="mr-2 h-4 w-4" />
-                    <span>Upload</span>
+                    <span className="text-black dark:text-white">Upload</span>
                   </CommandItem>
                 </Link>
                 <Link href="/profile">
                   <CommandItem>
                     <User className="mr-2 h-4 w-4" />
-                    <span>Profile</span>
+                    <span className="text-black dark:text-white">Profile</span>
                   </CommandItem>
                 </Link>
               </CommandGroup>
@@ -167,17 +168,19 @@ export default function App({ Component, pageProps }: AppProps) {
               <CommandGroup heading="Search For Songs & Artists">
                 {nfts.length ? (
                   nfts.map((nft, index) => (
-                    <CommandItem key={index}>
-                      <Settings className="mr-2 h-4 w-4" />
-                      <span>
-                        {/* @ts-ignore */}
-                        {nft.name}
-                      </span>
-                      <CommandShortcut>
-                        {/* @ts-ignore */}
-                        {nft.genre}
-                      </CommandShortcut>
-                    </CommandItem>
+                    <Link key={index} href="/radio">
+                      <CommandItem>
+                        <Music className="mr-2 h-4 w-4" />
+                        <span className="text-black dark:text-white">
+                          {/* @ts-ignore */}
+                          {nft.name}
+                        </span>
+                        <CommandShortcut>
+                          {/* @ts-ignore */}
+                          {nft.genre}
+                        </CommandShortcut>
+                      </CommandItem>
+                    </Link>
                   ))
                 ) : (
                   <h1>No songs found</h1>

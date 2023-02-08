@@ -990,7 +990,7 @@ text-orange-500"
                 nfts.map((nft, index) => (
                   <li
                     key={index}
-                    className={`justify-between border-b border-orange-500 card3 ${
+                    className={`justify-between border-b border-[#DADDE2] dark:border-[#303030] card3 ${
                       index === currentIndex
                         ? 'bg-[#DADDE2] dark:bg-[#555555]'
                         : ''
