@@ -41,8 +41,9 @@ export default function App({ Component, pageProps }: AppProps) {
   const [open, setOpen] = React.useState(false);
 
   React.useEffect(() => {
-    const down = (e: any) => {
-      if (e.key === 'j' && e.metaKey) {
+    const down = (e: KeyboardEvent) => {
+      // if user presses control + k
+      if (e.ctrlKey && e.key === 'k') {
         e.preventDefault();
         setOpen((open) => !open);
       }
@@ -114,7 +115,7 @@ export default function App({ Component, pageProps }: AppProps) {
               </CommandGroup>
             </CommandList>
           </CommandDialog>
-          <Component {...pageProps} />
+          <Component {...pageProps} open={open} />
           <Toaster />
         </ThemeProvider>
       </main>
