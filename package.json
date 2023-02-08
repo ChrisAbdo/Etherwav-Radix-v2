@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@3rdweb/hooks": "^1.9.2",
+    "@3rdweb/react": "^1.9.3",
     "@next/font": "13.1.6",
     "@openzeppelin/contracts": "^4.7.3",
     "@radix-ui/react-accordion": "^1.1.0",

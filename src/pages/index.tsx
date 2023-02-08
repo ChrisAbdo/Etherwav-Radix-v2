@@ -10,7 +10,7 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="bg-grid-gray-100 dark:bg-grid-[#0f0f0f]">
+      <main className="bg-grid-gray-50 dark:bg-grid-[#0f0f0f]">
         <div className="relative px-6 lg:px-8">
           <div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
             <div className="hidden sm:mb-8 sm:flex sm:justify-center">
@@ -56,7 +56,8 @@ export default function Home() {
                 Welcome to <span className="font-bold">Etherwav</span>, the{' '}
                 <span className="font-bold">community driven</span> and{' '}
                 <span className="font-bold">algorithmically rewarding</span>{' '}
-                web(3) radio
+                web(3) radio. Powered by{' '}
+                <span className="text-purple-500">Polygon</span>
               </p>
               <div className="mt-10 flex items-center justify-center gap-x-6">
                 <Link

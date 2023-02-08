@@ -1,12 +1,26 @@
 import React from 'react';
 import NavMenu from './NavMenu';
 import { useTheme } from 'next-themes';
+
 import { Button } from '@/components/ui/button';
-import { ConnectWallet } from '@thirdweb-dev/react';
 import Link from 'next/link';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Syringe } from 'lucide-react';
+import { ConnectWallet, useAddress } from '@thirdweb-dev/react';
 
 // @ts-ignore
 const Navbar = () => {
+  const address = useAddress();
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = React.useState(false);
 
@@ -68,24 +82,60 @@ const Navbar = () => {
 
         {/* reponsive */}
         <div className="flex w-0 flex-1 justify-end lg:hidden">
-          <ConnectWallet
-            className="!rounded-md !h-10"
-            accentColor="#f97316"
-            colorMode="dark"
-          />
+          <Dialog>
+            <DialogTrigger asChild>
+              {address ? (
+                <Button variant="default">
+                  {address.substring(0, 5)}...{address.substring(38, 42)}
+                </Button>
+              ) : (
+                <Button variant="default">Connect Wallet</Button>
+              )}
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-[425px]">
+              <DialogHeader>
+                <DialogTitle>Connect your wallet.</DialogTitle>
+                <DialogDescription>
+                  Please connect with one of the available wallet providers to
+                  continue.
+                </DialogDescription>
+              </DialogHeader>
+
+              {/* <Button variant="subtle">Browser Wallet </Button> */}
+              {/* <Button variant="subtle">WalletConnect</Button> */}
+              <ConnectWallet accentColor="#f97316" colorMode="dark" />
+            </DialogContent>
+          </Dialog>
         </div>
 
         <NavMenu />
 
         <div className="hidden items-center gap-4 lg:flex">
-          {/* <button className="rounded-md bg-orange-500 hover:bg-orange-600/80 px-5 py-2 text-md font-medium ">
-            Connect Wallet
-          </button> */}
-          <ConnectWallet
-            accentColor="#f97316"
-            colorMode="dark"
-            className="!rounded-md !h-10"
-          />
+          <Dialog>
+            <DialogTrigger asChild>
+              {address ? (
+                <Button variant="default">
+                  {address.substring(0, 5)}...{address.substring(38, 42)}
+                </Button>
+              ) : (
+                <Button variant="default">Connect Wallet</Button>
+              )}
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-[425px]">
+              <DialogHeader>
+                <DialogTitle>Connect your wallet.</DialogTitle>
+                <DialogDescription>
+                  Please connect with one of the available wallet providers to
+                  continue.
+                </DialogDescription>
+              </DialogHeader>
+
+              {/* <Button variant="subtle">Browser Wallet </Button> */}
+              {/* <Button variant="subtle">WalletConnect</Button> */}
+              <ConnectWallet accentColor="#f97316" colorMode="dark" />
+            </DialogContent>
+          </Dialog>
+
           <Button
             variant="subtle"
             onClick={(e) => setTheme(theme === 'dark' ? 'light' : 'dark')}

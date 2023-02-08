@@ -4,7 +4,9 @@ import type { AppProps } from 'next/app';
 import { ThemeProvider } from 'next-themes';
 import { Poppins } from '@next/font/google';
 import { Toaster } from 'react-hot-toast';
-import { ChainId, ThirdwebProvider } from '@thirdweb-dev/react';
+import { ChainId } from '@thirdweb-dev/react';
+import { ThirdwebProvider } from '@thirdweb-dev/react';
+
 import {
   Command,
   CommandDialog,
