@@ -6,7 +6,10 @@ import { Poppins } from '@next/font/google';
 import { Toaster } from 'react-hot-toast';
 import { ChainId } from '@thirdweb-dev/react';
 import { ThirdwebProvider } from '@thirdweb-dev/react';
-
+import axios from 'axios';
+import Web3 from 'web3';
+import Radio from '../../backend/build/contracts/Radio.json';
+import NFT from '../../backend/build/contracts/NFT.json';
 import {
   Command,
   CommandDialog,
@@ -39,6 +42,8 @@ const activeChainId = ChainId.Mumbai;
 
 export default function App({ Component, pageProps }: AppProps) {
   const [open, setOpen] = React.useState(false);
+  const [nfts, setNfts] = React.useState([]);
+  const [songsLoaded, setSongsLoaded] = React.useState(false);
 
   React.useEffect(() => {
     const down = (e: KeyboardEvent) => {
@@ -51,6 +56,68 @@ export default function App({ Component, pageProps }: AppProps) {
     document.addEventListener('keydown', down);
     return () => document.removeEventListener('keydown', down);
   }, []);
+  React.useEffect(() => {
+    loadSongs();
+  }, []);
+
+  async function loadSongs() {
+    console.log('Loading songs...');
+    // @ts-ignore
+    const web3 = new Web3(window.ethereum);
+
+    const networkId = await web3.eth.net.getId();
+
+    // Get all listed NFTs
+    const radioContract = new web3.eth.Contract(
+      // @ts-ignore
+      Radio.abi,
+      // @ts-ignore
+      Radio.networks[networkId].address
+    );
+    const listings = await radioContract.methods.getListedNfts().call();
+    // Iterate over the listed NFTs and retrieve their metadata
+    const nfts = await Promise.all(
+      listings.map(async (i: any) => {
+        try {
+          const NFTContract = new web3.eth.Contract(
+            // @ts-ignore
+            NFT.abi,
+            // @ts-ignore
+            NFT.networks[networkId].address
+          );
+          const tokenURI = await NFTContract.methods.tokenURI(i.tokenId).call();
+          const meta = await axios.get(tokenURI);
+          const nft = {
+            tokenId: i.tokenId,
+            seller: i.seller,
+            owner: i.buyer,
+            image: meta.data.image,
+            name: meta.data.name,
+            coverImage: meta.data.coverImage,
+            heatCount: i.heatCount,
+            genre: meta.data.genre,
+          };
+          return nft;
+        } catch (err) {
+          console.log(err);
+          return null;
+        }
+      })
+    );
+    // setNfts(nfts.filter((nft) => nft !== null));
+
+    // set nfts in order of heatCount
+    const sortedNfts = nfts
+      .filter((nft) => nft !== null)
+      .sort((a, b) => b.heatCount - a.heatCount);
+    const topThreeNfts = sortedNfts.slice(0, 3);
+
+    // setTopThreeNfts(topThreeNfts);
+    // @ts-ignore
+    setNfts(sortedNfts);
+    // @ts-ignore
+    setSongsLoaded(true);
+  }
 
   return (
     <ThirdwebProvider desiredChainId={activeChainId}>
@@ -76,7 +143,7 @@ export default function App({ Component, pageProps }: AppProps) {
             </div>
             <CommandList>
               <CommandEmpty>No results found.</CommandEmpty>
-              <CommandGroup heading="Suggestions">
+              <CommandGroup heading="Navigation Suggestions">
                 <Link href="/radio">
                   <CommandItem>
                     <RadioIcon className="mr-2 h-4 w-4" />
@@ -97,22 +164,24 @@ export default function App({ Component, pageProps }: AppProps) {
                 </Link>
               </CommandGroup>
               <CommandSeparator />
-              <CommandGroup heading="Coming Soon | Search For Songs & Artists">
-                <CommandItem>
-                  <User className="mr-2 h-4 w-4" />
-                  <span>Profile</span>
-                  <CommandShortcut>⌘P</CommandShortcut>
-                </CommandItem>
-                <CommandItem>
-                  <CreditCard className="mr-2 h-4 w-4" />
-                  <span>Billing</span>
-                  <CommandShortcut>⌘B</CommandShortcut>
-                </CommandItem>
-                <CommandItem>
-                  <Settings className="mr-2 h-4 w-4" />
-                  <span>Settings</span>
-                  <CommandShortcut>⌘S</CommandShortcut>
-                </CommandItem>
+              <CommandGroup heading="Search For Songs & Artists">
+                {nfts.length ? (
+                  nfts.map((nft, index) => (
+                    <CommandItem key={index}>
+                      <Settings className="mr-2 h-4 w-4" />
+                      <span>
+                        {/* @ts-ignore */}
+                        {nft.name}
+                      </span>
+                      <CommandShortcut>
+                        {/* @ts-ignore */}
+                        {nft.genre}
+                      </CommandShortcut>
+                    </CommandItem>
+                  ))
+                ) : (
+                  <h1>No songs found</h1>
+                )}
               </CommandGroup>
             </CommandList>
           </CommandDialog>
