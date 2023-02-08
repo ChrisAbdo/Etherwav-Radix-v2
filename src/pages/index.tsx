@@ -120,7 +120,7 @@ export default function Home() {
             <div className="text-center">
               <h1 className="flex flex-col gap-2 text-center justify-center text-7xl font-black md:flex-row lg:tracking-tight xl:text-9xl">
                 <span
-                  className="before:absolute before:-z-10 dark:before:text-white before:text-black before:content-[attr(data-text)]"
+                  className="before:absolute z-50 before:-z-10 dark:before:text-white before:text-black before:content-[attr(data-text)]"
                   data-text="Create."
                 >
                   <span className="animate-gradient-1 bg-gradient-to-r from-orange-600 to-orange-600 bg-clip-text text-transparent">
@@ -129,7 +129,7 @@ export default function Home() {
                 </span>
 
                 <span
-                  className="before:absolute before:-z-10 dark:before:text-white before:text-black before:content-[attr(data-text)]"
+                  className="before:absolute z-50 before:-z-10 dark:before:text-white before:text-black before:content-[attr(data-text)]"
                   data-text="Listen."
                 >
                   <span className="animate-gradient-2 bg-gradient-to-l from-orange-600 to-orange-600 bg-clip-text text-transparent">
@@ -139,7 +139,7 @@ export default function Home() {
                 </span>
 
                 <span
-                  className="before:absolute before:-z-10 dark:before:text-white before:text-black before:content-[attr(data-text)]"
+                  className="before:absolute z-50 before:-z-10 dark:before:text-white before:text-black before:content-[attr(data-text)]"
                   data-text="Earn."
                 >
                   <span className="animate-gradient-3 bg-gradient-to-r from-green-500 to-green-600 bg-clip-text text-transparent">

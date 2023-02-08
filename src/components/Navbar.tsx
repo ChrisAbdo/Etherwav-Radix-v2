@@ -35,6 +35,7 @@ import {
   User,
   UserPlus,
   Users,
+  Wifi,
 } from 'lucide-react';
 import {
   DropdownMenu,
@@ -335,6 +336,18 @@ const Navbar = () => {
 
                     {/* <Button variant="subtle">Browser Wallet </Button> */}
                     {/* <Button variant="subtle">WalletConnect</Button> */}
+                    {isOnWrongNetwork && (
+                      <div className="mt-4">
+                        <Button
+                          variant="default"
+                          onClick={() => switchNetwork?.(CHAIN_ID)}
+                          className="w-full"
+                        >
+                          <Wifi />
+                          &nbsp; Wrong Network. Switch to Mumbai.&nbsp; <Wifi />
+                        </Button>
+                      </div>
+                    )}
                   </DialogContent>
                 </Dialog>
 
