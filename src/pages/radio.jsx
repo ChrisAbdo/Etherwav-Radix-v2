@@ -882,7 +882,7 @@ text-orange-500"
                     </div>
                   </div>
                   <Marquee
-                    className="overflow-y-hidden lg:mt-12"
+                    className="overflow-y-hidden lg:mt-12 bg-[#DADDE2] dark:bg-[#2a2a2a]"
                     gradient={false}
                   >
                     <div className="">
@@ -925,12 +925,12 @@ text-orange-500"
             </div>
           </div>
 
-          <div className="drawer-side">
+          <div className="drawer-side h-[93%]">
             <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
             <ul className="menu p-2 w-80 bg-white dark:bg-black text-base-content border-r border-[#2a2a2a] ">
               {/* <!-- Sidebar content here --> */}
 
-              <div className="flex justify-between border-b border-black dark:border-[#303030] p-2.5">
+              <div className="flex justify-between border-b border-black dark:border-[#303030] p-2.5 sticky top-0 bg-black z-50">
                 <Select
                   onValueChange={(value) =>
                     loadSongsByGenre(value).then(() => {
