@@ -157,7 +157,7 @@ const Navbar = ({ open, setOpen }: any) => {
                   <DialogContent className="sm:max-w-[425px]">
                     <DialogHeader>
                       <DialogTitle>
-                        Connect your wallet. Polygon Mainnet only for now.
+                        Connect your wallet to Polygon Mainnet
                       </DialogTitle>
                       <DialogDescription>
                         Please connect with one of the available wallet

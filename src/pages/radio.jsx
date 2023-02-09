@@ -1066,23 +1066,28 @@ text-orange-500"
                       </div>
                     </div>
                   </div>
-                  <Marquee
-                    className="overflow-y-hidden lg:mt-12 bg-[#DADDE2] dark:bg-[#2a2a2a]"
-                    gradient={false}
-                  >
-                    <div className="">
-                      <h1>
-                        <span>🔥{nfts[currentIndex].name}</span> by{' '}
-                        <Link
-                          className="font-bold hover:underline"
-                          href={nfts[currentIndex].seller}
-                        >
-                          {nfts[currentIndex].seller.substring(0, 6)}...
-                          {nfts[currentIndex].seller.substring(38, 42)}🔥
-                        </Link>
-                      </h1>
-                    </div>
-                  </Marquee>
+
+                  {isPlaying ? (
+                    <Marquee
+                      className="overflow-y-hidden bg-[#DADDE2] dark:bg-[#2a2a2a] text-lg"
+                      gradient={false}
+                    >
+                      <div className="flex">
+                        <RadioIcon className="animate-pulse" />
+                        &nbsp;Thanks for tuning in to Etherwav!&nbsp;{' '}
+                        <RadioIcon className="animate-pulse" />
+                      </div>
+                    </Marquee>
+                  ) : (
+                    <Marquee
+                      className="overflow-y-hidden bg-[#DADDE2] dark:bg-[#2a2a2a] text-lg"
+                      gradient={false}
+                    >
+                      <RadioIcon />
+                      &nbsp;You are not tuned in to Etherwav yet. You should
+                      change that!
+                    </Marquee>
+                  )}
                 </div>
               ) : (
                 <div className="flex flex-col items-center justify-center h-full">

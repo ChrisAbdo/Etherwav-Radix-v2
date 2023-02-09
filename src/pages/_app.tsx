@@ -132,20 +132,21 @@ export default function App({ Component, pageProps }: AppProps) {
   }
 
   return (
-    <ThirdwebProvider desiredChainId={activeChainId}>
-      <Head>
-        <meta name="viewport" content="initial-scale=1, width=device-width" />
-        <meta name="author" content="Christopher Abdo" />
-        <meta
-          name="description"
-          content="Etherwav is an algorthmically rewarding and community driven Web3 radio built to reward creators for making amazing music."
-        />
-        <meta
-          name="keywords"
-          content="Christopher Abdo, Etherwav, web3 radio, web3, software engineer, developer, programming, projects"
-        />
-      </Head>
-      <main className={poppins.className}>
+    <main className={poppins.className}>
+      <ThirdwebProvider desiredChainId={activeChainId}>
+        <Head>
+          <meta name="viewport" content="initial-scale=1, width=device-width" />
+          <meta name="author" content="Christopher Abdo" />
+          <meta
+            name="description"
+            content="Etherwav is an algorthmically rewarding and community driven Web3 radio built to reward creators for making amazing music."
+          />
+          <meta
+            name="keywords"
+            content="Christopher Abdo, Etherwav, web3 radio, web3, software engineer, developer, programming, projects"
+          />
+        </Head>
+
         <ThemeProvider>
           {/* @ts-ignore */}
           {/* <Navbar open={open} setOpen={setOpen} /> */}
@@ -276,7 +277,7 @@ export default function App({ Component, pageProps }: AppProps) {
           <Component {...pageProps} />
           <Toaster />
         </ThemeProvider>
-      </main>
-    </ThirdwebProvider>
+      </ThirdwebProvider>
+    </main>
   );
 }
