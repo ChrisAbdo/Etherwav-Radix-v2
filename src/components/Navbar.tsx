@@ -19,6 +19,7 @@ import {
   Cloud,
   CreditCard,
   Github,
+  HomeIcon,
   Keyboard,
   LifeBuoy,
   LogOut,
@@ -231,6 +232,12 @@ const Navbar = ({ open, setOpen }: any) => {
                     <DropdownMenuLabel>Etherwav</DropdownMenuLabel>
                     <DropdownMenuSeparator />
                     <DropdownMenuGroup>
+                      <Link href="/">
+                        <DropdownMenuItem>
+                          <HomeIcon className="mr-2 h-4 w-4" />
+                          <span>Home</span>
+                        </DropdownMenuItem>
+                      </Link>
                       <Link href="/profile">
                         <DropdownMenuItem>
                           <User className="mr-2 h-4 w-4" />

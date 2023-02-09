@@ -41,7 +41,7 @@
 @keyframes AnimationName {
   0%,
   100% {
-    background-position: 0% 100%;
+    background-position: 10% 100%;
   }
   50% {
     background-position: 100% 50%;

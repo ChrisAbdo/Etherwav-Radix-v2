@@ -36,7 +36,7 @@ export default function Home() {
     via-gray-50
     to-gray-300
     dark:from-black
-    dark:via-[#1a1a1a]
+    dark:via-[#1f1f1f]
     dark:to-black
     background-animate"
       >
@@ -46,18 +46,7 @@ export default function Home() {
               <div className="flex justify-center">
                 <Lottie loop animationData={lottieJson} play />
               </div>
-              <div className="hidden sm:mb-8 sm:flex sm:justify-center">
-                <div className="relative rounded-full py-1 px-3 text-sm leading-6 border border-black dark:border-white">
-                  It&apos;s never been easier to make music and earn.
-                  <a href="#" className="font-semibold text-orange-500">
-                    <span
-                      className="absolute inset-0"
-                      aria-hidden="true"
-                    ></span>
-                    &nbsp;Get Started <span aria-hidden="true">&rarr;</span>
-                  </a>
-                </div>
-              </div>
+
               <div className="text-center">
                 <h1 className="flex flex-col gap-2 text-center justify-center text-7xl font-black md:flex-row lg:tracking-tight xl:text-9xl">
                   <span
@@ -88,6 +77,18 @@ export default function Home() {
                     </span>{' '}
                   </span>
                 </h1>
+                <div className="hidden sm:mb-8 sm:flex sm:justify-center">
+                  <div className="relative rounded-full py-1 px-3 text-sm leading-6 border border-black dark:border-white">
+                    It&apos;s never been easier to make music and earn.
+                    <a href="#" className="font-semibold text-orange-500">
+                      <span
+                        className="absolute inset-0"
+                        aria-hidden="true"
+                      ></span>
+                      &nbsp;Get Started <span aria-hidden="true">&rarr;</span>
+                    </a>
+                  </div>
+                </div>
                 <p className="mt-6 text-2xl leading-8 ">
                   Welcome to <span className="font-bold">Etherwav</span>, the{' '}
                   <span className="font-bold">community driven</span> and{' '}

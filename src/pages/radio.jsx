@@ -92,10 +92,12 @@ import {
   User,
   Search,
   Sun,
+  HomeIcon,
 } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 import { Progress } from '@/components/ui/progress';
 import Marquee from 'react-fast-marquee';
+import { ScrollArea } from '@/components/ui/scroll-area';
 
 const transition = { duration: 0.5, ease: [0.43, 0.13, 0.23, 0.96] };
 const CHAIN_ID = ChainId.Mumbai;
@@ -190,7 +192,7 @@ const RadioPage = () => {
     const sortedNfts = nfts
       .filter((nft) => nft !== null)
       .sort((a, b) => b.heatCount - a.heatCount);
-    const topThreeNfts = sortedNfts.slice(0, 3);
+    const topThreeNfts = sortedNfts.slice(0, 5);
 
     setTopThreeNfts(topThreeNfts);
     setNfts(sortedNfts);
@@ -567,6 +569,12 @@ text-orange-500"
                       <DropdownMenuLabel>Etherwav</DropdownMenuLabel>
                       <DropdownMenuSeparator />
                       <DropdownMenuGroup>
+                        <Link href="/">
+                          <DropdownMenuItem>
+                            <HomeIcon className="mr-2 h-4 w-4" />
+                            <span>Home</span>
+                          </DropdownMenuItem>
+                        </Link>
                         <Link href="/profile">
                           <DropdownMenuItem>
                             <User className="mr-2 h-4 w-4" />
@@ -643,37 +651,39 @@ text-orange-500"
                       </h1>
                     </AccordionTrigger>
                     <AccordionContent>
-                      {topThreeNfts.map((nft, index) => (
-                        <div key={index}>
-                          <div className="flex justify-between items-center px-6">
-                            <div className="flex items-center space-y-2">
-                              <h1 className="text-2xl">
-                                {index === 0 ? (
-                                  <h1 className="text-4xl">🥇&nbsp;</h1>
-                                ) : index === 1 ? (
-                                  <h1 className="text-4xl">🥈&nbsp;</h1>
-                                ) : index === 2 ? (
-                                  <h1 className="text-4xl">🥉&nbsp;</h1>
-                                ) : (
-                                  <h1>{index + 1}</h1>
-                                )}
-                              </h1>
-                              <Image
-                                src={nft.coverImage}
-                                width={50}
-                                height={50}
-                                alt="cover"
-                                className="rounded-none"
-                              />
-                              <p className="ml-2 text-2xl truncate">
-                                {nft.name}
-                              </p>
+                      <ScrollArea className="h-[200px] rounded-md p-2">
+                        {topThreeNfts.map((nft, index) => (
+                          <div key={index}>
+                            <div className="flex justify-between items-center px-6 card3">
+                              <div className="flex items-center space-y-2">
+                                <h1 className="text-2xl">
+                                  {index === 0 ? (
+                                    <h1 className="text-4xl">🥇&nbsp;</h1>
+                                  ) : index === 1 ? (
+                                    <h1 className="text-4xl">🥈&nbsp;</h1>
+                                  ) : index === 2 ? (
+                                    <h1 className="text-4xl">🥉&nbsp;</h1>
+                                  ) : (
+                                    <h1 className="text-4xl">🏅&nbsp;</h1>
+                                  )}
+                                </h1>
+                                <Image
+                                  src={nft.coverImage}
+                                  width={50}
+                                  height={50}
+                                  alt="cover"
+                                  className="rounded-none"
+                                />
+                                <p className="ml-2 text-2xl truncate">
+                                  {nft.name}
+                                </p>
+                              </div>
+                              <p className="text-2xl">{nft.heatCount}</p>
                             </div>
-                            <p className="text-2xl">{nft.heatCount}</p>
+                            <Separator className="" />
                           </div>
-                          <Separator className="mt-2" />
-                        </div>
-                      ))}
+                        ))}
+                      </ScrollArea>
                     </AccordionContent>
                   </AccordionItem>
                 </Accordion>
