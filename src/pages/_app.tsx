@@ -146,8 +146,8 @@ export default function App({ Component, pageProps }: AppProps) {
         <ThemeProvider>
           {/* @ts-ignore */}
           {/* <Navbar open={open} setOpen={setOpen} /> */}
-          {/* navbar but do not display it on the radio page */}
-          {Component.name !== 'RadioPage' && (
+          {/* navbar but do not display it on the href /radio */}
+          {window.location.href == 'https://etherwav-abdo.vercel.app/radio' && (
             <Navbar open={open} setOpen={setOpen} />
           )}
           <CommandDialog open={open} onOpenChange={setOpen}>
