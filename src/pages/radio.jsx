@@ -1009,7 +1009,10 @@ text-orange-500"
                       <h1>
                         {nft.heatCount} | &nbsp;
                         <span className="text-lg font-semibold">
-                          {nft.name}
+                          {/* if nft.name is longer than 10 characters, replace it with ... */}
+                          {nft.name.length > 16
+                            ? nft.name.substring(0, 16) + '...'
+                            : nft.name}
                         </span>{' '}
                         <br /> {nft.seller.slice(0, 6)}...
                         {nft.seller.slice(-4)}

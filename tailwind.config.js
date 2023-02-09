@@ -39,7 +39,12 @@ module.exports = {
           '0%, 50%,  100%': { opacity: '0' },
           '66.667%, 83.333%': { opacity: '1' },
         },
+        'animate-gradient-4': {
+          '0%, 33.333%, 66.667%, 100%': { opacity: '0' },
+          '50%, 83.333%': { opacity: '1' },
+        },
       },
+
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
