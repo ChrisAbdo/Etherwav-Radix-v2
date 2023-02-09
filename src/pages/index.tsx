@@ -7,7 +7,6 @@ import { Search } from 'lucide-react';
 import Head from 'next/head';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Canvas, useThree, useFrame } from '@react-three/fiber';
 import { useTransform, useScroll, useTime } from 'framer-motion';
 import { degreesToRadians, progress, mix } from 'popmotion';
 
