@@ -145,7 +145,11 @@ export default function App({ Component, pageProps }: AppProps) {
       <main className={poppins.className}>
         <ThemeProvider>
           {/* @ts-ignore */}
-          <Navbar open={open} setOpen={setOpen} />
+          {/* <Navbar open={open} setOpen={setOpen} /> */}
+          {/* navbar but do not display it on the radio page */}
+          {Component.name !== 'RadioPage' && (
+            <Navbar open={open} setOpen={setOpen} />
+          )}
           <CommandDialog open={open} onOpenChange={setOpen}>
             <div className="mt-3 w-[95%]">
               <CommandInput placeholder="Type a command or search..." />

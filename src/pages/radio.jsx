@@ -1,5 +1,13 @@
 import { useEffect, useState, useLayoutEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
+import { useTheme } from 'next-themes';
+import {
+  useNetworkMismatch,
+  useAddress,
+  ConnectWallet,
+  useNetwork,
+} from '@thirdweb-dev/react';
+import { ChainId } from '@thirdweb-dev/sdk';
 
 import axios from 'axios';
 import toast from 'react-hot-toast';
@@ -25,12 +33,18 @@ import {
 } from '@/components/ui/select';
 import {
   DropdownMenu,
-  DropdownMenuCheckboxItem,
   DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
   DropdownMenuLabel,
+  DropdownMenuPortal,
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
   DropdownMenuSeparator,
+  DropdownMenuShortcut,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import {
@@ -70,13 +84,24 @@ import {
   SkipForward,
   SkipBack,
   Radio as RadioIcon,
+  Wifi,
+  Github,
+  Twitter,
+  Upload,
+  Moon,
+  User,
+  Search,
+  Sun,
 } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 import { Progress } from '@/components/ui/progress';
 import Marquee from 'react-fast-marquee';
+
 const transition = { duration: 0.5, ease: [0.43, 0.13, 0.23, 0.96] };
+const CHAIN_ID = ChainId.Mumbai;
 
 const RadioPage = () => {
+  const { theme, setTheme } = useTheme();
   const [nfts, setNfts] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -93,6 +118,14 @@ const RadioPage = () => {
   const [duration, setDuration] = useState(0);
   const [open, setOpen] = useState(false);
   const audioRef = useRef(null);
+  const [mounted, setMounted] = useState(false);
+  const address = useAddress();
+  const isOnWrongNetwork = useNetworkMismatch();
+  const [, switchNetwork] = useNetwork();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     loadSongs();
@@ -457,6 +490,10 @@ text-orange-500"
     );
   }
 
+  if (!mounted) {
+    return null;
+  }
+
   return (
     <div>
       <div>
@@ -464,8 +501,140 @@ text-orange-500"
           <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
           <div className="drawer-content">
             {/* <!-- Page content here --> */}
-            <div className="flex justify-between ">
+            <div className="flex">
               <div className="w-full px-1">
+                <div className="flex justify-end p-2 space-x-4">
+                  <Dialog>
+                    <DialogTrigger asChild>
+                      {address ? (
+                        <Button variant="default">
+                          {address.substring(0, 5)}...
+                          {address.substring(38, 42)}
+                        </Button>
+                      ) : (
+                        <Button variant="default">Connect Wallet</Button>
+                      )}
+                    </DialogTrigger>
+                    <DialogContent className="sm:max-w-[425px]">
+                      <DialogHeader>
+                        <DialogTitle>
+                          Connect your wallet. Polygon Mainnet only for now.
+                        </DialogTitle>
+                        <DialogDescription>
+                          Please connect with one of the available wallet
+                          providers to continue.
+                        </DialogDescription>
+                        <ConnectWallet accentColor="#f97316" colorMode="dark" />
+                      </DialogHeader>
+
+                      {/* <Button variant="subtle">Browser Wallet </Button> */}
+                      {/* <Button variant="subtle">WalletConnect</Button> */}
+                      {isOnWrongNetwork && (
+                        <div className="mt-4">
+                          <Button
+                            variant="default"
+                            onClick={() => switchNetwork?.(CHAIN_ID)}
+                            className="w-full"
+                          >
+                            <Wifi />
+                            &nbsp; Wrong Network. Switch to Mumbai.&nbsp;{' '}
+                            <Wifi />
+                          </Button>
+                        </div>
+                      )}
+                    </DialogContent>
+                  </Dialog>
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <Button variant="outline">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="h-5 w-5"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                          stroke-width="2"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M4 6h16M4 12h16M4 18h16"
+                          />
+                        </svg>
+                      </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent className="w-56">
+                      <DropdownMenuLabel>Etherwav</DropdownMenuLabel>
+                      <DropdownMenuSeparator />
+                      <DropdownMenuGroup>
+                        <Link href="/profile">
+                          <DropdownMenuItem>
+                            <User className="mr-2 h-4 w-4" />
+                            <span>Profile</span>
+                          </DropdownMenuItem>
+                        </Link>
+                        <Link href="/radio">
+                          <DropdownMenuItem>
+                            <RadioIcon className="mr-2 h-4 w-4" />
+                            <span>Radio</span>
+                          </DropdownMenuItem>
+                        </Link>
+                        <Link href="/upload">
+                          <DropdownMenuItem>
+                            <Upload className="mr-2 h-4 w-4" />
+                            <span>Upload</span>
+                          </DropdownMenuItem>
+                        </Link>
+                      </DropdownMenuGroup>
+                      <DropdownMenuSeparator />
+                      <DropdownMenuGroup>
+                        <DropdownMenuSub>
+                          <DropdownMenuSubTrigger>
+                            <Sun className="mr-2 h-4 w-4" />
+                            <span>Theme</span>
+                          </DropdownMenuSubTrigger>
+                          <DropdownMenuPortal>
+                            <DropdownMenuSubContent>
+                              <DropdownMenuItem
+                                onClick={() => setTheme('light')}
+                              >
+                                <Sun className="mr-2 h-4 w-4" />
+                                <span>Light</span>
+                              </DropdownMenuItem>
+                              <DropdownMenuItem
+                                onClick={() => setTheme('dark')}
+                              >
+                                <Moon className="mr-2 h-4 w-4" />
+                                <span>Dark</span>
+                              </DropdownMenuItem>
+                            </DropdownMenuSubContent>
+                          </DropdownMenuPortal>
+                        </DropdownMenuSub>
+                      </DropdownMenuGroup>
+                      <DropdownMenuItem onClick={() => setOpen(true)}>
+                        <Search className="mr-2 h-4 w-4" />
+                        <span>Search</span>
+                      </DropdownMenuItem>
+                      <DropdownMenuSeparator />
+                      <DropdownMenuItem
+                        onClick={() =>
+                          window.open('https://www.github.com/chrisabdo')
+                        }
+                      >
+                        <Github className="mr-2 h-4 w-4" />
+                        <span>GitHub</span>
+                      </DropdownMenuItem>
+                      <DropdownMenuItem
+                        onClick={() =>
+                          window.open('https://www.twitter.com/abdo_eth')
+                        }
+                      >
+                        <Twitter className="mr-2 h-4 w-4" />
+                        <span>Twitter</span>
+                      </DropdownMenuItem>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                </div>
                 <Accordion type="single" collapsible>
                   <AccordionItem value="item-1">
                     <AccordionTrigger>
@@ -931,12 +1100,19 @@ text-orange-500"
             </div>
           </div>
 
-          <div className="drawer-side h-[93%]">
+          <div className="drawer-side">
             <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
             <ul className="menu p-2 w-80 bg-white dark:bg-black text-base-content border-r border-[#2a2a2a] ">
               {/* <!-- Sidebar content here --> */}
-
-              <div className="flex justify-between border-b border-black dark:border-[#303030] p-2.5 sticky top-0 bg-white dark:bg-black z-50">
+              <Link
+                href="/"
+                className="text-2xl font-bold group transition-all duration-300 ease-in-out"
+              >
+                <span className="bg-left-bottom bg-gradient-to-r from-orange-500 to-orange-500 bg-[length:0%_2px] bg-no-repeat group-hover:bg-[length:100%_2px] transition-all duration-500 ease-out">
+                  Etherwav
+                </span>
+              </Link>
+              <div className="flex justify-between border-b border-black dark:border-[#303030] p-2.5 sticky top-0 bg-white dark:bg-black z-50 ">
                 <Select
                   onValueChange={(value) =>
                     loadSongsByGenre(value).then(() => {
