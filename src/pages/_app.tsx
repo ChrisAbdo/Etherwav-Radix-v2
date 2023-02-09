@@ -5,6 +5,7 @@ import { ThemeProvider } from 'next-themes';
 import { Poppins } from '@next/font/google';
 import { Toaster } from 'react-hot-toast';
 import { ChainId } from '@thirdweb-dev/react';
+import { useRouter } from 'next/router';
 import { ThirdwebProvider } from '@thirdweb-dev/react';
 import axios from 'axios';
 import Web3 from 'web3';
@@ -53,6 +54,8 @@ export default function App({ Component, pageProps }: AppProps) {
   const [open, setOpen] = React.useState(false);
   const [nfts, setNfts] = React.useState([]);
   const [songsLoaded, setSongsLoaded] = React.useState(false);
+
+  const router = useRouter();
 
   React.useEffect(() => {
     const down = (e: KeyboardEvent) => {
@@ -147,7 +150,7 @@ export default function App({ Component, pageProps }: AppProps) {
           {/* @ts-ignore */}
           {/* <Navbar open={open} setOpen={setOpen} /> */}
           {/* navbar but do not display it on the href /radio */}
-          {window.location.href == 'https://etherwav-abdo.vercel.app/radio' && (
+          {router.pathname !== '/radio' && (
             <Navbar open={open} setOpen={setOpen} />
           )}
           <CommandDialog open={open} onOpenChange={setOpen}>
