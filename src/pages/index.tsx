@@ -7,6 +7,9 @@ import { Search } from 'lucide-react';
 import Head from 'next/head';
 import Link from 'next/link';
 import Image from 'next/image';
+import { Canvas, useThree, useFrame } from '@react-three/fiber';
+import { useTransform, useScroll, useTime } from 'framer-motion';
+import { degreesToRadians, progress, mix } from 'popmotion';
 
 export default function Home() {
   const [open, setOpen] = React.useState(false);
@@ -40,7 +43,7 @@ export default function Home() {
     dark:to-black
     background-animate"
       >
-        <div className="bg-grid-[#DADDE2] dark:bg-grid-[#1f1f1f]">
+        <div className="bg-grid-gray-100 dark:bg-grid-[#1f1f1f]">
           <div className="relative px-6 lg:px-8">
             <div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
               <div className="flex justify-center">
