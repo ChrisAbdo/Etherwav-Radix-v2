@@ -21,6 +21,11 @@ import {
   CommandSeparator,
   CommandShortcut,
 } from '@/components/ui/command';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/popover';
 import Navbar from '@/components/Navbar';
 import Link from 'next/link';
 import {
@@ -31,8 +36,11 @@ import {
   Settings,
   Upload,
   User,
+  Info,
 } from 'lucide-react';
 import Head from 'next/head';
+import { Button } from '@/components/ui/button';
+import { Label } from '@/components/ui/label';
 
 const poppins = Poppins({
   weight: '400',
@@ -175,9 +183,79 @@ export default function App({ Component, pageProps }: AppProps) {
                           {/* @ts-ignore */}
                           {nft.name}
                         </span>
+
                         <CommandShortcut>
                           {/* @ts-ignore */}
-                          {nft.genre}
+                          <Popover>
+                            <PopoverTrigger>
+                              <Info className="h-2 w-2" />
+                            </PopoverTrigger>
+                            <PopoverContent className="w-80">
+                              <div className="grid gap-4">
+                                <div className="space-y-2">
+                                  <h4 className="font-medium leading-none">
+                                    More Info
+                                  </h4>
+                                  <p className="text-sm text-slate-500 dark:text-slate-400">
+                                    Here you will find some more info about this
+                                    song and artist.
+                                  </p>
+                                </div>
+                                <div className="grid gap-2">
+                                  <div className="grid grid-cols-3 items-center gap-4">
+                                    <Label htmlFor="width">Title</Label>
+
+                                    <h1 className="col-span-2 h-8">
+                                      {/* @ts-ignore */}
+                                      {nft.name}
+                                    </h1>
+                                  </div>
+                                  <div className="grid grid-cols-3 items-center gap-4">
+                                    <Label htmlFor="maxWidth">Artist</Label>
+                                    <h1 className="col-span-2 h-8 truncate">
+                                      {/* @ts-ignore */}
+                                      {nft.seller}
+                                    </h1>
+                                  </div>
+                                  <div className="grid grid-cols-3 items-center gap-4">
+                                    <Label htmlFor="maxWidth">Heat Count</Label>
+                                    <h1 className="col-span-2 h-8 truncate">
+                                      {/* @ts-ignore */}
+                                      {nft.heatCount} 🔥
+                                    </h1>
+                                  </div>
+                                  <div className="grid grid-cols-3 items-center gap-4">
+                                    <Label htmlFor="height">Audio Source</Label>
+                                    <h1
+                                      onClick={() => {
+                                        // @ts-ignore
+                                        window.open(nft.image);
+                                      }}
+                                      className="col-span-2 h-8 truncate hover:underline cursor-pointer"
+                                    >
+                                      {/* @ts-ignore */}
+                                      {nft.image}
+                                    </h1>
+                                  </div>
+                                  <div className="grid grid-cols-3 items-center gap-4">
+                                    <Label htmlFor="maxHeight">
+                                      Image Source
+                                    </Label>
+                                    <h1
+                                      onClick={() => {
+                                        // @ts-ignore
+                                        window.open(nft.coverImage);
+                                      }}
+                                      className="col-span-2 h-8 truncate hover:underline cursor-pointer"
+                                    >
+                                      {/* @ts-ignore */}
+                                      {nft.coverImage}
+                                    </h1>
+                                  </div>
+                                </div>
+                              </div>
+                            </PopoverContent>
+                          </Popover>
                         </CommandShortcut>
                       </CommandItem>
                     </Link>
