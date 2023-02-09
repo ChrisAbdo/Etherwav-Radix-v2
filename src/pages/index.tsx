@@ -40,7 +40,7 @@ export default function Home() {
     dark:to-black
     background-animate"
       >
-        <div className="">
+        <div className="bg-grid-[#DADDE2] dark:bg-grid-[#1f1f1f]">
           <div className="relative px-6 lg:px-8">
             <div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
               <div className="flex justify-center">
