@@ -503,7 +503,7 @@ text-orange-500"
             {/* <!-- Page content here --> */}
             <div className="flex">
               <div className="w-full px-1">
-                <div className="flex justify-end p-2 space-x-4">
+                <div className="flex justify-end p-3 space-x-4 sticky top-0 z-50 bg-white dark:bg-black">
                   <Dialog>
                     <DialogTrigger asChild>
                       {address ? (
@@ -1106,7 +1106,7 @@ text-orange-500"
               {/* <!-- Sidebar content here --> */}
               <Link
                 href="/"
-                className="text-2xl font-bold group transition-all duration-300 ease-in-out"
+                className="text-2xl font-bold group transition-all duration-300 ease-in-out p-3"
               >
                 <span className="bg-left-bottom bg-gradient-to-r from-orange-500 to-orange-500 bg-[length:0%_2px] bg-no-repeat group-hover:bg-[length:100%_2px] transition-all duration-500 ease-out">
                   Etherwav
