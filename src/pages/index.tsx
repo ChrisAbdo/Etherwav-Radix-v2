@@ -1,5 +1,4 @@
 import React from 'react';
-import styles from '../styles/Framer.module.css';
 import Lottie from 'react-lottie-player';
 import lottieJson from 'public/audioreal.json';
 import music from 'public/music.json';
@@ -67,8 +66,8 @@ function ParallaxText({ children, baseVelocity = 100 }: ParallaxProps) {
    * dynamically generated number of children.
    */
   return (
-    <div className={styles.parallax}>
-      <motion.div className={styles.scroller} style={{ x }}>
+    <div className="parallax">
+      <motion.div className="scroller" style={{ x }}>
         <span>{children} </span>
         <span>{children} </span>
         <span>{children} </span>
