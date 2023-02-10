@@ -66,8 +66,11 @@ module.exports = {
           'bg-grid': (value) => ({
             backgroundImage: `url("${svgToDataUri(
               // `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="64" height="64" fill="none" stroke="${value}" stroke-width="0.5"><path d="M0 .5H31.5V32" /></svg>`
-              `<svg viewBox="0 0 32 32" width="64" height="64" fill="none" stroke="${value}" stroke-width="0.5" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="50" cy="50" r="50" />
+              //   `<svg viewBox="0 0 32 32" width="64" height="64" fill="none" stroke="${value}" stroke-width="0.5" xmlns="http://www.w3.org/2000/svg">
+              //   <circle cx="50" cy="50" r="50" />
+              // </svg>`
+              `<svg  stroke="${value}" width="16px" height="16px" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" fill="none" class="bi bi-dot">
+              <path d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/>
             </svg>`
             )}")`,
           }),

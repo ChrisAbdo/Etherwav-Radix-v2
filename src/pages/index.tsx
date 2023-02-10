@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '../styles/framer.module.css';
+import styles from '../styles/Framer.module.css';
 import Lottie from 'react-lottie-player';
 import lottieJson from 'public/audioreal.json';
 import music from 'public/music.json';
@@ -102,7 +102,7 @@ export default function Home() {
         {/* <div className="bg-grid-gray-100 dark:bg-grid-[#1f1f1f]"> */}
 
         {/* bg-grid-[#1f1f1f] but it changes between that and black */}
-        <div className="bg-grid-gray-100 dark:bg-grid-[#0a0a0a]">
+        <div className="bg-grid-gray-100 dark:bg-grid-[#0f0f0f]">
           <div className="relative px-6 lg:px-8">
             <div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
               <div className="flex justify-center">
@@ -164,7 +164,9 @@ export default function Home() {
               </div>
               <section className="mt-12">
                 <ParallaxText baseVelocity={-5}>Etherwav</ParallaxText>
-                <ParallaxText baseVelocity={5}>Etherwav</ParallaxText>
+                <ParallaxText baseVelocity={5}>
+                  Create. Listen. Earn.
+                </ParallaxText>
               </section>
             </div>
           </div>
