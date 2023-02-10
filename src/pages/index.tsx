@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { wrap } from '@motionone/utils';
 import {
   motion,
+  AnimatePresence,
   useScroll,
   useSpring,
   useTransform,
@@ -118,7 +119,18 @@ export default function Home() {
             </div>
           </div>
 
-          <GettingStarted />
+          <AnimatePresence>
+            <motion.div
+              initial={{ y: 100, opacity: 0 }}
+              animate={{ y: 0, opacity: 0 }}
+              exit={{ y: 100, opacity: 0 }}
+              // whileInView={{ y: 0, opacity: 1 }}
+              // do the same thing as the above whileInView, but make it slide in from the bottom
+              whileInView={{ y: 0, opacity: 1 }}
+            >
+              <GettingStarted />
+            </motion.div>
+          </AnimatePresence>
 
           <div className="flex justify-center">
             <Lottie className="w-72" loop animationData={music} play />

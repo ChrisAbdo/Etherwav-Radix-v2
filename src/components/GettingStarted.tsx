@@ -1,8 +1,8 @@
 const GettingStarted = () => {
   return (
-    <div className="">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="mx-auto max-w-2xl lg:text-center">
+    <div className="p-6">
+      <div className="mx-auto max-w-2xl px-6 lg:px-8 bg-black rounded-md border border-[#1f1f1f] p-6">
+        <div className="mx-auto max-w-2xl lg:text-center ">
           <h2 className="text-lg font-semibold leading-8 tracking-tight text-orange-500">
             Start earning now or tune in to listen to the best music on Polygon
           </h2>
@@ -13,7 +13,7 @@ const GettingStarted = () => {
             Earning on Etherwav is simple. Just upload a song and start earning.
           </p>
         </div>
-        <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-4xl">
+        <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-4xl p-6">
           <dl className="grid max-w-xl grid-cols-1 gap-y-10 gap-x-8 lg:max-w-none lg:grid-cols-2 lg:gap-y-16 ">
             <div className="relative pl-16 homecard">
               <dt className="text-base font-semibold leading-7">

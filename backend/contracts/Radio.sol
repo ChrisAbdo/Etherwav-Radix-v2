@@ -10,7 +10,6 @@ contract Radio is ReentrancyGuard {
     Counters.Counter private _nftsSold;
     Counters.Counter private _nftCount;
 
-    address payable private _marketOwner;
     mapping(uint256 => NFT) private _idToNFT;
 
     struct NFT {
@@ -44,22 +43,17 @@ contract Radio is ReentrancyGuard {
         address owner
     );
 
-    constructor() {
-        _marketOwner = payable(msg.sender);
-    }
-
     function giveHeat(uint256 _tokenId, uint256 _heatCount) public payable {
         // Ensure that the NFT exists and is listed
         NFT storage nft = _idToNFT[_tokenId];
         require(nft.listed, "NFT is not listed");
 
-        // Send the heatCount amount of ETH to the seller's address
-        // address.transfer(nft.seller, _heatCount);
-        payable(address(nft.seller)).transfer(_heatCount);
-
-        // Increment the heatCount of the NFT by the given amount
+        // send the heat to the seller of the NFT
+        require(payable((nft.seller)).send(_heatCount), "Transfer failed"); // Increment the heatCount of the NFT by the given amount
         nft.heatCount += _heatCount;
     }
+
+    // function to send heat to the owner of the NFTs, respectivly
 
     function deleteNft(uint256 _tokenId) public nonReentrant {
         // Ensure that the NFT exists and is listed

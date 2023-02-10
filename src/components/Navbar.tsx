@@ -1,5 +1,4 @@
 import React from 'react';
-import NavMenu from './NavMenu';
 import { useTheme } from 'next-themes';
 
 import { Button } from '@/components/ui/button';
@@ -99,15 +98,6 @@ const Navbar = ({ open, setOpen }: any) => {
           <div className="md:flex md:items-center md:gap-12">
             <nav aria-label="Site Nav" className="hidden md:block">
               <ul className="flex items-center gap-6 text-sm">
-                <li>
-                  <Link
-                    className="text-black dark:text-white transition hover:text-black/75 dark:hover:text-white/75"
-                    href="/"
-                  >
-                    Home
-                  </Link>
-                </li>
-
                 <li>
                   <Link
                     className="text-black dark:text-white transition hover:text-black/75 dark:hover:text-white/75"
@@ -218,11 +208,11 @@ const Navbar = ({ open, setOpen }: any) => {
                         fill="none"
                         viewBox="0 0 24 24"
                         stroke="currentColor"
-                        stroke-width="2"
+                        strokeWidth="2"
                       >
                         <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
                           d="M4 6h16M4 12h16M4 18h16"
                         />
                       </svg>

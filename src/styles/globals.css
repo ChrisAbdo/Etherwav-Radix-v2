@@ -47,6 +47,14 @@
   @apply bg-[#DADDE2] dark:bg-[#303030];
 }
 
+.card4 {
+  @apply transition-colors duration-500;
+}
+
+.card4:hover {
+  @apply bg-[#DADDE2] dark:bg-[#1f1f1f];
+}
+
 .homecard {
   @apply transition-colors duration-500  rounded-xl;
 }

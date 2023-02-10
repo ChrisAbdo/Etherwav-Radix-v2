@@ -78,17 +78,6 @@ const Upload = () => {
       </label>
     </form>,
     <div key={1} className="form-control w-full max-w-xs ml-6 mb-1">
-      {/* <label className="label">
-        <span className="label-text">Enter a title for your song</span>
-      </label>
-      <input
-        type="text"
-        placeholder="Title here"
-        className="w-full max-w-xs rounded-md bg-white dark:bg-black"
-        onChange={(e) =>
-          updateFormInput({ ...formInput, name: e.target.value })
-        }
-      /> */}
       <Label htmlFor="email-2">Title</Label>
       <Input
         onChange={(e) =>
@@ -126,22 +115,6 @@ const Upload = () => {
     </form>,
 
     <div key={3} className="ml-5">
-      {/* <label className="label">
-        <span className="label-text">Choose the genre that fits</span>
-      </label>
-      <select
-        onChange={(e) =>
-          updateFormInput({ ...formInput, genre: e.target.value })
-        }
-        className="select border border-[#DADDE2] dark:border-[#303030] w-full max-w-xs rounded-md bg-white dark:bg-black"
-      >
-        <option disabled selected>
-          Select Genre
-        </option>
-        <option value="lofi">Lofi</option>
-        <option value="hiphop">Hip Hop</option>
-        <option value="vocals">Vocals</option>
-      </select> */}
       <Label htmlFor="email-2">Genres</Label>
       <Select
         onValueChange={(value) =>
@@ -338,10 +311,10 @@ const Upload = () => {
   };
 
   return (
-    <div>
+    <div className="bg-grid-gray-100 dark:bg-grid-[#0f0f0f]">
       <div className="flex flex-col items-center justify-center w-full px-12 py-4">
         {/* CARD */}
-        <div className="w-96 border border-[#303030] rounded-md uploadcard ">
+        <div className="w-96 border border-[#303030] rounded-md uploadcard bg-white dark:bg-black">
           <figure className="px-10 pt-5">
             <h1 className="text-3xl font-bold text-center">Upload a Song</h1>
           </figure>

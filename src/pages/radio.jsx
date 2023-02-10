@@ -350,6 +350,17 @@ const RadioPage = () => {
     }
   }
 
+  async function checkBalance() {
+    const web3 = new Web3(window.ethereum);
+    const networkId = await web3.eth.net.getId();
+    const radioContract = new web3.eth.Contract(
+      Radio.abi,
+      Radio.networks[networkId].address
+    );
+    const balance = await radioContract.methods.getBalance().call();
+    console.log(balance);
+  }
+
   async function handleGiveHeat() {
     const notification = toast.loading(
       'Confirm the transaction to give heat! 🔥🔥🔥',
@@ -377,6 +388,7 @@ const RadioPage = () => {
         .giveHeat(nfts[currentIndex].tokenId, heatCount)
         .send({
           from: window.ethereum.selectedAddress,
+
           value: web3.utils.toWei(heatCount.toString(), 'ether'),
         })
         .on('receipt', function () {
@@ -506,6 +518,51 @@ text-orange-500"
             <div className="flex">
               <div className="w-full px-1">
                 <div className="flex justify-end p-3 space-x-4 sticky top-0 z-50 bg-white dark:bg-black">
+                  <nav aria-label="Site Nav" className="hidden md:block">
+                    <ul className="flex items-center gap-6 text-sm">
+                      <li>
+                        <Link
+                          className="text-black dark:text-white transition hover:text-black/75 dark:hover:text-white/75"
+                          href="/"
+                        >
+                          Home
+                        </Link>
+                      </li>
+
+                      <li>
+                        <Link
+                          className="text-black dark:text-white transition hover:text-black/75 dark:hover:text-white/75"
+                          href="/radio"
+                        >
+                          Radio
+                        </Link>
+                      </li>
+
+                      <li>
+                        <Link
+                          className="text-black dark:text-white transition hover:text-black/75 dark:hover:text-white/75"
+                          href="/upload"
+                        >
+                          Upload
+                        </Link>
+                      </li>
+
+                      <li>
+                        <Link
+                          className="text-black dark:text-white transition hover:text-black/75 dark:hover:text-white/75"
+                          href="/profile"
+                        >
+                          Profile
+                        </Link>
+                      </li>
+                      <li>
+                        <Button onClick={() => setOpen(true)} variant="outline">
+                          <Search className="mr-2 h-4 w-4" /> Quick Search |
+                          Ctrl K
+                        </Button>
+                      </li>
+                    </ul>
+                  </nav>
                   <Dialog>
                     <DialogTrigger asChild>
                       {address ? (
@@ -555,11 +612,11 @@ text-orange-500"
                           fill="none"
                           viewBox="0 0 24 24"
                           stroke="currentColor"
-                          stroke-width="2"
+                          strokeWidth="2"
                         >
                           <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
                             d="M4 6h16M4 12h16M4 18h16"
                           />
                         </svg>
