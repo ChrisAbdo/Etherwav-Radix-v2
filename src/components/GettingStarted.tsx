@@ -1,7 +1,7 @@
 const GettingStarted = () => {
   return (
     <div className="p-6">
-      <div className="mx-auto max-w-2xl px-6 lg:px-8 bg-black rounded-md border border-[#1f1f1f] p-6">
+      <div className="mx-auto max-w-2xl px-6 lg:px-8 bg-white dark:bg-black rounded-md border border-[#1f1f1f] p-6">
         <div className="mx-auto max-w-2xl lg:text-center ">
           <h2 className="text-lg font-semibold leading-8 tracking-tight text-orange-500">
             Start earning now or tune in to listen to the best music on Polygon

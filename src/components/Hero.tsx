@@ -34,9 +34,9 @@ const Hero = () => {
         </span>
       </h1>
 
-      <p className="mt-6 text-2xl leading-8 bg-black  border border-[#1f1f1f] rounded-md card4">
-        Welcome to <span className="font-bold">Etherwav</span>, the{' '}
-        <span className="font-bold">community driven</span> and{' '}
+      <p className="mt-6 text-2xl leading-8 bg-white dark:bg-black  border border-[#1f1f1f] rounded-md card4">
+        Welcome to <span className="font-bold text-orange-500">Etherwav</span>,
+        the <span className="font-bold">community driven</span> and{' '}
         <span className="font-bold">rewarding</span> web(3) radio.
         <br />
         <br /> Powered by Polygon
