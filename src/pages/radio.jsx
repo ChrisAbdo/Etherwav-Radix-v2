@@ -719,7 +719,7 @@ text-orange-500"
                       </h1>
                     </AccordionTrigger>
                     <AccordionContent>
-                      <ScrollArea className="h-[200px] rounded-md p-2">
+                      <ScrollArea className="h-[200px] rounded-md p-2 border ">
                         {topThreeNfts.map((nft, index) => (
                           <div key={index}>
                             <div className="flex justify-between items-center px-6 card3">
@@ -1303,76 +1303,68 @@ text-orange-500"
             </div>
           </div>
 
-          <ScrollArea className="h-full w-72 rounded-md border border-slate-100 dark:border-slate-700">
-            <div className="p-4">
-              <h4 className="mb-4 text-sm font-medium leading-none">
-                <Link
-                  href="/"
-                  className="text-2xl font-bold group transition-all duration-300 ease-in-out p-3"
-                >
-                  <span className="bg-left-bottom bg-gradient-to-r from-orange-500 to-orange-500 bg-[length:0%_2px] bg-no-repeat group-hover:bg-[length:100%_2px] transition-all duration-500 ease-out">
-                    Etherwav
-                  </span>
-                </Link>
-              </h4>
-              <div className="flex space-x-2 mb-2">
-                <Select
-                  onValueChange={(value) =>
-                    loadSongsByGenre(value).then(() => {
-                      toast.success(`Loaded ${value} songs!`);
-                    })
-                  }
-                >
-                  <SelectTrigger className="w-[180px]">
-                    <SelectValue placeholder="Filter Genre" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="">All</SelectItem>
-                    <SelectItem value="lofi">Lofi</SelectItem>
-                    <SelectItem value="hiphop">Hiphop</SelectItem>
-                    <SelectItem value="system">System</SelectItem>
-                  </SelectContent>
-                </Select>
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button variant="subtle">
-                      {position === 'top' ? (
-                        <SortAsc className="w-5 h-5" />
-                      ) : (
-                        <SortDesc className="w-5 h-5" />
-                      )}
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent className="w-56">
-                    <DropdownMenuLabel>Sort by...</DropdownMenuLabel>
-                    <DropdownMenuSeparator />
-                    <DropdownMenuRadioGroup
-                      value={position}
-                      onValueChange={setPosition}
-                    >
-                      <DropdownMenuRadioItem
-                        onClick={() => {
-                          handleSwap();
-                          // set index to 1
-                          setCurrentIndex(0);
-                        }}
-                        value="top"
+          <ScrollArea className="h-full w-72 border-r border-slate-100 dark:border-[#303030] ">
+            <div className="p-4 ">
+              <div className="sticky top-0 z-50 bg-white dark:bg-black border-b border-black dark:border-[#505050] mb-2">
+                <div className="flex space-x-2 mb-2">
+                  <Select
+                    onValueChange={(value) =>
+                      loadSongsByGenre(value).then(() => {
+                        toast.success(`Loaded ${value} songs!`);
+                      })
+                    }
+                  >
+                    <SelectTrigger className="w-[180px]">
+                      <SelectValue placeholder="Filter Genre" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="">All</SelectItem>
+                      <SelectItem value="lofi">Lofi</SelectItem>
+                      <SelectItem value="hiphop">Hiphop</SelectItem>
+                      <SelectItem value="system">System</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <Button variant="subtle">
+                        {position === 'top' ? (
+                          <SortAsc className="w-5 h-5" />
+                        ) : (
+                          <SortDesc className="w-5 h-5" />
+                        )}
+                      </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent className="w-56">
+                      <DropdownMenuLabel>Sort by...</DropdownMenuLabel>
+                      <DropdownMenuSeparator />
+                      <DropdownMenuRadioGroup
+                        value={position}
+                        onValueChange={setPosition}
                       >
-                        Ascending
-                      </DropdownMenuRadioItem>
-                      <DropdownMenuRadioItem
-                        onClick={() => {
-                          handleSwap();
-                          // set index to 1
-                          setCurrentIndex(0);
-                        }}
-                        value="bottom"
-                      >
-                        Descending
-                      </DropdownMenuRadioItem>
-                    </DropdownMenuRadioGroup>
-                  </DropdownMenuContent>
-                </DropdownMenu>
+                        <DropdownMenuRadioItem
+                          onClick={() => {
+                            handleSwap();
+                            // set index to 1
+                            setCurrentIndex(0);
+                          }}
+                          value="top"
+                        >
+                          Ascending
+                        </DropdownMenuRadioItem>
+                        <DropdownMenuRadioItem
+                          onClick={() => {
+                            handleSwap();
+                            // set index to 1
+                            setCurrentIndex(0);
+                          }}
+                          value="bottom"
+                        >
+                          Descending
+                        </DropdownMenuRadioItem>
+                      </DropdownMenuRadioGroup>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                </div>
               </div>
               {nfts.length ? (
                 nfts.map((nft, index) => (
