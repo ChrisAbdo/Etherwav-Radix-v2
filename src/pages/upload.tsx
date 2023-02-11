@@ -128,7 +128,7 @@ const Upload = () => {
         <SelectContent>
           <SelectItem value="lofi">Lofi</SelectItem>
           <SelectItem value="hiphop">Hiphop</SelectItem>
-          <SelectItem value="system">System</SelectItem>
+          <SelectItem value="podcast">Podcast</SelectItem>
         </SelectContent>
       </Select>
       <p className="text-sm">Select a genre</p>

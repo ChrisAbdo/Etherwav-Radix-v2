@@ -441,11 +441,13 @@ const RadioPage = () => {
   function handleNext() {
     setDirection('right');
     setCurrentIndex((currentIndex + 1) % nfts.length);
+    setIsPlaying(true);
   }
 
   function handlePrevious() {
     setDirection('left');
     setCurrentIndex(currentIndex === 0 ? nfts.length - 1 : currentIndex - 1);
+    setIsPlaying(true);
   }
 
   if (!songsLoaded) {
@@ -719,7 +721,7 @@ text-orange-500"
                       </h1>
                     </AccordionTrigger>
                     <AccordionContent>
-                      <ScrollArea className="h-[200px] rounded-md p-2 border ">
+                      <ScrollArea className="h-[200px] rounded-md p-2 border border-gray-200 dark:border-[#1f1f1f] ">
                         {topThreeNfts.map((nft, index) => (
                           <div key={index}>
                             <div className="flex justify-between items-center px-6 card3">
@@ -1371,7 +1373,7 @@ text-orange-500"
                   <>
                     <li
                       key={index}
-                      className={`flex p-2 rounded-md card3 ${
+                      className={`flex cursor-pointer p-2 rounded-md card3 ${
                         index === currentIndex
                           ? 'bg-[#DADDE2] dark:bg-[#555555]'
                           : ''
@@ -1414,116 +1416,3 @@ text-orange-500"
 };
 
 export default RadioPage;
-
-// {/* <input type="checkbox" id="my-drawer-2" className="drawer-toggle" />
-// <div className="drawer-side">
-//   <ul className="menu p-2 w-80 bg-white dark:bg-black text-base-content border-r border-[#2a2a2a] ">
-//     <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
-
-// <Link
-//   href="/"
-//   className="text-2xl font-bold group transition-all duration-300 ease-in-out p-3"
-// >
-//   <span className="bg-left-bottom bg-gradient-to-r from-orange-500 to-orange-500 bg-[length:0%_2px] bg-no-repeat group-hover:bg-[length:100%_2px] transition-all duration-500 ease-out">
-//     Etherwav
-//   </span>
-// </Link>
-//     <div className="flex justify-between border-b border-black dark:border-[#303030] p-2.5 sticky top-0 bg-white dark:bg-black z-50 ">
-// <Select
-//   onValueChange={(value) =>
-//     loadSongsByGenre(value).then(() => {
-//       toast.success(`Loaded ${value} songs!`);
-//     })
-//   }
-// >
-//   <SelectTrigger className="w-[180px]">
-//     <SelectValue placeholder="Filter Genre" />
-//   </SelectTrigger>
-//   <SelectContent>
-//     <SelectItem value="">All</SelectItem>
-//     <SelectItem value="lofi">Lofi</SelectItem>
-//     <SelectItem value="hiphop">Hiphop</SelectItem>
-//     <SelectItem value="system">System</SelectItem>
-//   </SelectContent>
-// </Select>
-// <DropdownMenu>
-//   <DropdownMenuTrigger asChild>
-//     <Button variant="subtle">Sort By</Button>
-//   </DropdownMenuTrigger>
-//   <DropdownMenuContent className="w-56">
-//     <DropdownMenuLabel>Sort by...</DropdownMenuLabel>
-//     <DropdownMenuSeparator />
-//     <DropdownMenuRadioGroup
-//       value={position}
-//       onValueChange={setPosition}
-//     >
-//       <DropdownMenuRadioItem
-//         onClick={() => {
-//           handleSwap();
-//           // set index to 1
-//           setCurrentIndex(0);
-//         }}
-//         value="top"
-//       >
-//         Ascending
-//       </DropdownMenuRadioItem>
-//       <DropdownMenuRadioItem
-//         onClick={() => {
-//           handleSwap();
-//           // set index to 1
-//           setCurrentIndex(0);
-//         }}
-//         value="bottom"
-//       >
-//         Descending
-//       </DropdownMenuRadioItem>
-//     </DropdownMenuRadioGroup>
-//   </DropdownMenuContent>
-// </DropdownMenu>
-//     </div>
-
-//     <h1 className="text-2xl font-bold mt-4">Queue</h1>
-
-//     {nfts.length ? (
-//       nfts.map((nft, index) => (
-// <li
-//   key={index}
-//   className={`justify-between border-b border-[#DADDE2] dark:border-[#303030] card3 ${
-//     index === currentIndex
-//       ? 'bg-[#DADDE2] dark:bg-[#555555]'
-//       : ''
-//   }`}
-//   onClick={() => {
-//     setCurrentIndex(index);
-//     setIsPlaying(true);
-//   }}
-// >
-//   <div className="justify-between">
-//     <h1>
-//       {nft.heatCount} | &nbsp;
-//       <span className="text-lg font-semibold">
-//         {/* if nft.name is longer than 10 characters, replace it with ... */}
-//         {nft.name.length > 16
-//           ? nft.name.substring(0, 16) + '...'
-//           : nft.name}
-//       </span>{' '}
-// <br /> {nft.seller.slice(0, 6)}...
-// {nft.seller.slice(-4)}
-//     </h1>
-
-// <Image
-//   src={nft.coverImage}
-//   height={50}
-//   width={50}
-//   alt="nft"
-//   className="w-12 h-12 border border-white rounded"
-//   priority
-// />
-//   </div>
-// </li>
-//       ))
-//     ) : (
-//       <h1>It looks like there are no songs!</h1>
-//     )}
-//   </ul>
-// </div> */}
