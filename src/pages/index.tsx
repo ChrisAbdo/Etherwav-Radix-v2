@@ -100,6 +100,7 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+
       <main className="w-full h-full">
         <div className="bg-grid-gray-100 dark:bg-grid-[#0f0f0f]">
           <div className="relative px-6 lg:px-8">
