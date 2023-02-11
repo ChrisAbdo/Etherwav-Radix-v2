@@ -42,6 +42,7 @@ import {
 import Head from 'next/head';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
+import { ScrollArea } from '@/components/ui/scroll-area';
 
 const poppins = Poppins({
   weight: '400',
@@ -149,15 +150,16 @@ export default function App({ Component, pageProps }: AppProps) {
 
         <ThemeProvider>
           {/* @ts-ignore */}
-          {/* <Navbar open={open} setOpen={setOpen} /> */}
-          {/* navbar but do not display it on the href /radio */}
+
           {router.pathname !== '/radio' && (
             <Navbar open={open} setOpen={setOpen} />
           )}
+
           <CommandDialog open={open} onOpenChange={setOpen}>
             <div className="mt-3 w-[95%]">
               <CommandInput placeholder="Type a command or search..." />
             </div>
+
             <CommandList>
               <CommandEmpty>No results found.</CommandEmpty>
               <CommandGroup heading="Navigation Suggestions">
