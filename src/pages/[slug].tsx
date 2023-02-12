@@ -10,7 +10,44 @@ import Web3 from 'web3';
 import Radio from '../../backend/build/contracts/Radio.json';
 import NFT from '../../backend/build/contracts/NFT.json';
 import Image from 'next/image';
-
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectSeparator,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuPortal,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuSeparator,
+  DropdownMenuShortcut,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import { Button } from '@/components/ui/button';
 export default function ProjectShowcase() {
   const router = useRouter();
   const { slug } = router.query;
@@ -19,6 +56,8 @@ export default function ProjectShowcase() {
   const [nfts, setNfts] = useState([]);
   const [loadingState, setLoadingState] = useState('not-loaded');
   const [ascending, setAscending] = useState(false);
+  const [position, setPosition] = useState('bottom');
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
     loadNFTs();
@@ -259,23 +298,25 @@ export default function ProjectShowcase() {
         </div>
         <div className="flex-none">
           <ul className="menu menu-horizontal px-1 space-x-1">
-            <select
-              className=" rounded-md select select-bordered bg-white dark:bg-black"
-              onChange={async (e) => {
-                await loadSongsByGenre(e.target.value);
-                toast.success(`Loaded ${e.target.value} songs!`);
-              }}
+            <Select
+              onValueChange={(value) =>
+                loadSongsByGenre(value).then(() => {
+                  toast.success(`Loaded ${value} songs!`);
+                })
+              }
             >
-              <option disabled selected>
-                Sort by genre
-              </option>
-              <option value="">All</option>
-              <option value="lofi">Lofi</option>
-              <option value="hiphop">Hip Hop</option>
-              <option value="vocals">Vocals</option>
-            </select>
+              <SelectTrigger className="w-[180px]">
+                <SelectValue placeholder="Filter Genre" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="">All</SelectItem>
+                <SelectItem value="lofi">Lofi</SelectItem>
+                <SelectItem value="hiphop">Hiphop</SelectItem>
+                <SelectItem value="system">System</SelectItem>
+              </SelectContent>
+            </Select>
 
-            <label className="swap swap-rotate rounded-md card3 border border-[#2a2a2a] p-2">
+            {/* <label className="swap swap-rotate rounded-md card3 border border-[#2a2a2a] p-2">
               <input
                 type="checkbox"
                 onClick={() => {
@@ -284,7 +325,6 @@ export default function ProjectShowcase() {
                 className="hidden"
               />
 
-              {/* <!-- sun icon --> */}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -300,7 +340,6 @@ export default function ProjectShowcase() {
                 />
               </svg>
 
-              {/* <!-- moon icon --> */}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -315,7 +354,41 @@ export default function ProjectShowcase() {
                   d="M2.25 6L9 12.75l4.286-4.286a11.948 11.948 0 014.306 6.43l.776 2.898m0 0l3.182-5.511m-3.182 5.51l-5.511-3.181"
                 />
               </svg>
-            </label>
+            </label> */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="subtle">Sort By</Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="w-56">
+                <DropdownMenuLabel>Sort by...</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuRadioGroup
+                  value={position}
+                  onValueChange={setPosition}
+                >
+                  <DropdownMenuRadioItem
+                    onClick={() => {
+                      handleSwap();
+                      // set index to 1
+                      setCurrentIndex(0);
+                    }}
+                    value="top"
+                  >
+                    Ascending
+                  </DropdownMenuRadioItem>
+                  <DropdownMenuRadioItem
+                    onClick={() => {
+                      handleSwap();
+                      // set index to 1
+                      setCurrentIndex(0);
+                    }}
+                    value="bottom"
+                  >
+                    Descending
+                  </DropdownMenuRadioItem>
+                </DropdownMenuRadioGroup>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </ul>
         </div>
       </div>

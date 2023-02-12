@@ -99,6 +99,15 @@ import { Separator } from '@/components/ui/separator';
 import { Progress } from '@/components/ui/progress';
 import Marquee from 'react-fast-marquee';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+  navigationMenuTriggerStyle,
+} from '@/components/ui/navigation-menu';
 
 const transition = { duration: 0.5, ease: [0.43, 0.13, 0.23, 0.96] };
 const CHAIN_ID = ChainId.Mumbai;
@@ -534,31 +543,37 @@ text-orange-500"
                   <nav aria-label="Site Nav" className="hidden md:block">
                     <ul className="flex items-center gap-6 text-sm">
                       <li>
-                        <Link
-                          className="text-black dark:text-white transition hover:text-black/75 dark:hover:text-white/75"
-                          href="/"
-                        >
-                          Home
-                        </Link>
+                        <NavigationMenu>
+                          <NavigationMenuItem>
+                            <Link href="/">
+                              <NavigationMenuLink
+                                className={navigationMenuTriggerStyle()}
+                              >
+                                Home
+                              </NavigationMenuLink>
+                            </Link>
+                          </NavigationMenuItem>
+                          <NavigationMenuItem>
+                            <Link href="/upload">
+                              <NavigationMenuLink
+                                className={navigationMenuTriggerStyle()}
+                              >
+                                Upload
+                              </NavigationMenuLink>
+                            </Link>
+                          </NavigationMenuItem>
+                          <NavigationMenuItem>
+                            <Link href="/profile">
+                              <NavigationMenuLink
+                                className={navigationMenuTriggerStyle()}
+                              >
+                                Profile
+                              </NavigationMenuLink>
+                            </Link>
+                          </NavigationMenuItem>
+                        </NavigationMenu>
                       </li>
 
-                      <li>
-                        <Link
-                          className="text-black dark:text-white transition hover:text-black/75 dark:hover:text-white/75"
-                          href="/upload"
-                        >
-                          Upload
-                        </Link>
-                      </li>
-
-                      <li>
-                        <Link
-                          className="text-black dark:text-white transition hover:text-black/75 dark:hover:text-white/75"
-                          href="/profile"
-                        >
-                          Profile
-                        </Link>
-                      </li>
                       <li className="invisible">
                         <Button onClick={() => setOpen(true)} variant="outline">
                           <Search className="mr-2 h-4 w-4" /> Quick Search |
@@ -953,9 +968,13 @@ text-orange-500"
                         <audio
                           src={nfts[currentIndex].image}
                           ref={audioRef}
-                          onEnded={() => {
+                          onEnded={(e) => {
                             if (currentIndex < nfts.length - 1) {
                               setCurrentIndex(currentIndex + 1);
+                              // set the progress to 0
+                              setProgress(0);
+                              // set the duration to the duration of the next song
+                              setDuration(e.target.duration);
                             }
                           }}
                           onPlay={() => {
@@ -966,7 +985,7 @@ text-orange-500"
                               setProgress(
                                 (audioRef.current.currentTime / duration) * 100
                               );
-                            }, 1000);
+                            }, 500);
                             return () => clearInterval(interval);
                           }}
                           className="h-12 w-full hidden"
