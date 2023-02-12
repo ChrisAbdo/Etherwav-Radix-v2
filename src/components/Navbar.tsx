@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTheme } from 'next-themes';
-
+import { cn } from 'lib/utils';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import {
@@ -58,6 +58,15 @@ import {
   ConnectWallet,
   useNetwork,
 } from '@thirdweb-dev/react';
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+  navigationMenuTriggerStyle,
+} from '@/components/ui/navigation-menu';
 import { ChainId } from '@thirdweb-dev/sdk';
 
 const CHAIN_ID = ChainId.Mumbai;
@@ -99,31 +108,69 @@ const Navbar = ({ open, setOpen }: any) => {
             <nav aria-label="Site Nav" className="hidden md:block">
               <ul className="flex items-center gap-6 text-sm">
                 <li>
-                  <Link
-                    className="text-black dark:text-white transition hover:text-black/75 dark:hover:text-white/75"
-                    href="/radio"
-                  >
-                    Radio
-                  </Link>
+                  <NavigationMenu>
+                    <NavigationMenuItem>
+                      <NavigationMenuTrigger>Radio</NavigationMenuTrigger>
+                      <NavigationMenuContent>
+                        <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
+                          <li className="row-span-3">
+                            <NavigationMenuLink asChild>
+                              <Link
+                                className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-orange-500 to-red-700 p-6 no-underline outline-none focus:shadow-md"
+                                href="/"
+                              >
+                                <h1 className="text-2xl font-bold text-white animate-bounce">
+                                  🔥🔥🔥🔥
+                                </h1>
+                                <div className="mt-4 mb-2 text-lg font-medium text-white">
+                                  Etherwav Radio
+                                </div>
+                                <p className="text-sm leading-tight text-white/90">
+                                  The community driven and rewarding radio on
+                                  Polygon
+                                </p>
+                              </Link>
+                            </NavigationMenuLink>
+                          </li>
+                          <ListItem href="/radio" title="Launch Etherwav">
+                            Tune in to Etherwav to vibe to the best music on
+                            Polygon
+                          </ListItem>
+                          <ListItem href="/radio" title="Give Heat🔥">
+                            Give heat to your favorite tracks and push them to
+                            the top of the queue
+                          </ListItem>
+                          <ListItem
+                            href="/radio"
+                            title="Podcast and Live Streaming"
+                          >
+                            Podcasts available to upload and listen. Live
+                            Streaming coming soon!
+                          </ListItem>
+                        </ul>
+                      </NavigationMenuContent>
+                    </NavigationMenuItem>
+                    <NavigationMenuItem>
+                      <Link href="/upload">
+                        <NavigationMenuLink
+                          className={navigationMenuTriggerStyle()}
+                        >
+                          Upload
+                        </NavigationMenuLink>
+                      </Link>
+                    </NavigationMenuItem>
+                    <NavigationMenuItem>
+                      <Link href="/profile">
+                        <NavigationMenuLink
+                          className={navigationMenuTriggerStyle()}
+                        >
+                          Profile
+                        </NavigationMenuLink>
+                      </Link>
+                    </NavigationMenuItem>
+                  </NavigationMenu>
                 </li>
 
-                <li>
-                  <Link
-                    className="text-black dark:text-white transition hover:text-black/75 dark:hover:text-white/75"
-                    href="/upload"
-                  >
-                    Upload
-                  </Link>
-                </li>
-
-                <li>
-                  <Link
-                    className="text-black dark:text-white transition hover:text-black/75 dark:hover:text-white/75"
-                    href="/profile"
-                  >
-                    Profile
-                  </Link>
-                </li>
                 <li>
                   <Button onClick={() => setOpen(true)} variant="outline">
                     <Search className="mr-2 h-4 w-4" /> Quick Search | Ctrl K
@@ -301,3 +348,30 @@ const Navbar = ({ open, setOpen }: any) => {
 };
 
 export default Navbar;
+
+const ListItem = React.forwardRef<
+  React.ElementRef<'a'>,
+  React.ComponentPropsWithoutRef<'a'>
+>(({ className, title, children, ...props }, ref) => {
+  return (
+    <li>
+      <NavigationMenuLink asChild>
+        <Link
+          ref={ref}
+          href="/radio"
+          className={cn(
+            'block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-slate-100 focus:bg-slate-100 dark:hover:bg-[#303030] dark:focus:bg-slate-700',
+            className
+          )}
+          {...props}
+        >
+          <div className="text-sm font-medium leading-none">{title}</div>
+          <p className="text-sm leading-snug text-slate-500 line-clamp-2 dark:text-slate-400">
+            {children}
+          </p>
+        </Link>
+      </NavigationMenuLink>
+    </li>
+  );
+});
+ListItem.displayName = 'ListItem';

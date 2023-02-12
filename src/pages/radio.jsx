@@ -545,15 +545,6 @@ text-orange-500"
                       <li>
                         <Link
                           className="text-black dark:text-white transition hover:text-black/75 dark:hover:text-white/75"
-                          href="/radio"
-                        >
-                          Radio
-                        </Link>
-                      </li>
-
-                      <li>
-                        <Link
-                          className="text-black dark:text-white transition hover:text-black/75 dark:hover:text-white/75"
                           href="/upload"
                         >
                           Upload
@@ -1306,68 +1297,68 @@ text-orange-500"
           </div>
 
           <ScrollArea className="h-full w-72 border-r border-slate-100 dark:border-[#303030] ">
-            <div className="p-4 ">
-              <div className="sticky top-0 z-50 bg-white dark:bg-black border-b border-black dark:border-[#505050] mb-2">
-                <div className="flex space-x-2 mb-2">
-                  <Select
-                    onValueChange={(value) =>
-                      loadSongsByGenre(value).then(() => {
-                        toast.success(`Loaded ${value} songs!`);
-                      })
-                    }
-                  >
-                    <SelectTrigger className="w-[180px]">
-                      <SelectValue placeholder="Filter Genre" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="">All</SelectItem>
-                      <SelectItem value="lofi">Lofi</SelectItem>
-                      <SelectItem value="hiphop">Hiphop</SelectItem>
-                      <SelectItem value="system">System</SelectItem>
-                    </SelectContent>
-                  </Select>
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <Button variant="subtle">
-                        {position === 'top' ? (
-                          <SortAsc className="w-5 h-5" />
-                        ) : (
-                          <SortDesc className="w-5 h-5" />
-                        )}
-                      </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent className="w-56">
-                      <DropdownMenuLabel>Sort by...</DropdownMenuLabel>
-                      <DropdownMenuSeparator />
-                      <DropdownMenuRadioGroup
-                        value={position}
-                        onValueChange={setPosition}
+            <div className="sticky top-0 z-50 bg-white dark:bg-black border-b border-black dark:border-[#505050] p-3">
+              <div className="flex space-x-2">
+                <Select
+                  onValueChange={(value) =>
+                    loadSongsByGenre(value).then(() => {
+                      toast.success(`Loaded ${value} songs!`);
+                    })
+                  }
+                >
+                  <SelectTrigger className="w-[180px]">
+                    <SelectValue placeholder="Filter Genre" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="">All</SelectItem>
+                    <SelectItem value="lofi">Lofi</SelectItem>
+                    <SelectItem value="hiphop">Hiphop</SelectItem>
+                    <SelectItem value="system">System</SelectItem>
+                  </SelectContent>
+                </Select>
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="subtle">
+                      {position === 'top' ? (
+                        <SortAsc className="w-5 h-5" />
+                      ) : (
+                        <SortDesc className="w-5 h-5" />
+                      )}
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent className="w-56">
+                    <DropdownMenuLabel>Sort by...</DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuRadioGroup
+                      value={position}
+                      onValueChange={setPosition}
+                    >
+                      <DropdownMenuRadioItem
+                        onClick={() => {
+                          handleSwap();
+                          // set index to 1
+                          setCurrentIndex(0);
+                        }}
+                        value="top"
                       >
-                        <DropdownMenuRadioItem
-                          onClick={() => {
-                            handleSwap();
-                            // set index to 1
-                            setCurrentIndex(0);
-                          }}
-                          value="top"
-                        >
-                          Ascending
-                        </DropdownMenuRadioItem>
-                        <DropdownMenuRadioItem
-                          onClick={() => {
-                            handleSwap();
-                            // set index to 1
-                            setCurrentIndex(0);
-                          }}
-                          value="bottom"
-                        >
-                          Descending
-                        </DropdownMenuRadioItem>
-                      </DropdownMenuRadioGroup>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                </div>
+                        Ascending
+                      </DropdownMenuRadioItem>
+                      <DropdownMenuRadioItem
+                        onClick={() => {
+                          handleSwap();
+                          // set index to 1
+                          setCurrentIndex(0);
+                        }}
+                        value="bottom"
+                      >
+                        Descending
+                      </DropdownMenuRadioItem>
+                    </DropdownMenuRadioGroup>
+                  </DropdownMenuContent>
+                </DropdownMenu>
               </div>
+            </div>
+            <div className="p-4 ">
               {nfts.length ? (
                 nfts.map((nft, index) => (
                   <>
